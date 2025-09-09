@@ -111,21 +111,22 @@
         clock.appendChild(num);
       }
 
-      // Add tick marks (4 between each pair of numbers = 48 total)
-      const tickCount = 48;
-      const tickRadius = 145;
-      for (let i = 0; i < tickCount; i++) {
-        const angleDeg = i * 7.5;
-        const angleRad = angleDeg * Math.PI / 180;
-        const x = 150 + Math.sin(angleRad) * tickRadius;
-        const y = 150 - Math.cos(angleRad) * tickRadius;
-        const tick = document.createElement('div');
-        tick.className = 'tick';
-        tick.style.left = `${x}px`;
-        tick.style.top = `${y}px`;
-        tick.style.transform = `translate(-50%, -50%) rotate(${angleDeg}deg)`;
-        clock.appendChild(tick);
-      }
+		// Add tick marks (5 between each pair of numbers = 60 total)
+		const tickCount = 60;
+		const tickRadius = 145;
+		for (let i = 0; i < tickCount; i++) {
+		  const angleDeg = i * 6; // 360° / 60 = 6° per tick
+		  const angleRad = angleDeg * Math.PI / 180;
+		  const x = 150 + Math.sin(angleRad) * tickRadius;
+		  const y = 150 - Math.cos(angleRad) * tickRadius;
+		  const tick = document.createElement('div');
+		  tick.className = 'tick';
+		  tick.style.left = `${x}px`;
+		  tick.style.top = `${y}px`;
+		  tick.style.transform = `translate(-50%, -50%) rotate(${angleDeg}deg)`;
+		  clock.appendChild(tick);
+		}
+
     </script>
   </div>
 
@@ -160,4 +161,3 @@
   </script>
 </body>
 </html>
-
