@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Refined Analog Clock</title>
+  <style>
+    body {
+      margin: 0;
+      background: #f0f0f0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .clock {
+      width: 300px;
+      height: 300px;
+      border: 8px solid #333;
+      border-radius: 50%;
+      position: relative;
+      background: white;
+    }
+
+    .center {
+      width: 12px;
+      height: 12px;
+      background: #333;
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 10;
+    }
+
+    .hand {
+      position: absolute;
+      bottom: 50%;
+      left: 50%;
+      transform-origin: bottom center;
+      transform: translateX(-50%) rotate(0deg);
+    }
+
+    .hour, .minute, .second {
+      width: 0;
+      height: 0;
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+    }
+
+    .hour {
+      border-bottom: 72px solid #333; /* 60px + 20% */
+      z-index: 3;
+    }
+
+    .minute {
+      border-bottom: 108px solid #333; /* 90px + 20% */
+      z-index: 2;
+    }
+
+    .second {
+      border-bottom: 132px solid red; /* 110px + 20% */
+      z-index: 1;
+      transition: transform 0.05s linear;
+    }
+
+    .number {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      text-align: center;
+      line-height: 30px;
+      font-weight: bold;
+      color: #333;
+      transform: translate(-50%, -50%);
+    }
+
+    .tick {
+      position: absolute;
+      width: 2px;
+      height: 5px;
+      background: #666;
+      transform-origin: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="clock">
+    <div class="hand hour" id="hour"></div>
+    <div class="hand minute" id="minute"></div>
+    <div class="hand second" id="second"></div>
+    <div class="center"></div>
+
+    <!-- Numbers around the clock -->
+    <script>
+      const clock = document.querySelector('.clock');
+
+      // Add numbers
+      const numberRadius = 135;
+      for (let i = 1; i <= 12; i++) {
+        const angle = (i * 30) * Math.PI / 180;
+        const x = 150 + Math.sin(angle) * numberRadius;
+        const y = 150 - Math.cos(angle) * numberRadius;
+        const num = document.createElement('div');
+        num.className = 'number';
+        num.style.left = `${x}px`;
+        num.style.top = `${y}px`;
+        num.textContent = i;
+        clock.appendChild(num);
+      }
+
+      // Add tick marks (4 between each pair of numbers = 48 total)
+      const tickCount = 48;
+      const tickRadius = 145;
+      for (let i = 0; i < tickCount; i++) {
+        const angleDeg = i * 7.5;
+        const angleRad = angleDeg * Math.PI / 180;
+        const x = 150 + Math.sin(angleRad) * tickRadius;
+        const y = 150 - Math.cos(angleRad) * tickRadius;
+        const tick = document.createElement('div');
+        tick.className = 'tick';
+        tick.style.left = `${x}px`;
+        tick.style.top = `${y}px`;
+        tick.style.transform = `translate(-50%, -50%) rotate(${angleDeg}deg)`;
+        clock.appendChild(tick);
+      }
+    </script>
+  </div>
+
+  <script>
+    let lastSec = 0;
+    let rotationOffset = 0;
+
+    function updateClock() {
+      const now = new Date();
+      const sec = now.getSeconds() + now.getMilliseconds() / 1000;
+      const min = now.getMinutes() + sec / 60;
+      const hr = now.getHours() % 12 + min / 60;
+
+      // Smooth second hand without flicker
+      if (sec < lastSec) {
+        rotationOffset += 360;
+      }
+      lastSec = sec;
+      const secDeg = sec * 6 + rotationOffset;
+
+      const minDeg = min * 6;
+      const hrDeg = hr * 30;
+
+      document.getElementById('second').style.transform = `translateX(-50%) rotate(${secDeg}deg)`;
+      document.getElementById('minute').style.transform = `translateX(-50%) rotate(${minDeg}deg)`;
+      document.getElementById('hour').style.transform = `translateX(-50%) rotate(${hrDeg}deg)`;
+
+      requestAnimationFrame(updateClock);
+    }
+
+    requestAnimationFrame(updateClock);
+  </script>
+</body>
+</html>
