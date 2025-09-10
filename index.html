@@ -341,7 +341,7 @@
 
 				const cleanedLog = extractRelevantLog(logData.logs);
 				if (cleanedLog.includes('⚠️ Relevant log section not found.')) {
-				  status.innerHTML = `<pre class="warning">  ${cleanedLog}</pre>`;
+				  status.innerHTML = `<pre class="warning">  ${logData.logs}</pre>`;
 				} else {
 				  status.innerHTML = `<pre>${cleanedLog}</pre>`;
 				}
@@ -385,16 +385,3 @@
   </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
