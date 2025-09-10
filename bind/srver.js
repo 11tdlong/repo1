@@ -1,7 +1,7 @@
 const express = require('express');
 const fetch = require('node-fetch');
 const cors = require('cors');
-const stripAnsi = require('strip-ansi');
+const stripAnsi = require('strip-ansi').default;
 const unzipper = require('unzipper');
 
 const app = express();
