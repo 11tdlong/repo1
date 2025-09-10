@@ -124,7 +124,15 @@
       font-weight: bold;
       color: #333;
       margin-top: 10px;
-      height: 24px;
+      height: auto;
+      max-width: 100%;
+    }
+
+    .status pre {
+      background: #eee;
+      padding: 10px;
+      border-radius: 6px;
+      white-space: pre-wrap;
     }
 
     .runner {
@@ -146,6 +154,10 @@
       .clock {
         width: 250px;
         height: 250px;
+      }
+
+      .number, .tick {
+        transform: translate(-50%, -50%);
       }
 
       .button-container {
@@ -180,47 +192,37 @@
   <script>
     const clock = document.querySelector('.clock');
 
-    function renderClockFace() {
-      clock.innerHTML += '<div class="center"></div>';
-
-      const rect = clock.getBoundingClientRect();
-      const centerX = rect.width / 2;
-      const centerY = rect.height / 2;
-      const numberRadius = rect.width * 0.45;
-      const tickRadius = rect.width * 0.48;
-
-      for (let i = 1; i <= 12; i++) {
-        const angle = (i * 30) * Math.PI / 180;
-        const x = centerX + Math.sin(angle) * numberRadius;
-        const y = centerY - Math.cos(angle) * numberRadius;
-        const num = document.createElement('div');
-        num.className = 'number';
-        num.style.left = `${x}px`;
-        num.style.top = `${y}px`;
-        num.textContent = i;
-        clock.appendChild(num);
-      }
-
-      for (let i = 0; i < 60; i++) {
-        const angleDeg = i * 6;
-        const angleRad = angleDeg * Math.PI / 180;
-        const x = centerX + Math.sin(angleRad) * tickRadius;
-        const y = centerY - Math.cos(angleRad) * tickRadius;
-        const tick = document.createElement('div');
-        tick.className = 'tick';
-        tick.style.left = `${x}px`;
-        tick.style.top = `${y}px`;
-        tick.style.transform = `translate(-50%, -50%) rotate(${angleDeg}deg)`;
-        clock.appendChild(tick);
-      }
+    // Add numbers
+    const numberRadius = 135;
+    for (let i = 1; i <= 12; i++) {
+      const angle = (i * 30) * Math.PI / 180;
+      const x = 150 + Math.sin(angle) * numberRadius;
+      const y = 150 - Math.cos(angle) * numberRadius;
+      const num = document.createElement('div');
+      num.className = 'number';
+      num.style.left = `${x}px`;
+      num.style.top = `${y}px`;
+      num.textContent = i;
+      clock.appendChild(num);
     }
 
-    renderClockFace();
-    window.addEventListener('resize', () => {
-      clock.querySelectorAll('.number, .tick').forEach(el => el.remove());
-      renderClockFace();
-    });
+    // Add tick marks
+    const tickCount = 60;
+    const tickRadius = 145;
+    for (let i = 0; i < tickCount; i++) {
+      const angleDeg = i * 6;
+      const angleRad = angleDeg * Math.PI / 180;
+      const x = 150 + Math.sin(angleRad) * tickRadius;
+      const y = 150 - Math.cos(angleRad) * tickRadius;
+      const tick = document.createElement('div');
+      tick.className = 'tick';
+      tick.style.left = `${x}px`;
+      tick.style.top = `${y}px`;
+      tick.style.transform = `translate(-50%, -50%) rotate(${angleDeg}deg)`;
+      clock.appendChild(tick);
+    }
 
+    // Clock animation
     let lastSec = 0;
     let rotationOffset = 0;
 
@@ -248,6 +250,7 @@
 
     requestAnimationFrame(updateClock);
 
+    // Button action
     function startProcess() {
       const runner = document.getElementById('runner');
       const status = document.getElementById('status');
@@ -276,7 +279,7 @@
         setTimeout(() => {
           clearInterval(interval);
           runner.style.display = 'none';
-          status.textContent = data.status || 'Done';
+          status.innerHTML = `<pre>${data.logs || data.status || 'Done'}</pre>`;
 
           confetti({
             particleCount: 100,
