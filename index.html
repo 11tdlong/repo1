@@ -303,7 +303,7 @@
 	  const status = document.getElementById('status');
 	  const container = document.querySelector('.align-left');
 
-	  runner.style.display = 'block';
+	  
 	  status.innerHTML = '<div id="trigger-msg">✅ Workflow triggered successfully</div>';
 
 	  let position = 0;
@@ -329,7 +329,8 @@
 		if (triggerMsg) {
 		  triggerMsg.textContent = data.message || '✅ Workflow triggered successfully';
 		  setTimeout(() => {
-			  document.getElementById('runner').style.display = 'flex';
+			  console.log('Showing runner now'); 
+			  document.getElementById('runner').style.display = 'block';
 			}, 1000); // 1 second delay
 		}
 
@@ -387,4 +388,5 @@
   </script>
 </body>
 </html>
+
 
