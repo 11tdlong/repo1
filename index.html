@@ -328,7 +328,9 @@
 		const triggerMsg = document.getElementById('trigger-msg');
 		if (triggerMsg) {
 		  triggerMsg.textContent = data.message || '✅ Workflow triggered successfully';
-		  document.getElementById('runner').style.display = 'flex';
+		  setTimeout(() => {
+			  document.getElementById('runner').style.display = 'flex';
+			}, 1000); // 1 second delay
 		}
 
 		// Wait before fetching logs
@@ -385,3 +387,4 @@
   </script>
 </body>
 </html>
+
