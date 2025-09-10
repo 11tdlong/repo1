@@ -1,14 +1,17 @@
-// server.js
 const express = require('express');
 const fetch = require('node-fetch');
 const app = express();
+const token = process.env.SEC1;
+
+console.log('Token loaded:', !!token); // Safe check
+
 app.use(express.json());
 
 app.post('/trigger-workflow', async (req, res) => {
   const response = await fetch('https://api.github.com/repos/11tdlong/repo1/actions/workflows/cypress.yml/dispatches', {
     method: 'POST',
     headers: {
-      'Authorization': `Bearer YOUR_GITHUB_PAT`,
+      'Authorization': `Bearer ${token}`, // ✅ Correct interpolation
       'Accept': 'application/vnd.github+json',
       'Content-Type': 'application/json'
     },
