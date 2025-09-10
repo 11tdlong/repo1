@@ -124,9 +124,8 @@
     .status {
       font-weight: bold;
       color: #333;
-      margin-top: 40px;
-      height: auto;
-      max-width: 100%;
+      width: 100%;
+      text-align: left;
     }
 
     .status pre {
@@ -134,6 +133,10 @@
       padding: 10px;
       border-radius: 6px;
       white-space: pre-wrap;
+      font-family: monospace;
+      margin: 0;
+      width: 100%;          /* Ensures it aligns with the button width */
+      box-sizing: border-box; /* Includes padding in width calculation */
     }
 
     .runner {
@@ -321,6 +324,7 @@
   </script>
 </body>
 </html>
+
 
 
 
