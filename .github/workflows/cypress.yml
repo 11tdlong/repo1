@@ -28,11 +28,11 @@ jobs:
           npx cypress run --spec "cypress/e2e/check.cy.js" | tee logs/output.txt
           echo "✅ Cypress tests complete." | tee -a logs/output.txt
 
-      - name: Upload logs as artifact
-        uses: actions/upload-artifact@v4
+      - name: Upload Cypress log directly
+        uses: actions/upload-artifact@v3
         with:
           name: cypress-logs
-          path: logs/output.txt
+          path: cypress/logs/output.txt
 
       - name: Delete logs folder
         run: rm -rf logs
