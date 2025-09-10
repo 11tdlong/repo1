@@ -31,7 +31,10 @@ jobs:
           } > logs/output.txt 2>&1
 
       - name: Upload logs as artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: cypress-logs
           path: logs/output.txt
+
+      - name: Delete logs folder
+        run: rm -rf logs
