@@ -146,15 +146,6 @@
 	  border-left: 4px solid #b00020;
 	}
 
-	.runner {
-	  width: 40px;
-	  height: 40px;
-	  background: url('https://i.imgur.com/6o5Z5QG.gif') no-repeat center/contain;
-	  display: none;
-	  position: relative; /* ✅ Changed from absolute */
-	  top: auto;
-	  left: auto;
-	}
 .runner-text {
   display: none; /* ✅ Hide by default */
   justify-content: center;
@@ -338,7 +329,7 @@
 			  }
 			  runner.style.left = `${position}px`;
 			}, 30);
-		  }, 1000); // 1 second delay
+		  }, 200); // 1 second delay
 		}
 
 		// Wait before fetching logs
@@ -395,5 +386,6 @@
   </script>
 </body>
 </html>
+
 
 
