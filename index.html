@@ -139,15 +139,15 @@
       box-sizing: border-box; /* Includes padding in width calculation */
     }
 
-    .runner {
-      width: 40px;
-      height: 40px;
-      background: url('https://i.imgur.com/6o5Z5QG.gif') no-repeat center/contain;
-      position: absolute;
-      top: 60px;
-      left: 0;
-      display: none;
-    }
+	.runner {
+	  width: 40px;
+	  height: 40px;
+	  background: url('https://i.imgur.com/6o5Z5QG.gif') no-repeat center/contain;
+	  display: none;
+	  position: relative; /* ✅ Changed from absolute */
+	  top: auto;
+	  left: auto;
+	}
 
     @media (max-width: 500px) {
       .container {
@@ -184,8 +184,10 @@
     <div class="button-container">
       <div class="align-left">
         <button onclick="startProcess()">Check 1</button>
-        <div class="status" id="status"></div>
-        <div class="runner" id="runner"></div>
+        <div class="status" id="status">
+			<div id="trigger-msg"></div>
+		</div>
+<div class="runner" id="runner"></div>
       </div>
     </div>
   </div>
@@ -324,6 +326,7 @@
   </script>
 </body>
 </html>
+
 
 
 
