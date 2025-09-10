@@ -1,6 +1,9 @@
 const express = require('express');
 const fetch = require('node-fetch');
 const cors = require('cors');
+const fs = require('fs');
+const path = require('path');
+const stripAnsi = require('strip-ansi');
 
 const app = express();
 const token = process.env.SEC1;
@@ -9,10 +12,8 @@ const token = process.env.SEC1;
 app.use(cors({
   origin: 'https://11tdlong.github.io'
 }));
-// Allow requests from GitHub Pages
-app.use(express.json()); // Parse JSON bodies
+app.use(express.json());
 
-// Safe token check
 console.log('✅ GitHub token loaded:', !!token);
 
 // Trigger GitHub Actions workflow
@@ -39,6 +40,21 @@ app.post('/trigger-workflow', async (req, res) => {
     console.error('❌ Server error:', err.message);
     res.status(500).send({ error: 'Internal server error' });
   }
+});
+
+// New endpoint to serve cleaned logs
+app.get('/logs', (req, res) => {
+  const logPath = path.join(__dirname, 'logs/output.txt');
+
+  fs.readFile(logPath, 'utf8', (err, data) => {
+    if (err) {
+      console.error('❌ Failed to read log file:', err.message);
+      return res.status(500).send({ error: 'Log file not found' });
+    }
+
+    const cleaned = stripAnsi(data);
+    res.send({ logs: cleaned });
+  });
 });
 
 // Start server
