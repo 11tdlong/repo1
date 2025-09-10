@@ -264,9 +264,10 @@
     }, 30);
 
     // Trigger backend workflow
-fetch('https://workflow-trigger-server.onrender.com/trigger-workflow', {
+fetch('https://repo1-qygx.onrender.com/trigger-workflow', {
   method: 'POST'
 })
+
     .then(res => res.json())
     .then(data => {
       setTimeout(() => {
@@ -295,3 +296,4 @@ fetch('https://workflow-trigger-server.onrender.com/trigger-workflow', {
   </script>
 </body>
 </html>
+
