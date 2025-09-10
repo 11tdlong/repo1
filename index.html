@@ -258,74 +258,88 @@
 
     // Button action
    function startProcess() {
-  const runner = document.getElementById('runner');
-  const status = document.getElementById('status');
-  const container = document.querySelector('.align-left');
+		const runner = document.getElementById('runner');
+	  const status = document.getElementById('status');
+	  const container = document.querySelector('.align-left');
 
-  runner.style.display = 'block';
-  status.innerHTML = '<div id="trigger-msg">✅ Workflow triggered successfully</div>';
+	  runner.style.display = 'block';
+	  status.innerHTML = '<div id="trigger-msg">✅ Workflow triggered successfully</div>';
 
-  let position = 0;
-  let direction = 1;
-  const maxPosition = container.offsetWidth - 40;
+	  let position = 0;
+	  let direction = 1;
+	  const maxPosition = container.offsetWidth - 40;
 
-  const interval = setInterval(() => {
-    position += direction * 5;
-    if (position >= maxPosition || position <= 0) {
-      direction *= -1;
+	  const interval = setInterval(() => {
+		position += direction * 5;
+		if (position >= maxPosition || position <= 0) {
+		  direction *= -1;
+		}
+		runner.style.left = `${position}px`;
+	  }, 30);
+
+	  // Trigger workflow
+	  fetch('https://repo1-qygx.onrender.com/trigger-workflow', {
+		method: 'POST'
+	  })
+	  .then(res => res.json())
+	  .then(data => {
+		// Show trigger message below runner
+		const triggerMsg = document.getElementById('trigger-msg');
+		if (triggerMsg) {
+		  triggerMsg.textContent = data.message || '✅ Workflow triggered successfully';
+		}
+
+		// Wait before fetching logs
+		setTimeout(() => {
+		  fetch('https://repo1-qygx.onrender.com/logs')
+			.then(res => res.json())
+			.then(logData => {
+			  clearInterval(interval);
+			  runner.style.display = 'none';
+
+				const cleanedLog = extractRelevantLog(logData.logs);
+				status.innerHTML = `<pre>${cleanedLog}</pre>`;
+			  confetti({
+				particleCount: 100,
+				spread: 70,
+				origin: { y: 0.6 }
+			  });
+
+			  document.getElementById('ding').play();
+			})
+			.catch(err => {
+			  clearInterval(interval);
+			  runner.style.display = 'none';
+			  status.textContent = '❌ Error fetching logs';
+			  console.error(err);
+			});
+		}, 48000); // Delay to allow Cypress to run
+	  })
+	  .catch(err => {
+		clearInterval(interval);
+		runner.style.display = 'none';
+		status.textContent = '❌ Error triggering workflow';
+		console.error(err);
+	  });
     }
-    runner.style.left = `${position}px`;
-  }, 30);
+	function extractRelevantLog(fullLog) {
+	  const startMarker = 'My First Test';
+	  const endMarker = '└────────────────────────────────────────────────────────────────────────────────────────────────┘';
 
-  // Trigger workflow
-  fetch('https://repo1-qygx.onrender.com/trigger-workflow', {
-    method: 'POST'
-  })
-  .then(res => res.json())
-  .then(data => {
-    // Show trigger message below runner
-    const triggerMsg = document.getElementById('trigger-msg');
-    if (triggerMsg) {
-      triggerMsg.textContent = data.message || '✅ Workflow triggered successfully';
-    }
+	  const startIndex = fullLog.indexOf(startMarker);
+	  const endIndex = fullLog.indexOf(endMarker);
 
-    // Wait before fetching logs
-    setTimeout(() => {
-      fetch('https://repo1-qygx.onrender.com/logs')
-        .then(res => res.json())
-        .then(logData => {
-          clearInterval(interval);
-          runner.style.display = 'none';
+	  if (startIndex !== -1 && endIndex !== -1 && endIndex > startIndex) {
+		return fullLog.slice(startIndex, endIndex + endMarker.length);
+	  }
 
-          const cleanedLog = logData.logs || '✅ No logs found';
-          status.innerHTML = `<pre>${cleanedLog}</pre>`;
+	  return '⚠️ Relevant log section not found.';
+	}
 
-          confetti({
-            particleCount: 100,
-            spread: 70,
-            origin: { y: 0.6 }
-          });
-
-          document.getElementById('ding').play();
-        })
-        .catch(err => {
-          clearInterval(interval);
-          runner.style.display = 'none';
-          status.textContent = '❌ Error fetching logs';
-          console.error(err);
-        });
-    }, 48000); // Delay to allow Cypress to run
-  })
-  .catch(err => {
-    clearInterval(interval);
-    runner.style.display = 'none';
-    status.textContent = '❌ Error triggering workflow';
-    console.error(err);
-  });
-}
   </script>
 </body>
 </html>
+
 
 
 
