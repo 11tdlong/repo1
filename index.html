@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Refined Analog Clock</title>
+  <title>Analog Clock with Runner</title>
   <style>
     body {
       margin: 0;
@@ -12,6 +12,13 @@
       justify-content: center;
       align-items: center;
       height: 100vh;
+      font-family: sans-serif;
+    }
+
+    .container {
+      display: flex;
+      align-items: flex-start;
+      position: relative;
     }
 
     .clock {
@@ -51,17 +58,17 @@
     }
 
     .hour {
-      border-bottom: 72px solid #333; /* 60px + 20% */
+      border-bottom: 72px solid #333;
       z-index: 3;
     }
 
     .minute {
-      border-bottom: 108px solid #333; /* 90px + 20% */
+      border-bottom: 108px solid #333;
       z-index: 2;
     }
 
     .second {
-      border-bottom: 132px solid red; /* 110px + 20% */
+      border-bottom: 132px solid red;
       z-index: 1;
       transition: transform 0.05s linear;
     }
@@ -84,53 +91,95 @@
       background: #666;
       transform-origin: center;
     }
+
+	.button-container {
+	  display: flex;
+	  flex-direction: column;
+	  align-items: center;
+	  margin-left: 40px; /* spacing from clock */
+	  position: relative;
+	  width: 200px;
+	}
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background: #333;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-bottom: 10px;
+    }
+
+    .status {
+      font-weight: bold;
+      color: #333;
+      margin-top: 10px;
+      height: 24px;
+    }
+
+    .runner {
+      width: 40px;
+      height: 40px;
+      background: url('https://i.imgur.com/6o5Z5QG.gif') no-repeat center/contain;
+      position: absolute;
+      top: 60px; /* aligns with status text */
+      left: 0;
+      display: none;
+    }
   </style>
 </head>
 <body>
-  <div class="clock">
-    <div class="hand hour" id="hour"></div>
-    <div class="hand minute" id="minute"></div>
-    <div class="hand second" id="second"></div>
-    <div class="center"></div>
+  <div class="container">
+    <div class="clock">
+      <div class="hand hour" id="hour"></div>
+      <div class="hand minute" id="minute"></div>
+      <div class="hand second" id="second"></div>
+      <div class="center"></div>
+    </div>
 
-    <!-- Numbers around the clock -->
-    <script>
-      const clock = document.querySelector('.clock');
-
-      // Add numbers
-      const numberRadius = 135;
-      for (let i = 1; i <= 12; i++) {
-        const angle = (i * 30) * Math.PI / 180;
-        const x = 150 + Math.sin(angle) * numberRadius;
-        const y = 150 - Math.cos(angle) * numberRadius;
-        const num = document.createElement('div');
-        num.className = 'number';
-        num.style.left = `${x}px`;
-        num.style.top = `${y}px`;
-        num.textContent = i;
-        clock.appendChild(num);
-      }
-
-		// Add tick marks (5 between each pair of numbers = 60 total)
-		const tickCount = 60;
-		const tickRadius = 145;
-		for (let i = 0; i < tickCount; i++) {
-		  const angleDeg = i * 6; // 360° / 60 = 6° per tick
-		  const angleRad = angleDeg * Math.PI / 180;
-		  const x = 150 + Math.sin(angleRad) * tickRadius;
-		  const y = 150 - Math.cos(angleRad) * tickRadius;
-		  const tick = document.createElement('div');
-		  tick.className = 'tick';
-		  tick.style.left = `${x}px`;
-		  tick.style.top = `${y}px`;
-		  tick.style.transform = `translate(-50%, -50%) rotate(${angleDeg}deg)`;
-		  clock.appendChild(tick);
-		}
-
-    </script>
+    <div class="button-container">
+      <button onclick="startProcess()">Check 1</button>
+      <div class="status" id="status"></div>
+      <div class="runner" id="runner"></div>
+    </div>
   </div>
 
   <script>
+    const clock = document.querySelector('.clock');
+
+    // Add numbers
+    const numberRadius = 135;
+    for (let i = 1; i <= 12; i++) {
+      const angle = (i * 30) * Math.PI / 180;
+      const x = 150 + Math.sin(angle) * numberRadius;
+      const y = 150 - Math.cos(angle) * numberRadius;
+      const num = document.createElement('div');
+      num.className = 'number';
+      num.style.left = `${x}px`;
+      num.style.top = `${y}px`;
+      num.textContent = i;
+      clock.appendChild(num);
+    }
+
+    // Add tick marks
+    const tickCount = 60;
+    const tickRadius = 145;
+    for (let i = 0; i < tickCount; i++) {
+      const angleDeg = i * 6;
+      const angleRad = angleDeg * Math.PI / 180;
+      const x = 150 + Math.sin(angleRad) * tickRadius;
+      const y = 150 - Math.cos(angleRad) * tickRadius;
+      const tick = document.createElement('div');
+      tick.className = 'tick';
+      tick.style.left = `${x}px`;
+      tick.style.top = `${y}px`;
+      tick.style.transform = `translate(-50%, -50%) rotate(${angleDeg}deg)`;
+      clock.appendChild(tick);
+    }
+
+    // Clock animation
     let lastSec = 0;
     let rotationOffset = 0;
 
@@ -140,13 +189,12 @@
       const min = now.getMinutes() + sec / 60;
       const hr = now.getHours() % 12 + min / 60;
 
-      // Smooth second hand without flicker
       if (sec < lastSec) {
         rotationOffset += 360;
       }
       lastSec = sec;
-      const secDeg = sec * 6 + rotationOffset;
 
+      const secDeg = sec * 6 + rotationOffset;
       const minDeg = min * 6;
       const hrDeg = hr * 30;
 
@@ -158,6 +206,45 @@
     }
 
     requestAnimationFrame(updateClock);
+
+    // Button action
+    function startProcess() {
+	  const runner = document.getElementById('runner');
+	  const status = document.getElementById('status');
+	  const container = document.querySelector('.button-container');
+
+	  status.textContent = 'Triggering workflow...';
+	  runner.style.display = 'block';
+
+	  let position = 0;
+	  let direction = 1;
+	  const maxPosition = container.offsetWidth - 40;
+
+	  const interval = setInterval(() => {
+		position += direction * 5;
+		if (position >= maxPosition || position <= 0) {
+		  direction *= -1;
+		}
+		runner.style.left = `${position}px`;
+	  }, 30);
+
+	  fetch('http://localhost:3000/trigger-workflow', {
+		method: 'POST'
+	  })
+	  .then(res => res.json())
+	  .then(data => {
+		clearInterval(interval);
+		runner.style.display = 'none';
+		status.textContent = data.status || 'Done';
+	  })
+	  .catch(err => {
+		clearInterval(interval);
+		runner.style.display = 'none';
+		status.textContent = 'Error triggering workflow';
+		console.error(err);
+	  });
+	}
+
   </script>
 </body>
 </html>
