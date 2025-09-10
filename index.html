@@ -299,7 +299,8 @@
 
     // Button action
    function startProcess() {
-		const runner = document.getElementById('runner');
+	  let interval;
+	  const runner = document.getElementById('runner');
 	  const status = document.getElementById('status');
 	  const container = document.querySelector('.align-left');
 
@@ -309,14 +310,6 @@
 	  let position = 0;
 	  let direction = 1;
 	  const maxPosition = container.offsetWidth - 40;
-
-	  const interval = setInterval(() => {
-		position += direction * 5;
-		if (position >= maxPosition || position <= 0) {
-		  direction *= -1;
-		}
-		runner.style.left = `${position}px`;
-	  }, 30);
 
 	  // Trigger workflow
 	  fetch('https://repo1-qygx.onrender.com/trigger-workflow', {
@@ -328,10 +321,24 @@
 		const triggerMsg = document.getElementById('trigger-msg');
 		if (triggerMsg) {
 		  triggerMsg.textContent = data.message || '✅ Workflow triggered successfully';
+
 		  setTimeout(() => {
-			  console.log('Showing runner now'); 
-			  document.getElementById('runner').style.display = 'block';
-			}, 1000); // 1 second delay
+			console.log('Showing runner now');
+			runner.style.display = 'block';
+
+			// Start animation only after runner is visible
+			let position = 0;
+			let direction = 1;
+			const maxPosition = container.offsetWidth - 40;
+
+			interval = setInterval(() => {
+			  position += direction * 5;
+			  if (position >= maxPosition || position <= 0) {
+				direction *= -1;
+			  }
+			  runner.style.left = `${position}px`;
+			}, 30);
+		  }, 1000); // 1 second delay
 		}
 
 		// Wait before fetching logs
