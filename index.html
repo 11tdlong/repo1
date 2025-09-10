@@ -140,6 +140,12 @@
 	  text-align: left; /* ✅ Add this line */
 	}
 
+	.status pre.warning {
+	  color: #333;
+	  background: #f8d7da;
+	  border-left: 4px solid #b00020;
+	}
+
 	.runner {
 	  width: 40px;
 	  height: 40px;
@@ -299,7 +305,11 @@
 			  runner.style.display = 'none';
 
 				const cleanedLog = extractRelevantLog(logData.logs);
-				status.innerHTML = `<pre>${cleanedLog}</pre>`;
+				if (cleanedLog.includes('⚠️ Relevant log section not found.')) {
+				  status.innerHTML = `<pre class="warning">  ${cleanedLog}</pre>`;
+				} else {
+				  status.innerHTML = `<pre>${cleanedLog}</pre>`;
+				}
 			  confetti({
 				particleCount: 100,
 				spread: 70,
@@ -340,6 +350,7 @@
   </script>
 </body>
 </html>
+
 
 
 
