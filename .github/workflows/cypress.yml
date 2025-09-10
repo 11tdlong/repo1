@@ -24,11 +24,9 @@ jobs:
       - name: Run Cypress tests and capture logs
         run: |
           mkdir -p logs
-          {
-            echo "🔍 Starting Cypress tests..."
-            npx cypress run --spec "cypress/e2e/check.cy.js"
-            echo "✅ Cypress tests complete."
-          } > logs/output.txt 2>&1
+          echo "🔍 Starting Cypress tests..."
+          npx cypress run --spec "cypress/e2e/check.cy.js" | tee logs/output.txt
+          echo "✅ Cypress tests complete." | tee -a logs/output.txt
 
       - name: Upload logs as artifact
         uses: actions/upload-artifact@v4
