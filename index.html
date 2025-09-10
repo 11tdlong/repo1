@@ -92,14 +92,22 @@
       transform-origin: center;
     }
 
-	.button-container {
-	  display: flex;
-	  flex-direction: column;
-	  align-items: center;
-	  margin-left: 40px; /* spacing from clock */
-	  position: relative;
-	  width: 200px;
-	}
+    .button-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-left: 40px;
+      position: relative;
+      width: 200px;
+    }
+
+    .align-left {
+      position: relative;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
 
     button {
       padding: 10px 20px;
@@ -124,9 +132,31 @@
       height: 40px;
       background: url('https://i.imgur.com/6o5Z5QG.gif') no-repeat center/contain;
       position: absolute;
-      top: 60px; /* aligns with status text */
+      top: 60px;
       left: 0;
       display: none;
+    }
+
+    @media (max-width: 500px) {
+      .container {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .clock {
+        width: 250px;
+        height: 250px;
+      }
+
+      .number, .tick {
+        transform: translate(-50%, -50%);
+      }
+
+      .button-container {
+        margin-left: 0;
+        margin-top: 20px;
+        width: auto;
+      }
     }
   </style>
 </head>
@@ -140,11 +170,16 @@
     </div>
 
     <div class="button-container">
-      <button onclick="startProcess()">Check 1</button>
-      <div class="status" id="status"></div>
-      <div class="runner" id="runner"></div>
+      <div class="align-left">
+        <button onclick="startProcess()">Check 1</button>
+        <div class="status" id="status"></div>
+        <div class="runner" id="runner"></div>
+      </div>
     </div>
   </div>
+
+  <audio id="ding" src="https://www.soundjay.com/button/sounds/button-3.mp3" preload="auto"></audio>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
   <script>
     const clock = document.querySelector('.clock');
@@ -208,43 +243,55 @@
     requestAnimationFrame(updateClock);
 
     // Button action
-    function startProcess() {
-	  const runner = document.getElementById('runner');
-	  const status = document.getElementById('status');
-	  const container = document.querySelector('.button-container');
+  function startProcess() {
+    const runner = document.getElementById('runner');
+    const status = document.getElementById('status');
+    const container = document.querySelector('.align-left');
 
-	  status.textContent = 'Triggering workflow...';
-	  runner.style.display = 'block';
+    runner.style.display = 'block';
+    status.textContent = '';
 
-	  let position = 0;
-	  let direction = 1;
-	  const maxPosition = container.offsetWidth - 40;
+    let position = 0;
+    let direction = 1;
+    const maxPosition = container.offsetWidth - 40;
 
-	  const interval = setInterval(() => {
-		position += direction * 5;
-		if (position >= maxPosition || position <= 0) {
-		  direction *= -1;
-		}
-		runner.style.left = `${position}px`;
-	  }, 30);
+    const interval = setInterval(() => {
+      position += direction * 5;
+      if (position >= maxPosition || position <= 0) {
+        direction *= -1;
+      }
+      runner.style.left = `${position}px`;
+    }, 30);
 
-	  fetch('http://localhost:3000/trigger-workflow', {
-		method: 'POST'
-	  })
-	  .then(res => res.json())
-	  .then(data => {
-		clearInterval(interval);
-		runner.style.display = 'none';
-		status.textContent = data.status || 'Done';
-	  })
-	  .catch(err => {
-		clearInterval(interval);
-		runner.style.display = 'none';
-		status.textContent = 'Error triggering workflow';
-		console.error(err);
-	  });
-	}
+    // Trigger backend workflow
+fetch('https://workflow-trigger-server.onrender.com/trigger-workflow', {
+  method: 'POST'
+})
+    .then(res => res.json())
+    .then(data => {
+      setTimeout(() => {
+        clearInterval(interval);
+        runner.style.display = 'none';
+        status.textContent = data.status || 'Done';
 
+        // 🎉 Confetti burst
+        confetti({
+          particleCount: 100,
+          spread: 70,
+          origin: { y: 0.6 }
+        });
+
+        // 🔊 Play sound
+        document.getElementById('ding').play();
+      }, 2000);
+    })
+    .catch(err => {
+      clearInterval(interval);
+      runner.style.display = 'none';
+      status.textContent = 'Error triggering workflow';
+      console.error(err);
+    });
+  }
   </script>
 </body>
 </html>
