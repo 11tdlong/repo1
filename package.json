@@ -8,6 +8,7 @@
   "dependencies": {
     "express": "^4.18.2",
     "node-fetch": "^2.6.7",
+    "cors": "^2.8.5",
     "cypress-xpath": "^2.0.1"
   },
   "devDependencies": {
