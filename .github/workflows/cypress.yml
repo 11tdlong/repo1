@@ -32,7 +32,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: cypress-logs
-          path: cypress/logs/output.txt
+          path: logs/output.txt
 
       - name: Delete logs folder
         run: rm -rf logs
