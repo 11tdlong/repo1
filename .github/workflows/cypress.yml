@@ -9,6 +9,8 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    env:
+      MY_TOKEN: ${{ secrets.SEC1 }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
