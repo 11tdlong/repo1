@@ -312,7 +312,7 @@
           status.textContent = '❌ Error fetching logs';
           console.error(err);
         });
-    }, 8000); // Delay to allow Cypress to run
+    }, 48000); // Delay to allow Cypress to run
   })
   .catch(err => {
     clearInterval(interval);
@@ -324,6 +324,7 @@
   </script>
 </body>
 </html>
+
 
 
 
