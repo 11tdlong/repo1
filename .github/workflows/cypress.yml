@@ -1,16 +1,14 @@
 name: Cypress Tests
 
 on:
-  push:
-    branches:
-      - main
-  workflow_dispatch:
+  workflow_dispatch:  # Manual trigger only
 
 jobs:
   test:
     runs-on: ubuntu-latest
     env:
       MY_TOKEN: ${{ secrets.SEC1 }}
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -23,5 +21,17 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Run Cypress tests
-        run: npx cypress run --spec "cypress/e2e/check.cy.js"
+      - name: Run Cypress tests and capture logs
+        run: |
+          mkdir -p logs
+          {
+            echo "🔍 Starting Cypress tests..."
+            npx cypress run --spec "cypress/e2e/check.cy.js"
+            echo "✅ Cypress tests complete."
+          } > logs/output.txt 2>&1
+
+      - name: Upload logs as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: cypress-logs
+          path: logs/output.txt
