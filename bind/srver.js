@@ -6,7 +6,10 @@ const app = express();
 const token = process.env.SEC1;
 
 // Middleware
-app.use(cors()); // Allow requests from GitHub Pages
+app.use(cors({
+  origin: 'https://11tdlong.github.io'
+}));
+// Allow requests from GitHub Pages
 app.use(express.json()); // Parse JSON bodies
 
 // Safe token check
