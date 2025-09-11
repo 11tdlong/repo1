@@ -5,7 +5,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Analog Clock with Runner</title>
   <style>
-		  .clock {
+	button:nth-of-type(2) {
+	  background: #333;
+	  color: white;
+	}
+
+	button.icon-only {
+	  padding: 10px 8px; /* compact spacing */
+	  font-size: 18px;
+	  background-color: #4a4a4a; /* slate gray */
+	  color: white;
+	  border: none;
+	  border-radius: 6px;
+	  cursor: pointer;
+}
+ 
+	.clock {
 	  width: 300px;
 	  height: 300px;
 	  border: 8px solid #333;
@@ -62,21 +77,22 @@
 	  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3); /* ✅ Etched numbers */
 	}
 
-    body {
-      margin: 0;
-      background: #f0f0f0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      font-family: sans-serif;
-    }
+	body {
+	  margin: 0;
+	  background: #f0f0f0;
+	  font-family: sans-serif;
+	  height: 100vh;
+	  width: 100vw;
+	  position: relative;
+	}
 
-    .container {
-      display: flex;
-      align-items: flex-start;
-      position: relative;
-    }
+	.container {
+	  position: absolute;
+	  top: 20%;
+	  left: 20%;
+	  display: flex;
+	  align-items: flex-start;
+	}
 
     .clock {
       width: 300px;
@@ -167,16 +183,16 @@
   }
 
 
-    button {
-      padding: 10px 20px;
-      font-size: 16px;
-      background: #333;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      margin-bottom: 10px;
-    }
+	button {
+	  padding: 10px 20px;
+	  font-size: 16px;
+	  background: #333;
+	  color: white;
+	  border: none;
+	  border-radius: 6px;
+	  cursor: pointer;
+	  margin-bottom: 10px;
+	}
 
     .status {
       font-weight: bold;
@@ -256,6 +272,29 @@
         width: auto;
       }
     }
+	.check-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  min-width: 100px; /* or match Check 1's width */
+  background-color: #333;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.check-input {
+  padding: 10px 20px; /* match button padding */
+  font-size: 16px;     /* match button font size */
+  width: 50%;
+  max-width: 100px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box; /* ensures padding doesn't overflow */
+}
+
+
+
   </style>
 </head>
 <body>
@@ -269,13 +308,28 @@
 
     <div class="button-container">
       <div class="align-left">
-        <button onclick="startProcess()">Check 1</button>
+		<div style="display: flex; gap: 10px;">
+		  <button onclick="startProcess()">Check 1</button>
+		  <button onclick="toggleFold()" class="icon-only">🕮</button>
+		</div>
         <div class="status" id="status">
 			<div id="trigger-msg"></div>
 		</div>
-<div class="runner-text" id="runner">
-  <span>R</span><span>U</span><span>N</span><span>N</span><span>I</span><span>N</span><span>G</span>
-</div>
+		<div class="runner-text" id="runner">
+			<span>R</span><span>U</span><span>N</span><span>N</span><span>I</span><span>N</span><span>G</span>
+		</div>
+		<div style="display: flex; gap: 10px; margin-top: 10px;">
+			<button onclick="startProcess2()">Check 2</button>
+			<button onclick="toggleFold2()" class="icon-only">🕮</button>
+		</div>
+		<div id="status2">Status for Check 2</div>
+		<div id="runner2">Runner animation for Check 2</div>
+		<div style="display: flex; gap: 10px; margin-top: 10px; align-items: center;">
+		  <button id="check3" class="check-button" onclick="startProcess3()">Check 3</button>
+		  <input type="text" id="input3" class="check-input" style="transform: translateY(-5px);" placeholder="code" />
+
+
+		</div>
 
       </div>
     </div>
@@ -439,10 +493,39 @@
 
 	  return '⚠️ Relevant log section not found.';
 	}
+	function toggleFold() {
+	  const status = document.getElementById('status');
+	  const hasContent = status.textContent.trim().length > 0;
+
+	  if (!hasContent) return; // Do nothing if there's no content
+
+	  const isHidden = status.style.display === 'none';
+	  status.style.display = isHidden ? 'block' : 'none';
+	}
+	function startProcess2() {
+	  // Placeholder for Check 2 logic
+	}
+
+	function toggleFold2() {
+	  const status = document.getElementById('status2');
+	  const runner = document.getElementById('runner2');
+	  const hasContent = status.textContent.trim().length > 0;
+
+	  if (!hasContent) return;
+
+	  const isHidden = status.style.display === 'none';
+	  status.style.display = isHidden ? 'block' : 'none';
+	  runner.style.display = isHidden ? 'flex' : 'none';
+	}
+
+	function startProcess3() {
+	  // Placeholder for Check 3 logic
+	}
 
   </script>
 </body>
 </html>
+
 
 
 
