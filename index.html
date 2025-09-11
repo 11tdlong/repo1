@@ -5,6 +5,63 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Analog Clock with Runner</title>
   <style>
+		  .clock {
+	  width: 300px;
+	  height: 300px;
+	  border: 8px solid #333;
+	  border-radius: 50%;
+	  position: relative;
+	  background: white;
+	  box-shadow:
+	    inset 0 0 10px #ccc,
+	    20px 20px 30px rgba(0, 0, 0, 0.4); /* ✅ Long diagonal shadow */
+	}
+	
+	/* Glassy glare overlay */
+	.clock::after {
+	  content: '';
+	  position: absolute;
+	  top: 0; left: 0;
+	  width: 100%; height: 100%;
+	  border-radius: 50%;
+	  background: radial-gradient(circle at top left, rgba(255,255,255,0.2), transparent 70%);
+	  pointer-events: none;
+	}
+	
+	.center {
+	  width: 12px;
+	  height: 12px;
+	  background: radial-gradient(circle, #555 0%, #222 100%); /* ✅ Glossy center */
+	  border-radius: 50%;
+	  position: absolute;
+	  top: 50%;
+	  left: 50%;
+	  transform: translate(-50%, -50%);
+	  z-index: 10;
+	  box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.6); /* ✅ Diagonal dome shadow */
+	}
+	
+	.hand {
+	  position: absolute;
+	  bottom: 50%;
+	  left: 50%;
+	  transform-origin: bottom center;
+	  transform: translateX(-50%) rotate(0deg);
+	  filter: drop-shadow(6px 6px 4px rgba(0, 0, 0, 0.5)); /* ✅ Tilted shadow */
+	}
+	
+	.number {
+	  position: absolute;
+	  width: 30px;
+	  height: 30px;
+	  text-align: center;
+	  line-height: 30px;
+	  font-weight: bold;
+	  color: #333;
+	  transform: translate(-50%, -50%);
+	  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3); /* ✅ Etched numbers */
+	}
+
     body {
       margin: 0;
       background: #f0f0f0;
@@ -386,6 +443,7 @@
   </script>
 </body>
 </html>
+
 
 
 
