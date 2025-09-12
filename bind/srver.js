@@ -41,6 +41,32 @@ app.post('/trigger-workflow', async (req, res) => {
   }
 });
 
+// Trigger Robot Tests workflow 
+app.post('/trigger-robot-tests', async (req, res) => {
+  try {
+    const response = await fetch('https://api.github.com/repos/11tdlong/repo1/actions/workflows/robot.yml/dispatches', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Accept': 'application/vnd.github+json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ ref: 'main' })
+    });
+
+    if (response.ok) {
+      res.send({ status: '✅ Robot Tests workflow triggered successfully' });
+    } else {
+      const error = await response.text();
+      console.error('❌ GitHub API error (Robot Tests):', error);
+      res.status(500).send({ error });
+    }
+  } catch (err) {
+    console.error('❌ Server error (Robot Tests):', err.message);
+    res.status(500).send({ error: 'Internal server error' });
+  }
+});
+
 // Serve logs from GitHub artifact
 app.get('/logs', async (req, res) => {
   try {
