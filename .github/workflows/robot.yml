@@ -36,8 +36,13 @@ jobs:
       - name: Run Robot Framework tests
         run: |
           echo "🤖 Starting Robot tests..."
+<<<<<<< Updated upstream
           robot -i done .
           echo "✅ Robot tests complete." | tee -a out.txt
+=======
+          robot -b robot-logs/out.txt -i done .
+          echo "✅ Robot tests complete." | tee -a robot-logs/out.txt
+>>>>>>> Stashed changes
 
       - name: Upload Robot logs
         uses: actions/upload-artifact@v4
