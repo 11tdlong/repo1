@@ -318,12 +318,16 @@
 		<div class="runner-text" id="runner">
 			<span>R</span><span>U</span><span>N</span><span>N</span><span>I</span><span>N</span><span>G</span>
 		</div>
+		<div class="runner-text" id="runner2">
+		  <span>R</span><span>U</span><span>N</span><span>N</span><span>I</span><span>N</span><span>G</span><span>,</span>
+		  <span>&nbsp;</span><span>W</span><span>A</span><span>I</span><span>T</span><span>&nbsp;</span>
+		  <span>1</span><span>m</span><span>3</span><span>0</span><span>s</span>
+		</div>
 		<div style="display: flex; gap: 10px; margin-top: 10px;">
 			<button onclick="startProcess2()">Check 2</button>
 			<button onclick="toggleFold2()" class="icon-only">🕮</button>
 		</div>
 		<div id="status2">Status for Check 2</div>
-		<div id="runner2">Runner animation for Check 2</div>
 		<div style="display: flex; gap: 10px; margin-top: 10px; align-items: center;">
 		  <button id="check3" class="check-button" onclick="startProcess3()">Check 3</button>
 		  <input type="text" id="input3" class="check-input" style="transform: translateY(-5px);" placeholder="code" />
@@ -539,7 +543,6 @@
 			.then(logData => {
 			  clearInterval(interval);
 			  runner.style.display = 'none';
-
 			  const cleanedLog = extractRelevantLog(logData.logs);
 			  if (cleanedLog.includes('⚠️ Relevant log section not found.')) {
 				status.innerHTML = `<pre class="warning">${logData.logs}</pre>`;
