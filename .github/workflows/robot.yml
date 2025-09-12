@@ -1,0 +1,46 @@
+name: Robot Tests
+
+on:
+  workflow_dispatch:  # Manual trigger only
+
+concurrency:
+  group: robot-tests
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    env:
+      MY_TOKEN: ${{ secrets.SEC1 }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install Robot Framework and Browser library
+        run: |
+          python -m pip install --upgrade pip
+          pip install robotframework
+          pip install robotframework-browser
+          rfbrowser init  # Downloads Playwright and browser drivers
+
+      - name: Run Robot Framework tests
+        run: |
+          mkdir -p robot-logs
+          echo "🤖 Starting Robot tests..."
+          robot -b robot-logs/out.txt -i done tests/robot_suite.robot
+          echo "✅ Robot tests complete." | tee -a robot-logs/out.txt
+
+      - name: Upload Robot logs
+        uses: actions/upload-artifact@v4
+        with:
+          name: robot-logs
+          path: robot-logs/log.html
+
+      - name: Cleanup
+        run: rm -rf robot-logs

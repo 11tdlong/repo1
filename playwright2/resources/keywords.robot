@@ -11,6 +11,12 @@ ${CLOSE}    //div[@id='dialogPortal']/following-sibling::button
 ${HEADLESS}    ${True}
 
 *** Keywords ***
+*** Keywords ***
+Element Exists
+    [Arguments]    ${locator}
+    ${status}=    Run Keyword And Return Status    Wait For Elements State    ${locator}    attached    timeout=6s
+    Return From Keyword    ${status}
+
 Login With Credentials
     [Arguments]    ${username}    ${password}
     Type Text    id=username    ${username}
@@ -30,15 +36,24 @@ Check Title
 
 Basic Check
     [Arguments]    ${code}
-    Click    xpath=${CLOSE}
+	${check}    Element Exists    ${CLOSE}
+	Run keyword if    ${check}    Click    xpath=${CLOSE}
     Fill Text      xpath=//div[@data-value]//input    ${code}
-    ${RESULT}    Set Variable    '//div[@tabindex="-1"]//div[contains(text(),"${code}")]'
-    Click    xpath=//div[@data-value]
+    ${RESULT}    Set Variable    (//div[contains(text(),"HBC")]/ancestor::div[@role="option"])[1]
+	${orderBook}    Set Variable    //button[contains(text(),'Sổ lệnh')]
+	${highestBuyPrice}    Set Variable    (//div[contains(@class,'flex-row')]//div[contains(@class,'justify-end')]/span)[1]
+	${highestBuyVolume}    Set Variable    (//div[contains(@class,'flex-row')]//div[contains(@class,'flex-row')]/span)[1]
+	Wait For Elements State    ${RESULT}    attached    timeout=12s
     FOR    ${kw}    IN RANGE    1    4
     ${status}    ${msg} =    Run Keyword And Ignore Error    Click    xpath=${RESULT}
     Run Keyword If    '${status}' == 'PASS'    Exit For Loop
     Run Keyword If    '${status}' != 'PASS'    Click    xpath=//div[@data-value]
     END
+	Wait Until Keyword Succeeds    10 sec    2 sec    Click    xpath=${orderBook}
+	Wait For Elements State    ${highestBuyPrice}    attached    timeout=12s
+	${highestBuyVolume}=    Get Text    ${highestBuyVolume}
+	${highestBuyPrice}=    Get Text    ${highestBuyPrice}
+	Log    ${highestBuyVolume} ${highestBuyPrice}
 
 Get Cookie Token From HTML
     [Arguments]    ${html}

@@ -7,12 +7,16 @@ ${HARD_URI}    https://restv2.fireant.vn/symbols/HBC/historical-quotes?startDate
 ${URL2}    https://finance.vietstock.vn/IJC-ctcp-phat-trien-ha-tang-ky-thuat.htm
 *** Test Cases ***
 Test number one
+	[Timeout]    1 minutes
+    [Documentation]    A test to try ui
+    [Tags]    done
     Check Title
     Basic Check    HBC
 
 Test API Number One
-    [Documentation]    A test to test
-    [Tags]    api
+	[Timeout]    1 minutes
+    [Documentation]    A test to try api
+    [Tags]    api    done
     ${fullURL}    Set Variable    ${API_URL}HBC
     Create Session    jsonplaceholder    ${fullURL}
     ${response}=    GET    ${fullURL}
