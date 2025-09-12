@@ -47,18 +47,13 @@ jobs:
 
       - name: Prepare log.html for GitHub Pages
         run: |
-          mkdir -p tmp/gh-pages
-          cp log.html tmp/gh-pages/log.html
+          mkdir -p tmp
+          cp log.html tmp/log.html
       
-      - name: Deploy to gh-pages
+      - name: Commit log.html to main
         run: |
-          git config --global user.email "you@example.com"
-          git config --global user.name "Your Name"
-          git fetch
-          git checkout gh-pages || git checkout --orphan gh-pages
-          rm -r *
-          cp -r tmp/gh-pages/* .
-          git add .
+          git config --global user.email "long@"
+          git config --global user.name "long"
+          git add log.html tmp/
           git commit -m "Update Robot logs"
-          git push origin gh-pages --force
-
+          git push origin main
