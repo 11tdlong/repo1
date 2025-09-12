@@ -293,7 +293,16 @@
   box-sizing: border-box; /* ensures padding doesn't overflow */
 }
 
-
+.log-link {
+  display: inline-block;
+  margin-top: 8px;
+  font-weight: bold;
+  color: #007acc;
+  text-decoration: none;
+}
+.log-link:hover {
+  text-decoration: underline;
+}
 
   </style>
 </head>
@@ -551,7 +560,12 @@
 			  if (cleanedLog.includes('⚠️ Relevant log section not found.')) {
 				status.innerHTML = `<pre class="warning">${logData.logs}</pre>`;
 			  } else {
-				status.innerHTML = `<pre>${cleanedLog}</pre>`;
+				status.innerHTML = `
+				  <p>✅ Robot Test Completed</p>
+				  <a href="https://name.github.io/repo1/tmp/log.html" target="_blank" class="log-link">
+					📄 View Full Log
+				  </a>
+				`;
 			  }
 
 			  confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
