@@ -35,16 +35,12 @@ jobs:
 
       - name: Run Robot Framework tests
         run: |
-          mkdir -p robot-logs
           echo "🤖 Starting Robot tests..."
-          robot -b robot-logs/out.txt -i done .
-          echo "✅ Robot tests complete." | tee -a robot-logs/out.txt
+          robot -i done .
+          echo "✅ Robot tests complete." | tee -a out.txt
 
       - name: Upload Robot logs
         uses: actions/upload-artifact@v4
         with:
           name: robot-logs
-          path: ${{ github.workspace }}/robot-logs/log.html
-
-      - name: Cleanup
-        run: rm -rf robot-logs
+          path: ${{ github.workspace }}/log.html
