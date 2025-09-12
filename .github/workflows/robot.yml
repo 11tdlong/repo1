@@ -44,3 +44,21 @@ jobs:
         with:
           name: robot-logs
           path: ${{ github.workspace }}/log.html
+
+      - name: Prepare log.html for GitHub Pages
+        run: |
+          mkdir -p tmp/gh-pages
+          cp log.html tmp/gh-pages/log.html
+      
+      - name: Deploy to gh-pages
+        run: |
+          git config --global user.email "you@example.com"
+          git config --global user.name "Your Name"
+          git fetch
+          git checkout gh-pages || git checkout --orphan gh-pages
+          rm -r *
+          cp -r tmp/gh-pages/* .
+          git add .
+          git commit -m "Update Robot logs"
+          git push origin gh-pages --force
+
