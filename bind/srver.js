@@ -68,7 +68,17 @@ app.post('/trigger-robot-tests', async (req, res) => {
 });
 
 // Serve logs from GitHub artifact
-app.get('/logs', async (req, res) => {
+// Cypress logs
+app.get('/logs/cypress', async (req, res) => {
+  await fetchAndSendArtifactLogs('cypress-logs', res);
+});
+
+// Robot Framework logs
+app.get('/logs/robot', async (req, res) => {
+  await fetchAndSendArtifactLogs('robot-logs', res);
+});
+
+async function fetchAndSendArtifactLogs(artifactName, res) {
   try {
     const listRes = await fetch('https://api.github.com/repos/11tdlong/repo1/actions/artifacts', {
       headers: {
@@ -78,10 +88,10 @@ app.get('/logs', async (req, res) => {
     });
 
     const listData = await listRes.json();
-    const artifact = listData.artifacts.find(a => a.name === 'cypress-logs');
+    const artifact = listData.artifacts.find(a => a.name === artifactName);
 
     if (!artifact) {
-      return res.send({ logs: '⚠️ No artifact named "cypress-logs" found.' });
+      return res.send({ logs: `⚠️ No artifact named "${artifactName}" found.` });
     }
 
     const zipRes = await fetch(artifact.archive_download_url, {
@@ -104,10 +114,11 @@ app.get('/logs', async (req, res) => {
 
     res.send({ logs: cleaned });
   } catch (err) {
-    console.error('❌ Error fetching logs:', err.message);
-    res.status(500).send({ error: 'Failed to retrieve logs.' });
+    console.error(`❌ Error fetching logs for ${artifactName}:`, err.message);
+    res.status(500).send({ error: `Failed to retrieve logs for ${artifactName}.` });
   }
-});
+}
+
 
 // Start server
 const PORT = process.env.PORT || 3000;
