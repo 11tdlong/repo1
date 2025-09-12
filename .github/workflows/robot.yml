@@ -33,7 +33,7 @@ jobs:
         run: |
           mkdir -p robot-logs
           echo "🤖 Starting Robot tests..."
-          robot -b robot-logs/out.txt -i done tests/robot_suite.robot
+          robot -b robot-logs/out.txt -i done .
           echo "✅ Robot tests complete." | tee -a robot-logs/out.txt
 
       - name: Upload Robot logs
