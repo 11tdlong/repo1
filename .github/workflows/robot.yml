@@ -28,6 +28,10 @@ jobs:
           pip install robotframework
           pip install robotframework-browser
           rfbrowser init  # Downloads Playwright and browser drivers
+          
+      - name: Install Robot Framework dependencies
+        run: |
+          pip install robotframework-requests
 
       - name: Run Robot Framework tests
         run: |
