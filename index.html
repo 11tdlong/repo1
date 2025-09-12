@@ -503,7 +503,67 @@
 	  status.style.display = isHidden ? 'block' : 'none';
 	}
 	function startProcess2() {
-	  // Placeholder for Check 2 logic
+	  let interval;
+	  const runner = document.getElementById('runner2');
+	  const status = document.getElementById('status2');
+	  const container = document.querySelector('.align-left');
+
+	  status.textContent = '⏳ Triggering Robot Tests...';
+
+	  fetch('https://repo1-qygx.onrender.com/trigger-robot-tests', {
+		method: 'POST'
+	  })
+	  .then(res => res.json())
+	  .then(data => {
+		status.textContent = data.status || '✅ Robot Tests workflow triggered';
+
+		setTimeout(() => {
+		  runner.style.display = 'flex';
+
+		  let position = 0;
+		  let direction = 1;
+		  const maxPosition = container.offsetWidth - 40;
+
+		  interval = setInterval(() => {
+			position += direction * 5;
+			if (position >= maxPosition || position <= 0) {
+			  direction *= -1;
+			}
+			runner.style.left = `${position}px`;
+		  }, 30);
+		}, 200);
+
+		setTimeout(() => {
+		  fetch('https://repo1-qygx.onrender.com/logs')
+			.then(res => res.json())
+			.then(logData => {
+			  clearInterval(interval);
+			  runner.style.display = 'none';
+
+			  const cleanedLog = extractRelevantLog(logData.logs);
+			  if (cleanedLog.includes('⚠️ Relevant log section not found.')) {
+				status.innerHTML = `<pre class="warning">${logData.logs}</pre>`;
+			  } else {
+				status.innerHTML = `<pre>${cleanedLog}</pre>`;
+			  }
+
+			  confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+			  document.getElementById('ding').play();
+			})
+			.catch(err => {
+			  clearInterval(interval);
+			  runner.style.display = 'none';
+			  status.textContent = '❌ Error fetching Robot logs';
+			  console.error(err);
+			});
+		}, 110000); // Wait for Robot tests to complete
+	  })
+	  .catch(err => {
+		clearInterval(interval);
+		runner.style.display = 'none';
+		status.textContent = '❌ Error triggering Robot Tests';
+		console.error(err);
+	  });
 	}
 
 	function toggleFold2() {
