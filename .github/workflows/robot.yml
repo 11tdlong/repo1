@@ -1,5 +1,8 @@
 name: Robot Tests
 
+permissions:
+  contents: write
+
 on:
   workflow_dispatch:  # Manual trigger only
 
@@ -49,11 +52,14 @@ jobs:
         run: |
           mkdir -p tmp
           cp log.html tmp/log.html
-      
+
       - name: Commit log.html to main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          git config --global user.email "long@"
-          git config --global user.name "long"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+          git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}
           git add log.html tmp/
           git commit -m "Update Robot logs"
           git push origin main
