@@ -202,16 +202,14 @@
     }
 
 	.status pre {
-  white-space: pre-wrap;
-  font-family: monospace;
-  margin: 0;
-  width: 100%;
-  box-sizing: border-box;
-  text-align: left;
-  overflow-x: auto;
-  word-break: break-word;
-}
-
+	  width: min(120ch, 100%);
+	  max-width: 100%;
+	  white-space: pre-wrap;
+	  font-family: monospace;
+	  box-sizing: border-box;
+	  overflow-x: auto;
+	  word-break: break-word;
+	}
 
 	.status pre.warning {
 	  color: #333;
@@ -322,7 +320,9 @@
 }
 .log-link:hover {
   text-decoration: underline;
+  color: #005fa3;
 }
+
 
   </style>
 </head>
@@ -576,16 +576,31 @@
 			.then(logData => {
 			  clearInterval(interval);
 			  runner.style.display = 'none';
+
 			  const cleanedLog = extractRelevantLog(logData.logs);
+
 			  if (cleanedLog.includes('⚠️ Relevant log section not found.')) {
 				status.innerHTML = `<pre class="warning">${logData.logs}</pre>`;
 			  } else {
-				status.innerHTML = `
-				  <p>✅ Robot Test Completed</p>
-				  <a href="https://name.github.io/repo1/tmp/log.html" target="_blank" class="log-link">
-					📄 View Full Log
-				  </a>
-				`;
+				// Check if log.html is accessible before showing the link
+				fetch('https://name.github.io/repo1/tmp/log.html', { method: 'HEAD' })
+				  .then(logRes => {
+					if (logRes.ok) {
+					  status.innerHTML = `
+						<p>✅ Robot Test Completed</p>
+						<div class="log-link">
+						  <a href="https://name.github.io/repo1/tmp/log.html" target="_blank" rel="noopener noreferrer">
+							📄 View Full Log
+						  </a>
+						</div>
+					  `;
+					} else {
+					  status.innerHTML = `<p>✅ Robot Test Completed, but log.html not found.</p>`;
+					}
+				  })
+				  .catch(() => {
+					status.innerHTML = `<p>✅ Robot Test Completed, but failed to verify log.html.</p>`;
+				  });
 			  }
 
 			  confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
