@@ -205,12 +205,14 @@
 	  background: #eee;
 	  padding: 10px;
 	  border-radius: 6px;
-	  white-space: pre-wrap;
+	  white-space: nowrap;         /* 🔄 Prevent line breaks */
 	  font-family: monospace;
 	  margin: 0;
 	  width: 100%;
 	  box-sizing: border-box;
-	  text-align: left; /* ✅ Add this line */
+	  text-align: left;
+	  overflow-x: auto;            /* 🔄 Enable horizontal scroll if needed */
+	  text-overflow: ellipsis;     /* Optional: show "..." if clipped */
 	}
 
 	.status pre.warning {

@@ -103,13 +103,18 @@ async function fetchAndSendArtifactLogs(artifactName, res) {
 
     const zipBuffer = await zipRes.buffer();
     const directory = await unzipper.Open.buffer(zipBuffer);
-    const file = directory.files.find(f => f.path === 'output.txt');
 
-    if (!file) {
-      return res.send({ logs: '⚠️ output.txt not found in artifact.' });
+    // 🔄 Choose file based on artifact type
+    const targetFile =
+      artifactName === 'robot-logs'
+        ? directory.files.find(f => f.path === 'log.html')
+        : directory.files.find(f => f.path === 'output.txt');
+
+    if (!targetFile) {
+      return res.send({ logs: `⚠️ Expected file not found in "${artifactName}".` });
     }
 
-    const content = await file.buffer();
+    const content = await targetFile.buffer();
     const cleaned = stripAnsi(content.toString());
 
     res.send({ logs: cleaned });
@@ -118,7 +123,6 @@ async function fetchAndSendArtifactLogs(artifactName, res) {
     res.status(500).send({ error: `Failed to retrieve logs for ${artifactName}.` });
   }
 }
-
 
 // Start server
 const PORT = process.env.PORT || 3000;
