@@ -202,13 +202,12 @@
     }
 
 	.status pre {
-	  width: min(120ch, 100%);
-	  max-width: 100%;
 	  white-space: pre-wrap;
-	  font-family: monospace;
-	  box-sizing: border-box;
-	  overflow-x: auto;
 	  word-break: break-word;
+	  overflow-wrap: anywhere; /* allows breaking even mid-word */
+	  max-width: 100%;
+	  width: 100%; /* remove the 120ch constraint */
+	  box-sizing: border-box;
 	}
 
 	.status pre.warning {
@@ -627,9 +626,7 @@
 	  const runner = document.getElementById('runner2');
 	  const hasContent = status.textContent.trim().length > 0;
 
-	  if (!hasContent || status.textContent.includes('⏳ Triggering Robot Tests')) {
-		return; // Don't toggle if there's no real content or it's still pending
-	  }
+	  if (!hasContent) return;
 
 	  const isHidden = status.style.display === 'none';
 	  status.style.display = isHidden ? 'block' : 'none';
