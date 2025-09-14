@@ -234,13 +234,6 @@
 }
 
 /* G goes first, then N... then R */
-.runner-text span:nth-child(7) { animation-delay: 0s; }
-.runner-text span:nth-child(6) { animation-delay: 0.2s; }
-.runner-text span:nth-child(5) { animation-delay: 0.4s; }
-.runner-text span:nth-child(4) { animation-delay: 0.6s; }
-.runner-text span:nth-child(3) { animation-delay: 0.8s; }
-.runner-text span:nth-child(2) { animation-delay: 1s; }
-.runner-text span:nth-child(1) { animation-delay: 1.2s; }
 
 .runner-text span:nth-child(1)  { animation-delay: 1.7s; }
 .runner-text span:nth-child(2)  { animation-delay: 1.6s; }
@@ -324,6 +317,14 @@
   color: #005fa3;
 }
 
+.log-link {
+  display: inline-block;
+  margin-top: 8px;
+  font-weight: bold;
+  color: #333;
+  cursor: default; /* no pointer */
+  text-decoration: none;
+}
 
   </style>
 </head>
@@ -346,8 +347,12 @@
 			<div id="trigger-msg"></div>
 		</div>
 		<div class="runner-text" id="runner">
-			<span>R</span><span>U</span><span>N</span><span>N</span><span>I</span><span>N</span><span>G</span>
+		  <span>R</span><span>U</span><span>N</span><span>N</span><span>I</span><span>N</span><span>G</span>
+		  <span>,</span><span>&nbsp;</span>
+		  <span>W</span><span>A</span><span>I</span><span>T</span><span>&nbsp;</span>
+		  <span>1</span><span>m</span><span>5</span><span>0</span><span>s</span>
 		</div>
+
 		<div style="display: flex; gap: 10px; margin-top: 10px;">
 			<button onclick="startProcess2()">Check 2</button>
 			<button onclick="toggleFold2()" class="icon-only">🕮</button>
@@ -589,11 +594,8 @@
 					if (logRes.ok) {
 					  status.innerHTML = `
 						<p>✅ Robot Test Completed</p>
-						<div class="log-link">
-						  <a href="https://name.github.io/repo1/tmp/log.html" target="_blank" rel="noopener noreferrer">
-							📄 View Full Log
-						  </a>
-						</div>
+						<div class="log-link" title="Robot log">log.html</div>
+
 						<pre class="warning">Note: If the log viewer fails to open, ensure JavaScript is enabled and you're using a modern browser.</pre>
 					  `;
 					} else {
