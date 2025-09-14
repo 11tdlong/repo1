@@ -202,18 +202,20 @@
     }
 
 	.status pre {
-	  white-space: pre-wrap;
-	  word-break: break-word;
-	  overflow-wrap: anywhere; /* allows breaking even mid-word */
-	  max-width: 100%;
-	  width: min(500ch, 100%);
+	  white-space: pre;               /* preserves exact formatting */
+	  overflow-x: auto;               /* enables horizontal scroll for long lines */
+	  font-family: monospace;
+	  width: 100%;                    /* full container width */
+	  max-width: none;                /* no artificial limit */
 	  box-sizing: border-box;
+	  padding: 10px;
 	}
 
 	.status pre.warning {
 	  background: #f8d7da;
 	  border-left: 4px solid #b00020;
-	  padding: 10px;
+	  border-radius: 4px;
+	  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 	}
 
 .runner-text {
@@ -592,13 +594,24 @@
 							📄 View Full Log
 						  </a>
 						</div>
+						<pre class="warning">Note: If the log viewer fails to open, ensure JavaScript is enabled and you're using a modern browser.</pre>
 					  `;
 					} else {
-					  status.innerHTML = `<p>✅ Robot Test Completed, but log.html not found.</p>`;
+					  status.innerHTML = `
+						<pre class="warning">
+				✅ Robot Test Completed, but log.html not found.
+				Please verify that the log was generated and uploaded correctly.
+						</pre>
+					  `;
 					}
 				  })
 				  .catch(() => {
-					status.innerHTML = `<p>✅ Robot Test Completed, but failed to verify log.html.</p>`;
+					status.innerHTML = `
+					  <pre class="warning">
+				✅ Robot Test Completed, but failed to verify log.html.
+				Check your network connection or try again later.
+					  </pre>
+					`;
 				  });
 			  }
 
