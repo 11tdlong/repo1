@@ -312,19 +312,20 @@
   color: #007acc;
   text-decoration: none;
 }
-.log-link:hover {
-  text-decoration: underline;
-  color: #005fa3;
+.log-name {
+  display: inline-block;
+  font-weight: normal;
+  color: #333;
+  cursor: default;
+  text-decoration: none;
+  margin-top: 8px;
 }
 
-.log-link {
-  display: inline-block;
-  margin-top: 8px;
-  font-weight: bold;
-  color: #333;
-  cursor: default; /* no pointer */
-  text-decoration: none;
+.log-name:hover {
+  text-decoration: none; /* no underline */
+  color: #333;           /* no color change */
 }
+
 
   </style>
 </head>
@@ -594,9 +595,7 @@
 					if (logRes.ok) {
 					  status.innerHTML = `
 						<p>✅ Robot Test Completed</p>
-						<div class="log-link" title="Robot log">log.html</div>
-
-						<pre class="warning">Note: If the log viewer fails to open, ensure JavaScript is enabled and you're using a modern browser.</pre>
+						<div class="log-name" title="Robot log">log.html</div>
 					  `;
 					} else {
 					  status.innerHTML = `
