@@ -206,14 +206,14 @@
 	  word-break: break-word;
 	  overflow-wrap: anywhere; /* allows breaking even mid-word */
 	  max-width: 100%;
-	  width: 100%; /* remove the 120ch constraint */
+	  width: min(500ch, 100%);
 	  box-sizing: border-box;
 	}
 
 	.status pre.warning {
-	  color: #333;
 	  background: #f8d7da;
 	  border-left: 4px solid #b00020;
+	  padding: 10px;
 	}
 
 .runner-text {
