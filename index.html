@@ -305,25 +305,18 @@
   box-sizing: border-box; /* ensures padding doesn't overflow */
 }
 
-.log-link {
+.log-label {
   display: inline-block;
-  margin-top: 8px;
-  font-weight: bold;
-  color: #007acc;
-  text-decoration: none;
-}
-.log-name {
-  display: inline-block;
-  font-weight: normal;
   color: #333;
+  font-weight: normal;
   cursor: default;
-  text-decoration: none;
   margin-top: 8px;
+  text-decoration: none;
 }
 
-.log-name:hover {
-  text-decoration: none; /* no underline */
-  color: #333;           /* no color change */
+.log-label:hover {
+  text-decoration: none;
+  color: #333;
 }
 
 
@@ -595,7 +588,7 @@
 					if (logRes.ok) {
 					  status.innerHTML = `
 						<p>✅ Robot Test Completed</p>
-						<div class="log-name" title="Robot log">log.html</div>
+						<div class="log-label" title="Robot Log">log.html</div>
 					  `;
 					} else {
 					  status.innerHTML = `
