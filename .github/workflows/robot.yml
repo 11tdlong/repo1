@@ -31,7 +31,7 @@ jobs:
           pip install robotframework
           pip install robotframework-browser
           rfbrowser init  # Downloads Playwright and browser drivers
-          
+
       - name: Install Robot Framework dependencies
         run: |
           pip install robotframework-requests
@@ -39,8 +39,15 @@ jobs:
       - name: Run Robot Framework tests
         run: |
           echo "🤖 Starting Robot tests..."
-          robot -i done .
-          echo "✅ Robot tests complete." | tee -a out.txt
+          robot -i done . | tee out.txt
+          echo "✅ Robot tests complete."
+
+      - name: Verify log.html exists and is not empty
+        run: |
+          if [ ! -s log.html ]; then
+            echo "❌ log.html is missing or empty"
+            exit 1
+          fi
 
       - name: Move log.html to tmp folder
         run: mv log.html tmp/log.html
@@ -50,7 +57,7 @@ jobs:
         with:
           name: robot-logs
           path: ${{ github.workspace }}/tmp/log.html
-          
+
       - name: Commit log.html to tmp folder in main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -58,7 +65,7 @@ jobs:
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"
           git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}
-          git add tmp/log.html
-          git commit -m "Update Robot logs in tmp folder"
-          git push origin main
 
+          git add tmp/log.html
+          git diff --cached --quiet || git commit -m "Update Robot logs in tmp folder"
+          git push origin main
