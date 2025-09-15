@@ -218,28 +218,30 @@
 	  border-radius: 4px;
 	  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 	}
-.runner-wrapper {
-  width: 100%;
-  display: block;              /* No flex centering */
-  margin-top: 10px;
-}
+	.runner-wrapper {
+	  width: 100%;
+	  display: block;              /* No flex centering */
+	  margin-top: 10px;
+	  position: relative; /* ✅ Add this */
+	}
 
-.runner-text {
-  display: none;
-  justify-content: center;
-  gap: 5px;
-  font-weight: bold;
-  font-size: 24px;
-  font-family: sans-serif;
-  margin-top: 10px;
-  flex-wrap: nowrap;
-  white-space: nowrap;
-  overflow-x: visible;       /* ✅ Allow overflow to be seen */
-  width: fit-content;        /* ✅ Shrinks to fit content width */
-  max-width: 100%;           /* ✅ Prevents overflow beyond parent */
-  box-sizing: border-box;
-  text-align: left;
-}
+	.runner-text {
+	  display: none;
+	  justify-content: center;
+	  gap: 5px;
+	  font-weight: bold;
+	  font-size: 24px;
+	  font-family: sans-serif;
+	  margin-top: 10px;
+	  flex-wrap: nowrap;
+	  white-space: nowrap;
+	  overflow-x: visible;       /* ✅ Allow overflow to be seen */
+	  width: fit-content;        /* ✅ Shrinks to fit content width */
+	  max-width: 100%;           /* ✅ Prevents overflow beyond parent */
+	  box-sizing: border-box;
+	  text-align: left;
+	  position: absolute; /* ✅ Add this */
+	}
 
 
 
@@ -613,19 +615,12 @@ function startProcess2() {
               fetch('https://name.github.io/repo1/tmp/log.html')
                 .then(logRes => logRes.text())
                 .then(html => {
-                  if (html.includes('Opening Robot Framework log failed')) {
-                    status.innerHTML = `
-                      <pre class="warning">
-✅ Robot Test Completed, but log.html failed to load properly.
-Please verify the log was generated correctly.
-                      </pre>
-                    `;
-                  } else {
-                    status.innerHTML = `
-                      <p>✅ Robot Test Completed</p>
-                      <div class="log-label" title="Robot Log">log.html</div>
-                    `;
-                  }
+                  status.innerHTML = `
+				  <p>✅ Robot Test Completed</p>
+				  <a class="log-label" href="https://name.github.io/repo1/tmp/log.html" target="_blank" rel="noopener noreferrer">
+					log.html
+				  </a>
+				`;
                 })
                 .catch(() => {
                   status.innerHTML = `
