@@ -197,7 +197,7 @@
     .status {
       font-weight: bold;
       color: #333;
-      width: 100%;
+      width: auto;
       text-align: left;
     }
 
@@ -207,6 +207,7 @@
 	  font-family: monospace;
 	  width: 100%;                    /* full container width */
 	  max-width: none;                /* no artificial limit */
+	  min-width: 1000px;
 	  box-sizing: border-box;
 	  padding: 10px;
 	}
@@ -483,12 +484,11 @@
 			  clearInterval(interval);
 			  runner.style.display = 'none';
 
-				const cleanedLog = extractRelevantLog(logData.logs);
-				if (cleanedLog.includes('⚠️ Relevant log section not found.')) {
-				  status.innerHTML = `<pre class="warning">  ${logData.logs}</pre>`;
-				} else {
-				  status.innerHTML = `<pre>${cleanedLog}</pre>`;
-				}
+				const { log, warning } = extractRelevantLog(logData.logs);
+				status.innerHTML = warning
+				  ? `<pre class="warning">${log}</pre>`
+				  : `<pre>${log}</pre>`;
+
 			  confetti({
 				particleCount: 100,
 				spread: 70,
@@ -515,16 +515,22 @@
 	function extractRelevantLog(fullLog) {
 	  const startMarker = 'My First Test';
 	  const endMarker = '(Run Finished)';
-
 	  const startIndex = fullLog.indexOf(startMarker);
 	  const endIndex = fullLog.indexOf(endMarker);
 
 	  if (startIndex !== -1 && endIndex !== -1 && endIndex > startIndex) {
-		return fullLog.slice(startIndex, endIndex + endMarker.length);
+		return {
+		  log: fullLog.slice(startIndex, endIndex + endMarker.length),
+		  warning: false
+		};
 	  }
 
-	  return '⚠️ Relevant log section not found.';
+	  return {
+		log: fullLog,
+		warning: true
+	  };
 	}
+
 	function toggleFold() {
 	  const status = document.getElementById('status');
 	  const runner = document.getElementById('runner');
@@ -579,9 +585,10 @@
 
 			  const cleanedLog = extractRelevantLog(logData.logs);
 
-			  if (cleanedLog.includes('⚠️ Relevant log section not found.')) {
-				status.innerHTML = `<pre class="warning">${logData.logs}</pre>`;
-			  } else {
+			  const { log, warning } = extractRelevantLog(logData.logs);
+				if (warning) {
+				  status.innerHTML = `<pre class="warning">${log}</pre>`;
+				} else {
 				// Check if log.html is accessible before showing the link
 				fetch('https://name.github.io/repo1/tmp/log.html', { method: 'HEAD' })
 				  .then(logRes => {
