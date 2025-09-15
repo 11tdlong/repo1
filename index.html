@@ -584,21 +584,6 @@ function startProcess2() {
     .then(data => {
       status.textContent = data.status || '✅ Robot Tests workflow triggered';
 
-      setTimeout(() => {
-        let position = 0;
-        let direction = 1;
-        const maxPosition = container.offsetWidth - 40;
-
-        interval = setInterval(() => {
-			position += direction * 5;
-			if (position >= maxPosition || position <= 0) {
-			  direction *= -1;
-			}
-			runner.style.left = `${position}px`;
-        }, 30);
-
-      }, 200);
-
       // Wait before fetching logs
       setTimeout(() => {
         fetch('https://repo1-qygx.onrender.com/logs/robot')
