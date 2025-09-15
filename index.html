@@ -207,7 +207,7 @@
 	  font-family: monospace;
 	  width: 100%;                    /* full container width */
 	  max-width: none;                /* no artificial limit */
-	  min-width: 1400px;
+	  min-width: 1000px;
 	  box-sizing: border-box;
 	  padding: 10px;
 	}
@@ -230,6 +230,7 @@
   flex-wrap: nowrap;       /* Prevent wrapping */
   white-space: nowrap;     /* Treat all spans as one line */
   overflow-x: auto;
+  min-width: 100%;
 }
 
 .runner-text span {
@@ -344,24 +345,26 @@
         <div class="status" id="status">
 			<div id="trigger-msg"></div>
 		</div>
-		<div class="runner-text" id="runner">
-		  <span>R</span><span>U</span><span>N</span><span>N</span><span>I</span><span>N</span><span>G</span>
-		  <span>,</span><span>&nbsp;</span>
-		  <span>W</span><span>A</span><span>I</span><span>T</span><span>&nbsp;</span>
-		  <span>1</span><span>m</span><span>5</span><span>0</span><span>s</span>
-		</div>
-
+		<div style="width: 100%; overflow-x: auto;">
+			<div class="runner-text" id="runner">
+			  <span>R</span><span>U</span><span>N</span><span>N</span><span>I</span><span>N</span><span>G</span>
+			  <span>,</span><span>&nbsp;</span>
+			  <span>W</span><span>A</span><span>I</span><span>T</span><span>&nbsp;</span>
+			  <span>1</span><span>m</span><span>5</span><span>0</span><span>s</span>
+			</div>
+		</div>	
 		<div style="display: flex; gap: 10px; margin-top: 10px;">
 			<button onclick="startProcess2()">Check 2</button>
 			<button onclick="toggleFold2()" class="icon-only">🕮</button>
 		</div>
 		<div id="status2" class="status"></div>
-		<div class="runner-text" id="runner2">
-		  <span>R</span><span>U</span><span>N</span><span>N</span><span>I</span><span>N</span><span>G</span><span>,</span>
-		  <span>&nbsp;</span><span>W</span><span>A</span><span>I</span><span>T</span><span>&nbsp;</span>
-		  <span>1</span><span>m</span><span>3</span><span>0</span><span>s</span>
-		</div>
-
+		<div style="width: 100%; overflow-x: auto;">
+			<div class="runner-text" id="runner2">
+			  <span>R</span><span>U</span><span>N</span><span>N</span><span>I</span><span>N</span><span>G</span><span>,</span>
+			  <span>&nbsp;</span><span>W</span><span>A</span><span>I</span><span>T</span><span>&nbsp;</span>
+			  <span>1</span><span>m</span><span>3</span><span>0</span><span>s</span>
+			</div>
+		</div>	
 		<div style="display: flex; gap: 10px; margin-top: 10px; align-items: center;">
 		  <button id="check3" class="check-button" onclick="startProcess3()">Check 3</button>
 		  <input type="text" id="input3" class="check-input" style="transform: translateY(-5px);" placeholder="code" />
