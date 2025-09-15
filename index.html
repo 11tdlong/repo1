@@ -226,6 +226,9 @@
 	}
 
 	.runner-text {
+	  position: absolute;
+	  left: 10px; /* base anchor */
+	  transform: translateX(60px); /* shift entire block rightward */
 	  display: none;
 	  justify-content: center;
 	  gap: 5px;
@@ -235,20 +238,18 @@
 	  margin-top: 10px;
 	  flex-wrap: nowrap;
 	  white-space: nowrap;
-	  overflow-x: visible;       /* ✅ Allow overflow to be seen */
-	  width: fit-content;        /* ✅ Shrinks to fit content width */
-	  max-width: 100%;           /* ✅ Prevents overflow beyond parent */
+	  overflow-x: visible;
+	  width: fit-content;
+	  max-width: 100%;
 	  box-sizing: border-box;
 	  text-align: left;
-	  position: absolute; /* ✅ Add this */
 	}
 
 
-
-.runner-text span {
-  display: inline-block;
-  animation: slidePulse 3.5s ease-in-out infinite;
-}
+	.runner-text span {
+	  display: inline-block;
+	  animation: slidePulse 3.5s ease-in-out infinite;
+	}
 
 /* G goes first, then N... then R */
 
@@ -463,10 +464,6 @@ function startProcess() {
 
   status.innerHTML = '<div id="trigger-msg">✅ Workflow triggered successfully</div>';
 
-  let position = 0;
-  let direction = 1;
-  const maxPosition = container.offsetWidth - 40;
-
   // Trigger workflow
   fetch('https://repo1-qygx.onrender.com/trigger-workflow', {
     method: 'POST'
@@ -480,15 +477,6 @@ function startProcess() {
         setTimeout(() => {
           console.log('Showing runner now');
           runner.style.display = 'flex'; // Ensure flex layout for animation
-
-        interval = setInterval(() => {
-			position += direction * 5;
-			if (position >= maxPosition || position <= 0) {
-			  direction *= -1;
-			}
-			runner.style.left = `${position}px`;
-        }, 30);
-
         }, 200);
       }
 
