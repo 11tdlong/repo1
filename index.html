@@ -436,85 +436,86 @@
     requestAnimationFrame(updateClock);
 
     // Button action
-   function startProcess() {
-	  let interval;
-	  const runner = document.getElementById('runner');
-	  const status = document.getElementById('status');
-	  const container = document.querySelector('.align-left');
+function startProcess() {
+  let interval;
+  const runner = document.getElementById('runner');
+  const status = document.getElementById('status');
+  const container = document.querySelector('.align-left');
 
-	  
-	  status.innerHTML = '<div id="trigger-msg">✅ Workflow triggered successfully</div>';
+  // Mark runner as active
+  runner.setAttribute('data-running', 'true');
+  runner.style.display = 'flex'; // Ensure it's visible immediately
 
-	  let position = 0;
-	  let direction = 1;
-	  const maxPosition = container.offsetWidth - 40;
+  status.innerHTML = '<div id="trigger-msg">✅ Workflow triggered successfully</div>';
 
-	  // Trigger workflow
-	  fetch('https://repo1-qygx.onrender.com/trigger-workflow', {
-		method: 'POST'
-	  })
-	  .then(res => res.json())
-	  .then(data => {
-		// Show trigger message below runner
-		const triggerMsg = document.getElementById('trigger-msg');
-		if (triggerMsg) {
-		  triggerMsg.textContent = data.message || '✅ Workflow triggered successfully';
+  let position = 0;
+  let direction = 1;
+  const maxPosition = container.offsetWidth - 40;
 
-		  setTimeout(() => {
-			console.log('Showing runner now');
-			runner.style.display = 'block';
+  // Trigger workflow
+  fetch('https://repo1-qygx.onrender.com/trigger-workflow', {
+    method: 'POST'
+  })
+    .then(res => res.json())
+    .then(data => {
+      const triggerMsg = document.getElementById('trigger-msg');
+      if (triggerMsg) {
+        triggerMsg.textContent = data.message || '✅ Workflow triggered successfully';
 
-			// Start animation only after runner is visible
-			let position = 0;
-			let direction = 1;
-			const maxPosition = container.offsetWidth - 40;
+        setTimeout(() => {
+          console.log('Showing runner now');
+          runner.style.display = 'flex'; // Ensure flex layout for animation
 
-			interval = setInterval(() => {
-			  position += direction * 5;
-			  if (position >= maxPosition || position <= 0) {
-				direction *= -1;
-			  }
-			  runner.style.left = `${position}px`;
-			}, 30);
-		  }, 200); // 1 second delay
-		}
+          interval = setInterval(() => {
+            position += direction * 5;
+            if (position >= maxPosition || position <= 0) {
+              direction *= -1;
+            }
+            runner.style.left = `${position}px`;
+          }, 30);
+        }, 200);
+      }
 
-		// Wait before fetching logs
-		setTimeout(() => {
-		  fetch('https://repo1-qygx.onrender.com/logs/cypress')
-			.then(res => res.json())
-			.then(logData => {
-			  clearInterval(interval);
-			  runner.style.display = 'none';
+      // Wait before fetching logs
+      setTimeout(() => {
+        fetch('https://repo1-qygx.onrender.com/logs/cypress')
+          .then(res => res.json())
+          .then(logData => {
+            clearInterval(interval);
+            runner.style.display = 'none';
+            runner.setAttribute('data-running', 'false'); // Mark as completed
 
-				const { log, warning } = extractRelevantLog(logData.logs);
-				status.innerHTML = warning
-				  ? `<pre class="warning">${log}</pre>`
-				  : `<pre>${log}</pre>`;
+            const { log, warning } = extractRelevantLog(logData.logs);
+            status.innerHTML = warning
+              ? `<pre class="warning">${log}</pre>`
+              : `<pre>${log}</pre>`;
 
-			  confetti({
-				particleCount: 100,
-				spread: 70,
-				origin: { y: 0.6 }
-			  });
+            confetti({
+              particleCount: 100,
+              spread: 70,
+              origin: { y: 0.6 }
+            });
 
-			  document.getElementById('ding').play();
-			})
-			.catch(err => {
-			  clearInterval(interval);
-			  runner.style.display = 'none';
-			  status.textContent = '❌ Error fetching logs';
-			  console.error(err);
-			});
-		}, 120000); // Delay to allow Cypress to run
-	  })
-	  .catch(err => {
-		clearInterval(interval);
-		runner.style.display = 'none';
-		status.textContent = '❌ Error triggering workflow';
-		console.error(err);
-	  });
-    }
+            document.getElementById('ding').play();
+          })
+          .catch(err => {
+            clearInterval(interval);
+            runner.style.display = 'none';
+            runner.setAttribute('data-running', 'false'); // Mark as failed
+            status.textContent = '❌ Error fetching logs';
+            console.error(err);
+          });
+      }, 120000);
+    })
+    .catch(err => {
+      clearInterval(interval);
+      runner.style.display = 'none';
+      runner.setAttribute('data-running', 'false'); // Mark as failed
+      status.textContent = '❌ Error triggering workflow';
+      console.error(err);
+    });
+}
+
 	function extractRelevantLog(fullLog) {
 	  const startMarker = 'My First Test';
 	  const endMarker = '(Run Finished)';
@@ -539,124 +540,129 @@ function toggleFold() {
   const runner = document.getElementById('runner');
 
   const hasContent = status.textContent.trim().length > 0;
-  const isRunning = status.textContent.includes('⏳') || status.textContent.includes('Triggering');
+  const isRunning = runner.getAttribute('data-running') === 'true';
 
   if (!hasContent) return;
 
   const isHidden = status.style.display === 'none';
   status.style.display = isHidden ? 'block' : 'none';
 
-  // Only show runner if toggling open AND process is still running
   runner.style.display = isHidden && isRunning ? 'flex' : 'none';
 }
 
 
-	function startProcess2() {
-	  let interval;
-	  const runner = document.getElementById('runner2');
-	  const status = document.getElementById('status2');
-	  const container = document.querySelector('.align-left');
+function startProcess2() {
+  let interval;
+  const runner = document.getElementById('runner2');
+  const status = document.getElementById('status2');
+  const container = document.querySelector('.align-left');
 
-	  status.textContent = '⏳ Triggering Robot Tests...';
+  // Mark runner as active
+  runner.setAttribute('data-running', 'true');
+  runner.style.display = 'flex';
 
-	  fetch('https://repo1-qygx.onrender.com/trigger-robot-tests', {
-		method: 'POST'
-	  })
-	  .then(res => res.json())
-	  .then(data => {
-		status.textContent = data.status || '✅ Robot Tests workflow triggered';
+  status.textContent = '⏳ Triggering Robot Tests...';
 
-		setTimeout(() => {
-		  runner.style.display = 'flex';
-
-		  let position = 0;
-		  let direction = 1;
-		  const maxPosition = container.offsetWidth - 40;
-
-		  interval = setInterval(() => {
-			position += direction * 5;
-			if (position >= maxPosition || position <= 0) {
-			  direction *= -1;
-			}
-			runner.style.left = `${position}px`;
-		  }, 30);
-		}, 200);
-
-		setTimeout(() => {
-  fetch('https://repo1-qygx.onrender.com/logs/robot')
+  fetch('https://repo1-qygx.onrender.com/trigger-robot-tests', {
+    method: 'POST'
+  })
     .then(res => res.json())
-    .then(logData => {
+    .then(data => {
+      status.textContent = data.status || '✅ Robot Tests workflow triggered';
+
+      setTimeout(() => {
+        let position = 0;
+        let direction = 1;
+        const maxPosition = container.offsetWidth - 40;
+
+        interval = setInterval(() => {
+          position += direction * 5;
+          if (position >= maxPosition || position <= 0) {
+            direction *= -1;
+          }
+          runner.style.left = `${position}px`;
+        }, 30);
+      }, 200);
+
+      // Wait before fetching logs
+      setTimeout(() => {
+        fetch('https://repo1-qygx.onrender.com/logs/robot')
+          .then(res => res.json())
+          .then(logData => {
+            clearInterval(interval);
+            runner.style.display = 'none';
+            runner.setAttribute('data-running', 'false'); // Mark as completed
+
+            const { log, warning } = extractRelevantLog(logData.logs);
+
+            if (warning) {
+              status.innerHTML = `<pre class="warning">${log}</pre>`;
+            } else {
+              // Check if log.html is accessible and valid
+              fetch('https://name.github.io/repo1/tmp/log.html')
+                .then(logRes => logRes.text())
+                .then(html => {
+                  if (html.includes('Opening Robot Framework log failed')) {
+                    status.innerHTML = `
+                      <pre class="warning">
+✅ Robot Test Completed, but log.html failed to load properly.
+Please verify the log was generated correctly.
+                      </pre>
+                    `;
+                  } else {
+                    status.innerHTML = `
+                      <p>✅ Robot Test Completed</p>
+                      <div class="log-label" title="Robot Log">log.html</div>
+                    `;
+                  }
+                })
+                .catch(() => {
+                  status.innerHTML = `
+                    <pre class="warning">
+✅ Robot Test Completed, but failed to verify log.html.
+Check your network connection or try again later.
+                    </pre>
+                  `;
+                });
+            }
+
+            confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+            document.getElementById('ding').play();
+          })
+          .catch(err => {
+            clearInterval(interval);
+            runner.style.display = 'none';
+            runner.setAttribute('data-running', 'false'); // Mark as failed
+            status.textContent = '❌ Error fetching Robot logs';
+            console.error(err);
+          });
+      }, 110000); // Wait for Robot tests to complete
+    })
+    .catch(err => {
       clearInterval(interval);
       runner.style.display = 'none';
+      runner.setAttribute('data-running', 'false'); // Mark as failed
+      status.textContent = '❌ Error triggering Robot Tests';
+      console.error(err);
+    });
+}
 
-      const { log, warning } = extractRelevantLog(logData.logs);
-
-      if (warning) {
-        status.innerHTML = `<pre class="warning">${log}</pre>`;
-      } else {
-        // Check if log.html is accessible and valid
-        fetch('https://name.github.io/repo1/tmp/log.html')
-          .then(logRes => logRes.text())
-          .then(html => {
-            if (html.includes('Opening Robot Framework log failed')) {
-              status.innerHTML = `
-                <pre class="warning">
-		✅ Robot Test Completed, but log.html failed to load properly.
-		Please verify the log was generated correctly.
-						</pre>
-					  `;
-					} else {
-					  status.innerHTML = `
-						<p>✅ Robot Test Completed</p>
-						<div class="log-label" title="Robot Log">log.html</div>
-					  `;
-					}
-				  })
-				  .catch(() => {
-					status.innerHTML = `
-					  <pre class="warning">
-		✅ Robot Test Completed, but failed to verify log.html.
-		Check your network connection or try again later.
-					  </pre>
-					`;
-				  });
-			  }
-
-			  confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
-			  document.getElementById('ding').play();
-			})
-			.catch(err => {
-			  clearInterval(interval);
-			  runner.style.display = 'none';
-			  status.textContent = '❌ Error fetching Robot logs';
-			  console.error(err);
-			});
-		}, 110000); // Wait for Robot tests to complete
-
-	  })
-	  .catch(err => {
-		clearInterval(interval);
-		runner.style.display = 'none';
-		status.textContent = '❌ Error triggering Robot Tests';
-		console.error(err);
-	  });
-	}
 
 function toggleFold2() {
   const status = document.getElementById('status2');
   const runner = document.getElementById('runner2');
 
   const hasContent = status.textContent.trim().length > 0;
-  const isRunning = status.textContent.includes('⏳') || status.textContent.includes('Triggering');
+  const isRunning = runner.getAttribute('data-running') === 'true';
 
   if (!hasContent) return;
 
   const isHidden = status.style.display === 'none';
   status.style.display = isHidden ? 'block' : 'none';
 
-  // Only show runner if toggling open AND process is still running
   runner.style.display = isHidden && isRunning ? 'flex' : 'none';
 }
+
 
 
 	function startProcess3() {
