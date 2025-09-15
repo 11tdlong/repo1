@@ -534,23 +534,22 @@
 	  };
 	}
 
-	function toggleFold() {
-	  const status = document.getElementById('status');
-	  const runner = document.getElementById('runner');
+function toggleFold() {
+  const status = document.getElementById('status');
+  const runner = document.getElementById('runner');
 
-	  const hasContent = status.textContent.trim().length > 0;
-	  const isRunning = status.textContent.includes('⏳') || status.textContent.includes('Triggering');
+  const hasContent = status.textContent.trim().length > 0;
+  const isRunning = status.textContent.includes('⏳') || status.textContent.includes('Triggering');
 
-	  if (!hasContent || isRunning) {
-		return; // Don't toggle if there's no meaningful content or it's still running
-	  }
+  if (!hasContent) return;
 
-	  const isHidden = status.style.display === 'none';
-	  status.style.display = isHidden ? 'block' : 'none';
+  const isHidden = status.style.display === 'none';
+  status.style.display = isHidden ? 'block' : 'none';
 
-	  // Only show runner if toggling open AND process is still running
-	  runner.style.display = isHidden && isRunning ? 'flex' : 'none';
-	}
+  // Only show runner if toggling open AND process is still running
+  runner.style.display = isHidden && isRunning ? 'flex' : 'none';
+}
+
 
 	function startProcess2() {
 	  let interval;
@@ -643,23 +642,22 @@
 	  });
 	}
 
-	function toggleFold2() {
-	  const status = document.getElementById('status2');
-	  const runner = document.getElementById('runner2');
+function toggleFold2() {
+  const status = document.getElementById('status2');
+  const runner = document.getElementById('runner2');
 
-	  const hasContent = status.textContent.trim().length > 0;
-	  const isRunning = status.textContent.includes('⏳') || status.textContent.includes('Triggering');
+  const hasContent = status.textContent.trim().length > 0;
+  const isRunning = status.textContent.includes('⏳') || status.textContent.includes('Triggering');
 
-	  if (!hasContent || isRunning) {
-		return; // Don't toggle if there's no meaningful content or it's still running
-	  }
+  if (!hasContent) return;
 
-	  const isHidden = status.style.display === 'none';
-	  status.style.display = isHidden ? 'block' : 'none';
+  const isHidden = status.style.display === 'none';
+  status.style.display = isHidden ? 'block' : 'none';
 
-	  // Only show runner if toggling open AND process is still running
-	  runner.style.display = isHidden && isRunning ? 'flex' : 'none';
-	}
+  // Only show runner if toggling open AND process is still running
+  runner.style.display = isHidden && isRunning ? 'flex' : 'none';
+}
+
 
 	function startProcess3() {
 	  // Placeholder for Check 3 logic
