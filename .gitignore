@@ -1,0 +1,5 @@
+# Ignore everything in tmp/
+tmp/*
+
+# But keep log.html
+!tmp/log.html
