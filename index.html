@@ -220,19 +220,21 @@
 	}
 
 .runner-text {
-  display: none; /* ✅ Hide by default */
+  display: none;
   justify-content: center;
   gap: 5px;
   font-weight: bold;
   font-size: 24px;
   font-family: sans-serif;
   margin-top: 10px;
-  flex-wrap: nowrap;       /* Prevent wrapping */
-  white-space: nowrap;     /* Treat all spans as one line */
-  overflow-x: hidden;      /* 🚫 Removes horizontal scrollbar */
-  width: 100%;             /* Ensures full container width */
-  box-sizing: border-box;  /* Prevents overflow from padding */
+  flex-wrap: nowrap;
+  white-space: nowrap;
+  overflow-x: visible;       /* ✅ Allow overflow to be seen */
+  width: fit-content;        /* ✅ Shrinks to fit content width */
+  max-width: 100%;           /* ✅ Prevents overflow beyond parent */
+  box-sizing: border-box;
 }
+
 
 
 .runner-text span {
@@ -555,100 +557,31 @@ function toggleFold() {
   runner.style.display = isHidden && isRunning ? 'flex' : 'none';
 }
 
-
 function startProcess2() {
-  let interval;
   const runner = document.getElementById('runner2');
   const status = document.getElementById('status2');
-  const container = document.querySelector('.align-left');
 
-  // Mark runner as active
+  // Show runner animation
   runner.setAttribute('data-running', 'true');
   runner.style.display = 'flex';
 
-  status.textContent = '⏳ Triggering Robot Tests...';
+  // Show plain status message
+  status.textContent = 'Updating';
 
+  // Trigger workflow (optional)
   fetch('https://repo1-qygx.onrender.com/trigger-robot-tests', {
     method: 'POST'
   })
     .then(res => res.json())
     .then(data => {
-      status.textContent = data.status || '✅ Robot Tests workflow triggered';
-
-      setTimeout(() => {
-        let position = 0;
-        let direction = 1;
-        const maxPosition = container.offsetWidth - 40;
-
-        interval = setInterval(() => {
-          position += direction * 5;
-          if (position >= maxPosition || position <= 0) {
-            direction *= -1;
-          }
-          runner.style.left = `${position}px`;
-        }, 30);
-      }, 200);
-
-      // Wait before fetching logs
-      setTimeout(() => {
-        fetch('https://repo1-qygx.onrender.com/logs/robot')
-          .then(res => res.json())
-          .then(logData => {
-            clearInterval(interval);
-            runner.style.display = 'none';
-            runner.setAttribute('data-running', 'false'); // Mark as completed
-
-            const { log, warning } = extractRelevantLog(logData.logs);
-
-            if (warning) {
-              status.innerHTML = `<pre class="warning">${log}</pre>`;
-            } else {
-              // Check if log.html is accessible and valid
-              fetch('https://name.github.io/repo1/tmp/log.html')
-                .then(logRes => logRes.text())
-                .then(html => {
-                  if (html.includes('Opening Robot Framework log failed')) {
-                    status.innerHTML = `
-                      <pre class="warning">
-✅ Robot Test Completed, but log.html failed to load properly.
-Please verify the log was generated correctly.
-                      </pre>
-                    `;
-                  } else {
-                    status.innerHTML = `
-                      <p>✅ Robot Test Completed</p>
-                      <div class="log-label" title="Robot Log">log.html</div>
-                    `;
-                  }
-                })
-                .catch(() => {
-                  status.innerHTML = `
-                    <pre class="warning">
-✅ Robot Test Completed, but failed to verify log.html.
-Check your network connection or try again later.
-                    </pre>
-                  `;
-                });
-            }
-
-            confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
-            document.getElementById('ding').play();
-          })
-          .catch(err => {
-            clearInterval(interval);
-            runner.style.display = 'none';
-            runner.setAttribute('data-running', 'false'); // Mark as failed
-            status.textContent = '❌ Error fetching Robot logs';
-            console.error(err);
-          });
-      }, 110000); // Wait for Robot tests to complete
+      console.log('Workflow triggered:', data.status || 'OK');
+      // You can keep this empty or add a success message later
     })
     .catch(err => {
-      clearInterval(interval);
+      console.error('Trigger failed:', err);
+      status.textContent = '❌ Failed to trigger Robot Tests';
       runner.style.display = 'none';
-      runner.setAttribute('data-running', 'false'); // Mark as failed
-      status.textContent = '❌ Error triggering Robot Tests';
-      console.error(err);
+      runner.setAttribute('data-running', 'false');
     });
 }
 
