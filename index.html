@@ -218,6 +218,11 @@
 	  border-radius: 4px;
 	  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 	}
+.runner-wrapper {
+  width: 100%;
+  display: block;              /* No flex centering */
+  margin-top: 10px;
+}
 
 .runner-text {
   display: none;
@@ -233,6 +238,7 @@
   width: fit-content;        /* ✅ Shrinks to fit content width */
   max-width: 100%;           /* ✅ Prevents overflow beyond parent */
   box-sizing: border-box;
+  text-align: left;
 }
 
 
@@ -349,7 +355,7 @@
         <div class="status" id="status">
 			<div id="trigger-msg"></div>
 		</div>
-		<div style="width: 100%">
+		<div class="runner-wrapper">
 			<div class="runner-text" id="runner">
 			  <span>R</span><span>U</span><span>N</span><span>N</span><span>I</span><span>N</span><span>G</span>
 			  <span>,</span><span>&nbsp;</span>
@@ -362,7 +368,7 @@
 			<button onclick="toggleFold2()" class="icon-only">🕮</button>
 		</div>
 		<div id="status2" class="status"></div>
-		<div style="width: 100%">
+		<div class="runner-wrapper">
 			<div class="runner-text" id="runner2">
 			  <span>R</span><span>U</span><span>N</span><span>N</span><span>I</span><span>N</span><span>G</span><span>,</span>
 			  <span>&nbsp;</span><span>W</span><span>A</span><span>I</span><span>T</span><span>&nbsp;</span>
