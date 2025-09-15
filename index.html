@@ -481,16 +481,13 @@ function startProcess() {
           console.log('Showing runner now');
           runner.style.display = 'flex'; // Ensure flex layout for animation
 
-        const minLeft = 10;
-		const maxLeft = container.offsetWidth - runner.offsetWidth - 10;
-
-		interval = setInterval(() => {
-		  position += direction * 5;
-		  if (position >= maxLeft || position <= minLeft) {
-			direction *= -1;
-		  }
-		  runner.style.left = `${position}px`;
-		}, 30);
+        interval = setInterval(() => {
+			position += direction * 5;
+			if (position >= maxPosition || position <= 0) {
+			  direction *= -1;
+			}
+			runner.style.left = `${position}px`;
+        }, 30);
 
         }, 200);
       }
@@ -592,16 +589,13 @@ function startProcess2() {
         let direction = 1;
         const maxPosition = container.offsetWidth - 40;
 
-        const minLeft = 10;
-		const maxLeft = container.offsetWidth - runner.offsetWidth - 10;
-
-		interval = setInterval(() => {
-		  position += direction * 5;
-		  if (position >= maxLeft || position <= minLeft) {
-			direction *= -1;
-		  }
-		  runner.style.left = `${position}px`;
-		}, 30);
+        interval = setInterval(() => {
+			position += direction * 5;
+			if (position >= maxPosition || position <= 0) {
+			  direction *= -1;
+			}
+			runner.style.left = `${position}px`;
+        }, 30);
 
       }, 200);
 
