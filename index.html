@@ -590,13 +590,18 @@ function startProcess2() {
               fetch('https://name.github.io/repo1/tmp/log.html')
                 .then(logRes => logRes.text())
                 .then(html => {
-                  status.innerHTML = `
-				  <p>✅ Robot Test Completed</p>
-				  <a class="log-label" href="https://name.github.io/repo1/tmp/log.html" target="_blank" rel="noopener noreferrer">
-					log.html
-				  </a>
-				`;
-                })
+				  if (html.includes('Robot Framework log failed')) {
+					throw new Error('Broken log viewer');
+				  }
+
+				  status.innerHTML = `
+					<p>✅ Robot Test Completed</p>
+					<a class="log-label" href="https://name.github.io/repo1/tmp/log.html" target="_blank" rel="noopener noreferrer">
+					  log.html
+					</a>
+				  `;
+				})
+
                 .catch(() => {
                   status.innerHTML = `
                     <pre class="warning">
