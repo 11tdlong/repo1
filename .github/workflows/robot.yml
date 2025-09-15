@@ -48,11 +48,6 @@ jobs:
           name: robot-logs
           path: ${{ github.workspace }}/tmp/log.html
 
-      - name: Prepare log.html for GitHub Pages
-        run: |
-          mkdir -p tmp
-          cp log.html tmp/log.html
-
       - name: Commit log.html to main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -60,6 +55,6 @@ jobs:
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"
           git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}
-          git add log.html tmp/
+          git add tmp/log.html tmp/
           git commit -m "Update Robot logs"
           git push origin main
