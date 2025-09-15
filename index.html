@@ -562,32 +562,99 @@ function toggleFold() {
 
   runner.style.display = isHidden && isRunning ? 'flex' : 'none';
 }
-
 function startProcess2() {
+  let interval;
   const runner = document.getElementById('runner2');
   const status = document.getElementById('status2');
+  const container = document.querySelector('.align-left');
 
-  // Show runner animation
+  // Mark runner as active
   runner.setAttribute('data-running', 'true');
   runner.style.display = 'flex';
 
-  // Show plain status message
-  status.textContent = 'Updating';
+  status.textContent = '⏳ Triggering Robot Tests...';
 
-  // Trigger workflow (optional)
   fetch('https://repo1-qygx.onrender.com/trigger-robot-tests', {
     method: 'POST'
   })
     .then(res => res.json())
     .then(data => {
-      console.log('Workflow triggered:', data.status || 'OK');
-      // You can keep this empty or add a success message later
+      status.textContent = data.status || '✅ Robot Tests workflow triggered';
+
+      setTimeout(() => {
+        let position = 0;
+        let direction = 1;
+        const maxPosition = container.offsetWidth - 40;
+
+        interval = setInterval(() => {
+          position += direction * 5;
+          if (position >= maxPosition || position <= 0) {
+            direction *= -1;
+          }
+          runner.style.left = `${position}px`;
+        }, 30);
+      }, 200);
+
+      // Wait before fetching logs
+      setTimeout(() => {
+        fetch('https://repo1-qygx.onrender.com/logs/robot')
+          .then(res => res.json())
+          .then(logData => {
+            clearInterval(interval);
+            runner.style.display = 'none';
+            runner.setAttribute('data-running', 'false'); // Mark as completed
+
+            const { log, warning } = extractRelevantLog(logData.logs);
+
+            if (warning) {
+              status.innerHTML = `<pre class="warning">${log}</pre>`;
+            } else {
+              // Check if log.html is accessible and valid
+              fetch('https://name.github.io/repo1/tmp/log.html')
+                .then(logRes => logRes.text())
+                .then(html => {
+                  if (html.includes('Opening Robot Framework log failed')) {
+                    status.innerHTML = `
+                      <pre class="warning">
+✅ Robot Test Completed, but log.html failed to load properly.
+Please verify the log was generated correctly.
+                      </pre>
+                    `;
+                  } else {
+                    status.innerHTML = `
+                      <p>✅ Robot Test Completed</p>
+                      <div class="log-label" title="Robot Log">log.html</div>
+                    `;
+                  }
+                })
+                .catch(() => {
+                  status.innerHTML = `
+                    <pre class="warning">
+✅ Robot Test Completed, but failed to verify log.html.
+Check your network connection or try again later.
+                    </pre>
+                  `;
+                });
+            }
+
+            confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+            document.getElementById('ding').play();
+          })
+          .catch(err => {
+            clearInterval(interval);
+            runner.style.display = 'none';
+            runner.setAttribute('data-running', 'false'); // Mark as failed
+            status.textContent = '❌ Error fetching Robot logs';
+            console.error(err);
+          });
+      }, 110000); // Wait for Robot tests to complete
     })
     .catch(err => {
-      console.error('Trigger failed:', err);
-      status.textContent = '❌ Failed to trigger Robot Tests';
+      clearInterval(interval);
       runner.style.display = 'none';
-      runner.setAttribute('data-running', 'false');
+      runner.setAttribute('data-running', 'false'); // Mark as failed
+      status.textContent = '❌ Error triggering Robot Tests';
+      console.error(err);
     });
 }
 
