@@ -553,6 +553,7 @@ function toggleFold() {
 
   runner.style.display = isHidden && isRunning ? 'flex' : 'none';
 }
+
 function startProcess2() {
   let interval;
   const runner = document.getElementById('runner2');
@@ -586,27 +587,22 @@ function startProcess2() {
             if (warning) {
               status.innerHTML = `<pre class="warning">${log}</pre>`;
             } else {
-              // Check if log.html is accessible and valid
-              fetch('https://name.github.io/repo1/tmp/log.html')
-                .then(logRes => logRes.text())
-                .then(html => {
-				  if (html.includes('Robot Framework log failed')) {
-					throw new Error('Broken log viewer');
-				  }
+              // Use HEAD request to verify log.html exists
+              fetch('https://11tdlong.github.io/repo1/tmp/log.html', { method: 'HEAD' })
+                .then(headRes => {
+                  if (!headRes.ok) throw new Error('log.html not found');
 
-				  status.innerHTML = `
-				  <p>✅ Robot Test Completed</p>
-				  <a class="log-label" href="https://11tdlong.github.io/repo1/tmp/log.html" target="_blank" rel="noopener noreferrer">
-					Robot Log
-				  </a>
-				`;
-
-				})
-
+                  status.innerHTML = `
+                    <p>✅ Robot Test Completed</p>
+                    <a class="log-label" href="https://11tdlong.github.io/repo1/tmp/log.html" target="_blank" rel="noopener noreferrer">
+                      Robot Log
+                    </a>
+                  `;
+                })
                 .catch(() => {
                   status.innerHTML = `
                     <pre class="warning">
-✅ Robot Test Completed, but failed to verify log.html.
+✅ Robot Test Completed, but log.html is not available.
 Check your network connection or try again later.
                     </pre>
                   `;
@@ -633,6 +629,7 @@ Check your network connection or try again later.
       console.error(err);
     });
 }
+
 
 
 function toggleFold2() {
