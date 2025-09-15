@@ -39,24 +39,23 @@ jobs:
       - name: Run Robot Framework tests
         run: |
           echo "🤖 Starting Robot tests..."
-          robot -i done . | tee out.txt
+          robot -i done -d tmp .
           echo "✅ Robot tests complete."
-
       - name: Verify log.html exists and is not empty
         run: |
-          if [ ! -s log.html ]; then
-            echo "❌ log.html is missing or empty"
+          if [ ! -s tmp/log.html ]; then
+            echo "❌ tmp/log.html is missing or empty"
             exit 1
           fi
-
-      - name: Move log.html to tmp folder
-        run: mv log.html tmp/log.html
 
       - name: Upload Robot logs
         uses: actions/upload-artifact@v4
         with:
           name: robot-logs
           path: ${{ github.workspace }}/tmp/log.html
+
+      - name: Ensure tmp folder is tracked
+        run: git pull origin main
 
       - name: Commit log.html to tmp folder in main
         env:
