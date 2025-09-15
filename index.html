@@ -20,18 +20,25 @@
 	  cursor: pointer;
 }
  
-	.clock {
-	  width: 300px;
-	  height: 300px;
-	  border: 8px solid #333;
-	  border-radius: 50%;
-	  position: relative;
-	  background: white;
-	  box-shadow:
-	    inset 0 0 10px #ccc,
-	    20px 20px 30px rgba(0, 0, 0, 0.4); /* ✅ Long diagonal shadow */
-	}
-	
+.clock {
+  width: 300px;
+  height: 300px;
+  min-width: 300px;
+  min-height: 300px;
+  border: 8px solid #333;
+  border-radius: 50%;
+  position: relative;
+  background: white;
+  flex-shrink: 0;
+  overflow: visible;
+
+  box-shadow:
+    inset 0 0 10px rgba(0, 0, 0, 0.1),         /* soft inner glow */
+    18px 14px 28px rgba(0, 0, 0, 0.35),        /* diagonal bottom-right cast */
+    0 6px 12px rgba(0, 0, 0, 0.2),             /* soft vertical lift for bottom arc */
+    -6px -6px 10px rgba(255, 255, 255, 0.4);   /* top-left highlight */
+}
+
 	/* Glassy glare overlay */
 	.clock::after {
 	  content: '';
@@ -92,6 +99,9 @@
 	  left: 10%;
 	  display: flex;
 	  align-items: flex-start;
+	    flex-direction: row;
+	overflow-x: auto; /* Allow horizontal scroll if needed */
+	padding-bottom: 40px; /* extra space below clock */
 	}
 
     .clock {
