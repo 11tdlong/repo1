@@ -46,7 +46,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: robot-logs
-          path: ${{ github.workspace }}/log.html
+          path: ${{ github.workspace }}/tmp/log.html
 
       - name: Prepare log.html for GitHub Pages
         run: |
