@@ -7,7 +7,7 @@ const unzipper = require('unzipper');
 const app = express();
 const token = process.env.SEC1;
 
-// Middleware
+// ✅ Middleware
 app.use(cors({
   origin: 'https://11tdlong.github.io'
 }));
@@ -15,7 +15,12 @@ app.use(express.json());
 
 console.log('✅ GitHub token loaded:', !!token);
 
-// 🔧 Trigger GitHub Actions workflow
+// ✅ Health check route
+app.get('/ping', (req, res) => {
+  res.send({ status: '✅ Backend is alive' });
+});
+
+// ✅ Trigger GitHub Actions workflow
 app.post('/trigger-workflow', async (req, res) => {
   try {
     const response = await fetch('https://api.github.com/repos/11tdlong/repo1/actions/workflows/cypress.yml/dispatches', {
@@ -41,7 +46,7 @@ app.post('/trigger-workflow', async (req, res) => {
   }
 });
 
-// 🔧 Trigger Robot Tests workflow
+// ✅ Trigger Robot Tests workflow
 app.post('/trigger-robot-tests', async (req, res) => {
   try {
     const response = await fetch('https://api.github.com/repos/11tdlong/repo1/actions/workflows/robot.yml/dispatches', {
@@ -67,7 +72,7 @@ app.post('/trigger-robot-tests', async (req, res) => {
   }
 });
 
-// 🔍 Serve logs from GitHub artifact
+// ✅ Serve logs from GitHub artifact
 app.get('/logs/cypress', async (req, res) => {
   await fetchAndSendArtifactLogs('cypress-logs', res);
 });
@@ -121,18 +126,30 @@ async function fetchAndSendArtifactLogs(artifactName, res) {
   }
 }
 
-// 🆕 FireAnt proxy route to bypass CORS
+// ✅ FireAnt proxy route with debug logging
 app.get('/fireant/:code', async (req, res) => {
   const code = req.params.code;
+  console.log(`🔍 Requesting token for: ${code}`);
 
   try {
     const tokenRes = await fetch(`https://fireant.vn/ma-chung-khoan/${code}`);
-    const tokenData = await tokenRes.json();
-    const accessToken = tokenData.accessToken;
+    const rawText = await tokenRes.text();
 
+    let tokenData;
+    try {
+      tokenData = JSON.parse(rawText);
+    } catch (err) {
+      console.error('❌ Failed to parse token response:', rawText);
+      return res.status(500).send({ error: 'Invalid token response from FireAnt.' });
+    }
+
+    const accessToken = tokenData.accessToken;
     if (!accessToken) {
+      console.error('❌ No accessToken found:', tokenData);
       return res.status(400).send({ error: 'No accessToken found in response.' });
     }
+
+    console.log(`🔑 Token received: ${accessToken}`);
 
     const quotesRes = await fetch(`https://restv2.fireant.vn/symbols/${code}/historical-quotes?startDate=2022-08-08&endDate=2025-12-12&offset=0&limit=30`, {
       headers: {
@@ -140,7 +157,17 @@ app.get('/fireant/:code', async (req, res) => {
       }
     });
 
-    const quotesData = await quotesRes.json();
+    const quotesText = await quotesRes.text();
+
+    let quotesData;
+    try {
+      quotesData = JSON.parse(quotesText);
+    } catch (err) {
+      console.error('❌ Failed to parse quotes response:', quotesText);
+      return res.status(500).send({ error: 'Invalid quotes response from FireAnt.' });
+    }
+
+    console.log(`📊 Quotes received for ${code}:`, quotesData);
     res.send({ quotes: quotesData });
   } catch (err) {
     console.error('❌ FireAnt error:', err.message);
@@ -148,6 +175,6 @@ app.get('/fireant/:code', async (req, res) => {
   }
 });
 
-// 🚀 Start server
+// ✅ Start server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
