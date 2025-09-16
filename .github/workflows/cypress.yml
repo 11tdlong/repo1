@@ -34,7 +34,7 @@ jobs:
         run: |
           mkdir -p logs
           echo "🔍 Starting Cypress tests..."
-          npx cypress run --spec "cypress/e2e/check.cy.js" | tee logs/output.txt
+          TZ=Asia/Ho_Chi_Minh npx cypress run --spec "cypress/e2e/check.cy.js" | tee logs/output.txt
           echo "✅ Cypress tests complete." | tee -a logs/output.txt
 
       - name: Upload Cypress log directly
