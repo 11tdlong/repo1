@@ -82,9 +82,14 @@ app.get('/logs/cypress', async (req, res) => {
 
 app.get('/logs/robot', async (req, res) => {
   try {
-    const xmlPath = path.join(__dirname, 'tmp', 'output.xml');
-    const xmlData = fs.readFileSync(xmlPath, 'utf8');
+    const xmlUrl = 'https://raw.githubusercontent.com/11tdlong/repo1/main/tmp/output.xml';
+    const xmlResponse = await fetch(xmlUrl);
 
+    if (!xmlResponse.ok) {
+      throw new Error(`Failed to fetch output.xml: ${xmlResponse.statusText}`);
+    }
+
+    const xmlData = await xmlResponse.text();
     const parser = new xml2js.Parser();
     const result = await parser.parseStringPromise(xmlData);
 
@@ -97,14 +102,19 @@ app.get('/logs/robot', async (req, res) => {
       logUrl: 'https://11tdlong.github.io/repo1/tmp/log.html'
     });
   } catch (err) {
-    console.error('Error parsing output.xml:', err);
-    res.status(500).json({ error: 'Failed to extract summary' });
+    console.error('❌ Error fetching/parsing output.xml:', err.message);
+    res.status(500).json({ error: 'Failed to extract summary from output.xml' });
   }
 });
 
+function sanitizeName(name) {
+  return name.replace(/[^a-zA-Z0-9-_]/g, '');
+}
+
 async function fetchAndSendArtifactLogs(artifactName, res) {
   try {
-    const listRes = await fetch('https://api.github.com/repos/11tdlong/repo1/actions/artifacts', {
+    const safeName = sanitizeName(artifactName);
+    const listRes = await fetch(`https://api.github.com/repos/11tdlong/repo1/actions/artifacts`, {
       headers: {
         Authorization: `Bearer ${token}`,
         Accept: 'application/vnd.github+json'
@@ -112,10 +122,11 @@ async function fetchAndSendArtifactLogs(artifactName, res) {
     });
 
     const listData = await listRes.json();
-    const artifact = listData.artifacts.find(a => a.name === artifactName);
+    const artifact = listData.artifacts.find(a => a.name === safeName);
 
     if (!artifact) {
-      return res.send({ logs: `⚠️ No artifact named "${artifactName}" found.` });
+      console.warn(`⚠️ Artifact "${safeName}" not found.`);
+      return res.send({ logs: `⚠️ No artifact named "${safeName}" found.` });
     }
 
     const zipRes = await fetch(artifact.archive_download_url, {
@@ -128,13 +139,12 @@ async function fetchAndSendArtifactLogs(artifactName, res) {
     const zipBuffer = await zipRes.buffer();
     const directory = await unzipper.Open.buffer(zipBuffer);
 
-    const targetFile =
-      artifactName === 'robot-logs'
-        ? directory.files.find(f => f.path === 'log.html')
-        : directory.files.find(f => f.path === 'output.txt');
+    const targetFile = directory.files.find(f =>
+      f.path === 'log.html' || f.path === 'output.txt'
+    );
 
     if (!targetFile) {
-      return res.send({ logs: `⚠️ Expected file not found in "${artifactName}".` });
+      return res.send({ logs: `⚠️ Expected file not found in "${safeName}".` });
     }
 
     const content = await targetFile.buffer();
@@ -146,6 +156,7 @@ async function fetchAndSendArtifactLogs(artifactName, res) {
     res.status(500).send({ error: `Failed to retrieve logs for ${artifactName}.` });
   }
 }
+
 
 // ✅ FireAnt proxy route with debug logging
 app.get('/fireant/:code', async (req, res) => {
