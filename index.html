@@ -588,7 +588,7 @@ function startProcess2() {
             runner.style.display = 'none';
             runner.setAttribute('data-running', 'false');
 
-            const { log, warning } = extractRelevantLog(logData.logs);
+            const { log, warning } = extractRelevantLog(logData.summary);
 
             if (warning) {
               status.innerHTML = `<pre class="warning">${log}</pre>`;
