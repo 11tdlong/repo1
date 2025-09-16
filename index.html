@@ -530,24 +530,32 @@ function startProcess() {
     });
 }
 
-	function extractRelevantLog(fullLog) {
-	  const startMarker = 'My First Test';
-	  const endMarker = '(Run Finished)';
-	  const startIndex = fullLog.indexOf(startMarker);
-	  const endIndex = fullLog.indexOf(endMarker);
+function extractRelevantLog(fullLog) {
+  if (typeof fullLog !== 'string') {
+    return {
+      log: '⚠️ Log data is missing or invalid.',
+      warning: true
+    };
+  }
 
-	  if (startIndex !== -1 && endIndex !== -1 && endIndex > startIndex) {
-		return {
-		  log: fullLog.slice(startIndex, endIndex + endMarker.length),
-		  warning: false
-		};
-	  }
+  const startMarker = 'My First Test';
+  const endMarker = '(Run Finished)';
+  const startIndex = fullLog.indexOf(startMarker);
+  const endIndex = fullLog.indexOf(endMarker);
 
-	  return {
-		log: fullLog,
-		warning: true
-	  };
-	}
+  if (startIndex !== -1 && endIndex !== -1 && endIndex > startIndex) {
+    return {
+      log: fullLog.slice(startIndex, endIndex + endMarker.length),
+      warning: false
+    };
+  }
+
+  return {
+    log: fullLog,
+    warning: true
+  };
+}
+
 
 function toggleFold() {
   const status = document.getElementById('status');
