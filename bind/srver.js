@@ -81,35 +81,12 @@ app.get('/logs/cypress', async (req, res) => {
 });
 
 app.get('/logs/robot', async (req, res) => {
-  try {
-    const xmlUrl = 'https://raw.githubusercontent.com/11tdlong/repo1/main/tmp/output.xml';
-    const xmlResponse = await fetch(xmlUrl);
-
-    if (!xmlResponse.ok) {
-      throw new Error(`Failed to fetch output.xml: ${xmlResponse.statusText}`);
-    }
-
-    const xmlData = await xmlResponse.text();
-    const parser = new xml2js.Parser();
-    const result = await parser.parseStringPromise(xmlData);
-
-    const stats = result?.robot?.statistics?.[0]?.total?.[0]?.$;
-    if (!stats) {
-      throw new Error('Missing expected structure in output.xml');
-    }
-
-    const summary = `Tests: ${stats.total}, Passed: ${stats.pass}, Failed: ${stats.fail}`;
-    res.json({
-      status: '✅ Robot Tests completed',
-      summary,
-      logUrl: 'https://11tdlong.github.io/repo1/tmp/log.html'
-    });
-  } catch (err) {
-    console.error('❌ Error fetching/parsing output.xml:', err.message);
-    res.status(500).json({ error: 'Failed to extract summary from output.xml' });
-  }
+  res.json({
+    status: '✅ Robot Tests completed',
+    message: 'Click below to view detailed logs',
+    logUrl: 'https://11tdlong.github.io/repo1/tmp/log.html'
+  });
 });
-
 
 function sanitizeName(name) {
   return name.replace(/[^a-zA-Z0-9-_]/g, '');
