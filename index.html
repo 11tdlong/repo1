@@ -595,9 +595,10 @@ function startProcess2() {
             } else {
               status.innerHTML = `
                 <p>✅ Robot Test Completed</p>
-                <a class="log-label" href="https://11tdlong.github.io/repo1/tmp/log.html" target="_blank" rel="noopener noreferrer">
-                  Robot Log
-                </a>
+                <a class="log-label" href="https://11tdlong.github.io/repo1/tmp/log.html" target="_blank" rel="nofollow">
+				  Robot Log
+				</a>
+
               `;
             }
 
@@ -621,8 +622,6 @@ function startProcess2() {
       console.error(err);
     });
 }
-
-
 
 
 function toggleFold2() {
