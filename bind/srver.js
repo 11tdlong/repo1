@@ -135,14 +135,27 @@ app.get('/fireant/:code', async (req, res) => {
     const tokenRes = await fetch(`https://fireant.vn/ma-chung-khoan/${code}`);
     const html = await tokenRes.text();
 
-    // ✅ Extract accessToken from HTML using regex
-    const match = html.match(/accessToken\s*:\s*"([^"]+)"/);
-    if (!match || !match[1]) {
-      console.error('❌ accessToken not found in HTML:', html.slice(0, 300));
-      return res.status(500).send({ error: 'accessToken not found in FireAnt HTML response.' });
+    // ✅ Extract JSON from <script id="__NEXT_DATA__" type="application/json">
+    const scriptMatch = html.match(/<script id="__NEXT_DATA__" type="application\/json">([\s\S]*?)<\/script>/);
+    if (!scriptMatch || !scriptMatch[1]) {
+      console.error('❌ __NEXT_DATA__ script not found');
+      return res.status(500).send({ error: 'Failed to locate embedded token script.' });
     }
 
-    const accessToken = match[1];
+    let jsonData;
+    try {
+      jsonData = JSON.parse(scriptMatch[1]);
+    } catch (err) {
+      console.error('❌ Failed to parse embedded JSON:', scriptMatch[1].slice(0, 300));
+      return res.status(500).send({ error: 'Invalid embedded JSON in FireAnt response.' });
+    }
+
+    const accessToken = jsonData?.props?.pageProps?.initialState?.auth?.accessToken;
+    if (!accessToken) {
+      console.error('❌ accessToken not found in parsed JSON:', jsonData);
+      return res.status(400).send({ error: 'accessToken not found in FireAnt data.' });
+    }
+
     console.log(`🔑 Extracted accessToken: ${accessToken}`);
 
     // ✅ Fetch historical quotes using the token
@@ -169,6 +182,7 @@ app.get('/fireant/:code', async (req, res) => {
     res.status(500).send({ error: 'Failed to fetch FireAnt data.' });
   }
 });
+
 
 
 // ✅ Start server
