@@ -126,60 +126,62 @@ async function fetchAndSendArtifactLogs(artifactName, res) {
   }
 }
 
-const { getFireAntToken } = require('./fireant');
-
+// ✅ FireAnt proxy route with debug logging
 app.get('/fireant/:code', async (req, res) => {
   const code = req.params.code;
-  console.log(`🔍 Launching browser for: ${code}`);
+  console.log(`🔍 Requesting token for: ${code}`);
 
   try {
-    const accessToken = await getFireAntToken(code);
-    if (!accessToken) {
-      console.error('❌ Token not found via Puppeteer');
-      return res.status(500).send({ error: 'Failed to extract token from FireAnt.' });
+    const tokenRes = await fetch(`https://fireant.vn/ma-chung-khoan/${code}`);
+    const html = await tokenRes.text();
+
+    // ✅ Extract JSON from <script id="__NEXT_DATA__" type="application/json">
+    const scriptMatch = html.match(/<script id="__NEXT_DATA__" type="application\/json">([\s\S]*?)<\/script>/);
+    if (!scriptMatch || !scriptMatch[1]) {
+      console.error('❌ __NEXT_DATA__ script not found');
+      return res.status(500).send({ error: 'Failed to locate embedded token script.' });
     }
 
-    console.log(`🔑 Token received: ${accessToken}`);
+    let jsonData;
+    try {
+      jsonData = JSON.parse(scriptMatch[1]);
+    } catch (err) {
+      console.error('❌ Failed to parse embedded JSON:', scriptMatch[1].slice(0, 300));
+      return res.status(500).send({ error: 'Invalid embedded JSON in FireAnt response.' });
+    }
 
+    const accessToken = jsonData?.props?.pageProps?.initialState?.auth?.accessToken;
+    if (!accessToken) {
+      console.error('❌ accessToken not found in parsed JSON:', jsonData);
+      return res.status(400).send({ error: 'accessToken not found in FireAnt data.' });
+    }
+
+    console.log(`🔑 Extracted accessToken: ${accessToken}`);
+
+    // ✅ Fetch historical quotes using the token
     const quotesRes = await fetch(`https://restv2.fireant.vn/symbols/${code}/historical-quotes?startDate=2022-08-08&endDate=2025-12-12&offset=0&limit=30`, {
       headers: {
         Authorization: `Bearer ${accessToken}`
       }
     });
 
-    const quotes = await quotesRes.json();
-    res.send({ quotes });
+    const quotesText = await quotesRes.text();
+
+    let quotesData;
+    try {
+      quotesData = JSON.parse(quotesText);
+    } catch (err) {
+      console.error('❌ Failed to parse quotes response:', quotesText.slice(0, 300));
+      return res.status(500).send({ error: 'Invalid quotes response from FireAnt.' });
+    }
+
+    console.log(`📊 Quotes received for ${code}:`, quotesData);
+    res.send({ quotes: quotesData });
   } catch (err) {
-    console.error('❌ Error fetching quotes:', err.message);
+    console.error('❌ FireAnt error:', err.message);
     res.status(500).send({ error: 'Failed to fetch FireAnt data.' });
   }
 });
-
-const puppeteer = require('puppeteer');
-
-async function getFireAntToken(code) {
-  const browser = await puppeteer.launch({ headless: 'new' });
-  const page = await browser.newPage();
-
-  await page.goto(`https://fireant.vn/ma-chung-khoan/${code}`, {
-    waitUntil: 'networkidle0',
-    timeout: 30000
-  });
-
-  const token = await page.evaluate(() => {
-    const script = document.querySelector('#__NEXT_DATA__');
-    if (!script) return null;
-    try {
-      const data = JSON.parse(script.textContent);
-      return data?.props?.pageProps?.initialState?.auth?.accessToken || null;
-    } catch {
-      return null;
-    }
-  });
-
-  await browser.close();
-  return token;
-}
 
 
 
