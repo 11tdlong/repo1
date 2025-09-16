@@ -10,7 +10,8 @@
     "node-fetch": "^2.6.7",
     "cors": "^2.8.5",
     "strip-ansi": "^7.1.0",
-    "unzipper": "^0.10.11"
+    "unzipper": "^0.10.11",
+	"puppeteer": "^21.x"
   },
   "devDependencies": {
     "@cypress/xpath": "^2.0.3",
