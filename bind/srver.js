@@ -124,6 +124,34 @@ async function fetchAndSendArtifactLogs(artifactName, res) {
   }
 }
 
+app.get('/fireant/:code', async (req, res) => {
+  const code = req.params.code;
+
+  try {
+    // Step 1: Get accessToken
+    const tokenRes = await fetch(`https://fireant.vn/ma-chung-khoan/${code}`);
+    const tokenData = await tokenRes.json();
+    const accessToken = tokenData.accessToken;
+
+    if (!accessToken) {
+      return res.status(400).send({ error: 'No accessToken found in response.' });
+    }
+
+    // Step 2: Fetch historical quotes
+    const quotesRes = await fetch(`https://restv2.fireant.vn/symbols/${code}/historical-quotes?startDate=2022-08-08&endDate=2025-12-12&offset=0&limit=30`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`
+      }
+    });
+
+    const quotesData = await quotesRes.json();
+    res.send({ quotes: quotesData });
+  } catch (err) {
+    console.error('❌ FireAnt error:', err.message);
+    res.status(500).send({ error: 'Failed to fetch FireAnt data.' });
+  }
+});
+
 // Start server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));

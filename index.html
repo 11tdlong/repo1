@@ -102,6 +102,7 @@
 	    flex-direction: row;
 	overflow-x: auto; /* Allow horizontal scroll if needed */
 	padding-bottom: 40px; /* extra space below clock */
+	padding-right: 40px;
 	}
 
     .clock {
@@ -392,7 +393,7 @@
 		  <button id="check3" class="check-button" onclick="startProcess3()">Check 3</button>
 		  <input type="text" id="input3" class="check-input" style="transform: translateY(-5px);" placeholder="code" />
 		</div>
-
+		<div id="status3" class="status"></div>
       </div>
     </div>
   </div>
@@ -658,7 +659,48 @@ function toggleFold2() {
 }
 
 	function startProcess3() {
-	  // Placeholder for Check 3 logic
+	  const code = document.getElementById('input3').value.trim();
+	  const status = document.getElementById('status3');
+
+	  if (!code) {
+		status.innerHTML = `<pre class="warning">⚠️ Please enter a stock code.</pre>`;
+		return;
+	  }
+
+	  status.textContent = '⏳ Fetching token...';
+
+	  // Step 1: Get accessToken from FireAnt
+	  fetch(`https://fireant.vn/ma-chung-khoan/${code}`)
+		.then(res => res.json())
+		.then(data => {
+		  const token = data.accessToken;
+		  if (!token) {
+			status.innerHTML = `<pre class="warning">❌ Token not found in response.</pre>`;
+			return;
+		  }
+
+		  status.textContent = '⏳ Fetching historical quotes...';
+
+		  // Step 2: Use token to fetch historical quotes
+		  fetch(`https://restv2.fireant.vn/symbols/${code}/historical-quotes?startDate=2022-08-08&endDate=2025-12-12&offset=0&limit=30`, {
+			method: 'GET',
+			headers: {
+			  'Authorization': `Bearer ${token}`
+			}
+		  })
+			.then(res => res.json())
+			.then(quotes => {
+			  status.innerHTML = `<pre>${JSON.stringify(quotes, null, 2)}</pre>`;
+			})
+			.catch(err => {
+			  status.innerHTML = `<pre class="warning">❌ Error fetching historical quotes</pre>`;
+			  console.error(err);
+			});
+		})
+		.catch(err => {
+		  status.innerHTML = `<pre class="warning">❌ Error fetching token</pre>`;
+		  console.error(err);
+		});
 	}
 
   </script>
