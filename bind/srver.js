@@ -16,8 +16,6 @@ app.use(cors({
 }));
 app.use(express.json());
 
-console.log('✅ GitHub token loaded:', !!token);
-
 // ✅ Health check route
 app.get('/ping', (req, res) => {
   res.send({ status: '✅ Backend is alive' });
@@ -142,7 +140,6 @@ async function fetchAndSendArtifactLogs(artifactName, res) {
 // ✅ FireAnt proxy route with debug logging
 app.get('/fireant/:code', async (req, res) => {
   const code = req.params.code;
-  console.log(`🔍 Requesting token for: ${code}`);
 
   try {
     const tokenRes = await fetch(`https://fireant.vn/ma-chung-khoan/${code}`);
@@ -169,8 +166,6 @@ app.get('/fireant/:code', async (req, res) => {
       return res.status(400).send({ error: 'accessToken not found in FireAnt data.' });
     }
 
-    console.log(`🔑 Extracted accessToken: ${accessToken}`);
-
     // ✅ Fetch historical quotes using the token
     const quotesRes = await fetch(`https://restv2.fireant.vn/symbols/${code}/historical-quotes?startDate=2022-08-08&endDate=2025-12-12&offset=0&limit=30`, {
       headers: {
@@ -188,7 +183,6 @@ app.get('/fireant/:code', async (req, res) => {
       return res.status(500).send({ error: 'Invalid quotes response from FireAnt.' });
     }
 
-    console.log(`📊 Quotes received for ${code}:`, quotesData);
     res.send({ quotes: quotesData });
   } catch (err) {
     console.error('❌ FireAnt error:', err.message);

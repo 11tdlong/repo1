@@ -592,25 +592,19 @@ function startProcess2() {
         fetch('https://repo1-qygx.onrender.com/logs/robot')
           .then(res => res.json())
           .then(logData => {
-            clearInterval(interval);
-            runner.style.display = 'none';
-            runner.setAttribute('data-running', 'false');
+		  clearInterval(interval);
+		  runner.style.display = 'none';
+		  runner.setAttribute('data-running', 'false');
 
-            const { log, warning } = extractRelevantLog(logData.summary);
+		  status.innerHTML = `
+			<p>${logData.status}</p>
+			<p>${logData.message}</p>
+			<a class="log-label" href="${logData.logUrl}" target="_blank" rel="nofollow">Robot Log</a>
+		  `;
 
-            if (warning) {
-              status.innerHTML = `<pre class="warning">${log}</pre>`;
-            } else {
-              status.innerHTML = `
-			  <p>${data.status}</p>
-			  <p>${data.summary}</p>
-			  <a class="log-label" href="${data.logUrl}" target="_blank" rel="nofollow">Robot Log</a>
-			`;
-            }
-
-            confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
-            document.getElementById('ding').play();
-          })
+		  confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+		  document.getElementById('ding').play();
+		})
           .catch(err => {
             clearInterval(interval);
             runner.style.display = 'none';
