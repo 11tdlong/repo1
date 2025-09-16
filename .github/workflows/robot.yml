@@ -52,7 +52,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: robot-logs
-          path: ${{ github.workspace }}/tmp/log.html
+          path: tmp/
 
       - name: Ensure tmp folder is tracked
         run: git pull origin main
