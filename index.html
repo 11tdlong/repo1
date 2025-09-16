@@ -93,17 +93,20 @@
 	  position: relative;
 	}
 
-	.container {
-	  position: absolute;
-	  top: 10%;
-	  left: 10%;
-	  display: flex;
-	  align-items: flex-start;
-	    flex-direction: row;
-		overflow-x: auto; /* Allow horizontal scroll if needed */
-		padding-bottom: 40px; /* extra space below clock */
-		padding-right: 40px;
-	}
+.container {
+  position: absolute;
+  top: 10%;
+  left: 10%;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: row;
+  overflow-x: auto; /* Allow horizontal scroll if needed */
+  padding-bottom: 40px;
+  padding-right: 40px;
+  width: 1400px; /* ✅ Increased width to accommodate runner text */
+  box-sizing: border-box; /* Ensures padding doesn't overflow */
+}
+
 
     .clock {
       width: 300px;
@@ -596,11 +599,12 @@ function startProcess2() {
 		  runner.style.display = 'none';
 		  runner.setAttribute('data-running', 'false');
 
-		  status.innerHTML = `
-		  <span>✅ Robot Tests completed</span>
-		  <a class="log-label" href="${logData.logUrl}" target="_blank" rel="nofollow">Robot Log</a>
+		status.innerHTML = `
+		  <div style="white-space: nowrap;">
+			✅ Robot Tests completed
+			<a class="log-label" href="${logData.logUrl}" target="_blank" rel="nofollow">Robot Log</a>
+		  </div>
 		`;
-
 
 		  confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
 		  document.getElementById('ding').play();
