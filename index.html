@@ -678,13 +678,34 @@ function startProcess3() {
       if (data.error) {
         status.innerHTML = `<pre class="warning">❌ ${data.error}</pre>`;
       } else {
-        status.innerHTML = `<pre>${JSON.stringify(data.quotes, null, 2)}</pre>`;
+	    const output = formatQuote(data.quotes || []);
+        status.innerHTML = `<pre>${output}</pre>`;
       }
     })
     .catch(err => {
       status.innerHTML = `<pre class="warning">❌ Error: ${err.message}</pre>`;
       console.error(err);
     });
+}
+function formatQuote(rawQuotes) {
+  if (!Array.isArray(rawQuotes) || rawQuotes.length === 0) return 'No data available';
+
+  const quote = rawQuotes[0];
+
+  // Extract and rename fields
+  const formatted = {
+    date: quote.date,
+    Open: quote.priceOpen,
+    Average: quote.priceAverage,
+    Close: quote.priceClose,
+    totalVolume: quote.totalVolume.toLocaleString('en-US'),
+    totalValue: quote.totalValue.toLocaleString('en-US')
+  };
+
+  // Convert to plain text format
+  return Object.entries(formatted)
+    .map(([key, value]) => `${key}: ${value}`)
+    .join('\n');
 }
 
 
