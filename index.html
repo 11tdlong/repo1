@@ -657,7 +657,6 @@ function toggleFold2() {
 
   runner.style.display = isHidden && isRunning ? 'flex' : 'none';
 }
-
 function startProcess3() {
   const code = document.getElementById('input3').value.trim();
   const status = document.getElementById('status3');
@@ -667,47 +666,27 @@ function startProcess3() {
     return;
   }
 
-  status.textContent = '⏳ Fetching token...';
+  status.textContent = '⏳ Fetching data...';
 
-  // Step 1: Get accessToken from FireAnt
-  fetch(`https://fireant.vn/ma-chung-khoan/${code}`)
+  // ✅ Call your backend to bypass CORS
+  fetch(`https://repo1-qygx.onrender.com/fireant/${code}`)
     .then(res => {
-      if (!res.ok) throw new Error('Failed to fetch token');
+      if (!res.ok) throw new Error('Backend fetch failed');
       return res.json();
     })
     .then(data => {
-      const token = data.accessToken;
-      if (!token) {
-        status.innerHTML = `<pre class="warning">❌ Token not found in response.</pre>`;
-        return;
+      if (data.error) {
+        status.innerHTML = `<pre class="warning">❌ ${data.error}</pre>`;
+      } else {
+        status.innerHTML = `<pre>${JSON.stringify(data.quotes, null, 2)}</pre>`;
       }
-
-      status.textContent = '⏳ Fetching historical quotes...';
-
-      // Step 2: Use token to fetch historical quotes
-      fetch(`https://restv2.fireant.vn/symbols/${code}/historical-quotes?startDate=2022-08-08&endDate=2025-12-12&offset=0&limit=30`, {
-        method: 'GET',
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      })
-        .then(res => {
-          if (!res.ok) throw new Error('Failed to fetch quotes');
-          return res.json();
-        })
-        .then(quotes => {
-          status.innerHTML = `<pre>${JSON.stringify(quotes, null, 2)}</pre>`;
-        })
-        .catch(err => {
-          status.innerHTML = `<pre class="warning">❌ Error fetching historical quotes: ${err.message}</pre>`;
-          console.error(err);
-        });
     })
     .catch(err => {
-      status.innerHTML = `<pre class="warning">❌ Error fetching token: ${err.message}</pre>`;
+      status.innerHTML = `<pre class="warning">❌ Error: ${err.message}</pre>`;
       console.error(err);
     });
 }
+
 
   </script>
 </body>
