@@ -100,9 +100,9 @@
 	  display: flex;
 	  align-items: flex-start;
 	    flex-direction: row;
-	overflow-x: auto; /* Allow horizontal scroll if needed */
-	padding-bottom: 40px; /* extra space below clock */
-	padding-right: 40px;
+		overflow-x: auto; /* Allow horizontal scroll if needed */
+		padding-bottom: 40px; /* extra space below clock */
+		padding-right: 40px;
 	}
 
     .clock {
@@ -568,12 +568,9 @@ function startProcess2() {
   let interval;
   const runner = document.getElementById('runner2');
   const status = document.getElementById('status2');
-  const container = document.querySelector('.align-left');
 
-  // Mark runner as active
   runner.setAttribute('data-running', 'true');
   runner.style.display = 'flex';
-
   status.textContent = '⏳ Triggering Robot Tests...';
 
   fetch('https://repo1-qygx.onrender.com/trigger-robot-tests', {
@@ -583,40 +580,25 @@ function startProcess2() {
     .then(data => {
       status.textContent = data.status || '✅ Robot Tests workflow triggered';
 
-      // Wait before fetching logs
       setTimeout(() => {
         fetch('https://repo1-qygx.onrender.com/logs/robot')
           .then(res => res.json())
           .then(logData => {
             clearInterval(interval);
             runner.style.display = 'none';
-            runner.setAttribute('data-running', 'false'); // Mark as completed
+            runner.setAttribute('data-running', 'false');
 
             const { log, warning } = extractRelevantLog(logData.logs);
 
             if (warning) {
               status.innerHTML = `<pre class="warning">${log}</pre>`;
             } else {
-              // Use HEAD request to verify log.html exists
-              fetch('https://11tdlong.github.io/repo1/tmp/log.html', { method: 'HEAD' })
-                .then(headRes => {
-                  if (!headRes.ok) throw new Error('log.html not found');
-
-                  status.innerHTML = `
-                    <p>✅ Robot Test Completed</p>
-                    <a class="log-label" href="https://11tdlong.github.io/repo1/tmp/log.html" target="_blank" rel="noopener noreferrer">
-                      Robot Log
-                    </a>
-                  `;
-                })
-                .catch(() => {
-                  status.innerHTML = `
-                    <pre class="warning">
-✅ Robot Test Completed, but log.html is not available.
-Check your network connection or try again later.
-                    </pre>
-                  `;
-                });
+              status.innerHTML = `
+                <p>✅ Robot Test Completed</p>
+                <a class="log-label" href="https://11tdlong.github.io/repo1/tmp/log.html" target="_blank" rel="noopener noreferrer">
+                  Robot Log
+                </a>
+              `;
             }
 
             confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
@@ -625,20 +607,21 @@ Check your network connection or try again later.
           .catch(err => {
             clearInterval(interval);
             runner.style.display = 'none';
-            runner.setAttribute('data-running', 'false'); // Mark as failed
+            runner.setAttribute('data-running', 'false');
             status.textContent = '❌ Error fetching Robot logs';
             console.error(err);
           });
-      }, 110000); // Wait for Robot tests to complete
+      }, 110000);
     })
     .catch(err => {
       clearInterval(interval);
       runner.style.display = 'none';
-      runner.setAttribute('data-running', 'false'); // Mark as failed
+      runner.setAttribute('data-running', 'false');
       status.textContent = '❌ Error triggering Robot Tests';
       console.error(err);
     });
 }
+
 
 
 
