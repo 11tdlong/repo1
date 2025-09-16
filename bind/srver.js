@@ -3,6 +3,7 @@ const fetch = require('node-fetch');
 const cors = require('cors');
 const stripAnsi = require('strip-ansi').default;
 const unzipper = require('unzipper');
+const path = require('path');
 
 const app = express();
 const token = process.env.SEC1;
