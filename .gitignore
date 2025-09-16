@@ -1,5 +1,9 @@
 # Ignore everything in tmp/
 tmp/*
 
-# But keep log.html
+# But keep all Robot Framework output files
 !tmp/log.html
+!tmp/log.js
+!tmp/report.html
+!tmp/report.js
+!tmp/output.xml
