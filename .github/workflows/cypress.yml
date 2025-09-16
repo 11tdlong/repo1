@@ -14,6 +14,11 @@ jobs:
       MY_TOKEN: ${{ secrets.SEC1 }}
 
     steps:
+      - name: Set timezone
+        run: |
+          export TZ=Asia/Ho_Chi_Minh
+          date
+          
       - name: Checkout code
         uses: actions/checkout@v3
 
