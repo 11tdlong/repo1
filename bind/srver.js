@@ -93,9 +93,12 @@ app.get('/logs/robot', async (req, res) => {
     const parser = new xml2js.Parser();
     const result = await parser.parseStringPromise(xmlData);
 
-    const stats = result.robot.statistics[0].total[0].$;
-    const summary = `Tests: ${stats.total}, Passed: ${stats.pass}, Failed: ${stats.fail}`;
+    const stats = result?.robot?.statistics?.[0]?.total?.[0]?.$;
+    if (!stats) {
+      throw new Error('Missing expected structure in output.xml');
+    }
 
+    const summary = `Tests: ${stats.total}, Passed: ${stats.pass}, Failed: ${stats.fail}`;
     res.json({
       status: '✅ Robot Tests completed',
       summary,
@@ -106,6 +109,7 @@ app.get('/logs/robot', async (req, res) => {
     res.status(500).json({ error: 'Failed to extract summary from output.xml' });
   }
 });
+
 
 function sanitizeName(name) {
   return name.replace(/[^a-zA-Z0-9-_]/g, '');
