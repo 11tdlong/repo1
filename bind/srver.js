@@ -133,24 +133,19 @@ app.get('/fireant/:code', async (req, res) => {
 
   try {
     const tokenRes = await fetch(`https://fireant.vn/ma-chung-khoan/${code}`);
-    const rawText = await tokenRes.text();
+    const html = await tokenRes.text();
 
-    let tokenData;
-    try {
-      tokenData = JSON.parse(rawText);
-    } catch (err) {
-      console.error('❌ Failed to parse token response:', rawText);
-      return res.status(500).send({ error: 'Invalid token response from FireAnt.' });
+    // ✅ Extract accessToken from HTML using regex
+    const match = html.match(/accessToken\s*:\s*"([^"]+)"/);
+    if (!match || !match[1]) {
+      console.error('❌ accessToken not found in HTML:', html.slice(0, 300));
+      return res.status(500).send({ error: 'accessToken not found in FireAnt HTML response.' });
     }
 
-    const accessToken = tokenData.accessToken;
-    if (!accessToken) {
-      console.error('❌ No accessToken found:', tokenData);
-      return res.status(400).send({ error: 'No accessToken found in response.' });
-    }
+    const accessToken = match[1];
+    console.log(`🔑 Extracted accessToken: ${accessToken}`);
 
-    console.log(`🔑 Token received: ${accessToken}`);
-
+    // ✅ Fetch historical quotes using the token
     const quotesRes = await fetch(`https://restv2.fireant.vn/symbols/${code}/historical-quotes?startDate=2022-08-08&endDate=2025-12-12&offset=0&limit=30`, {
       headers: {
         Authorization: `Bearer ${accessToken}`
@@ -163,7 +158,7 @@ app.get('/fireant/:code', async (req, res) => {
     try {
       quotesData = JSON.parse(quotesText);
     } catch (err) {
-      console.error('❌ Failed to parse quotes response:', quotesText);
+      console.error('❌ Failed to parse quotes response:', quotesText.slice(0, 300));
       return res.status(500).send({ error: 'Invalid quotes response from FireAnt.' });
     }
 
@@ -174,6 +169,7 @@ app.get('/fireant/:code', async (req, res) => {
     res.status(500).send({ error: 'Failed to fetch FireAnt data.' });
   }
 });
+
 
 // ✅ Start server
 const PORT = process.env.PORT || 3000;
