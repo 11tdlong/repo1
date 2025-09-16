@@ -78,7 +78,25 @@ app.get('/logs/cypress', async (req, res) => {
 });
 
 app.get('/logs/robot', async (req, res) => {
-  await fetchAndSendArtifactLogs('robot-logs', res);
+  try {
+    const xmlPath = path.join(__dirname, 'tmp', 'output.xml');
+    const xmlData = fs.readFileSync(xmlPath, 'utf8');
+
+    const parser = new xml2js.Parser();
+    const result = await parser.parseStringPromise(xmlData);
+
+    const stats = result.robot.statistics[0].total[0].$;
+    const summary = `Tests: ${stats.total}, Passed: ${stats.pass}, Failed: ${stats.fail}`;
+
+    res.json({
+      status: '✅ Robot Tests completed',
+      summary,
+      logUrl: 'https://11tdlong.github.io/repo1/tmp/log.html'
+    });
+  } catch (err) {
+    console.error('Error parsing output.xml:', err);
+    res.status(500).json({ error: 'Failed to extract summary' });
+  }
 });
 
 async function fetchAndSendArtifactLogs(artifactName, res) {

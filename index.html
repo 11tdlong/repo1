@@ -594,12 +594,10 @@ function startProcess2() {
               status.innerHTML = `<pre class="warning">${log}</pre>`;
             } else {
               status.innerHTML = `
-                <p>✅ Robot Test Completed</p>
-                <a class="log-label" href="https://11tdlong.github.io/repo1/tmp/log.html" target="_blank" rel="nofollow">
-				  Robot Log
-				</a>
-
-              `;
+			  <p>${data.status}</p>
+			  <p>${data.summary}</p>
+			  <a class="log-label" href="${data.logUrl}" target="_blank" rel="nofollow">Robot Log</a>
+			`;
             }
 
             confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
