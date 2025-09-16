@@ -658,50 +658,56 @@ function toggleFold2() {
   runner.style.display = isHidden && isRunning ? 'flex' : 'none';
 }
 
-	function startProcess3() {
-	  const code = document.getElementById('input3').value.trim();
-	  const status = document.getElementById('status3');
+function startProcess3() {
+  const code = document.getElementById('input3').value.trim();
+  const status = document.getElementById('status3');
 
-	  if (!code) {
-		status.innerHTML = `<pre class="warning">⚠️ Please enter a stock code.</pre>`;
-		return;
-	  }
+  if (!code) {
+    status.innerHTML = `<pre class="warning">⚠️ Please enter a stock code.</pre>`;
+    return;
+  }
 
-	  status.textContent = '⏳ Fetching token...';
+  status.textContent = '⏳ Fetching token...';
 
-	  // Step 1: Get accessToken from FireAnt
-	  fetch(`https://fireant.vn/ma-chung-khoan/${code}`)
-		.then(res => res.json())
-		.then(data => {
-		  const token = data.accessToken;
-		  if (!token) {
-			status.innerHTML = `<pre class="warning">❌ Token not found in response.</pre>`;
-			return;
-		  }
+  // Step 1: Get accessToken from FireAnt
+  fetch(`https://fireant.vn/ma-chung-khoan/${code}`)
+    .then(res => {
+      if (!res.ok) throw new Error('Failed to fetch token');
+      return res.json();
+    })
+    .then(data => {
+      const token = data.accessToken;
+      if (!token) {
+        status.innerHTML = `<pre class="warning">❌ Token not found in response.</pre>`;
+        return;
+      }
 
-		  status.textContent = '⏳ Fetching historical quotes...';
+      status.textContent = '⏳ Fetching historical quotes...';
 
-		  // Step 2: Use token to fetch historical quotes
-		  fetch(`https://restv2.fireant.vn/symbols/${code}/historical-quotes?startDate=2022-08-08&endDate=2025-12-12&offset=0&limit=30`, {
-			method: 'GET',
-			headers: {
-			  'Authorization': `Bearer ${token}`
-			}
-		  })
-			.then(res => res.json())
-			.then(quotes => {
-			  status.innerHTML = `<pre>${JSON.stringify(quotes, null, 2)}</pre>`;
-			})
-			.catch(err => {
-			  status.innerHTML = `<pre class="warning">❌ Error fetching historical quotes</pre>`;
-			  console.error(err);
-			});
-		})
-		.catch(err => {
-		  status.innerHTML = `<pre class="warning">❌ Error fetching token</pre>`;
-		  console.error(err);
-		});
-	}
+      // Step 2: Use token to fetch historical quotes
+      fetch(`https://restv2.fireant.vn/symbols/${code}/historical-quotes?startDate=2022-08-08&endDate=2025-12-12&offset=0&limit=30`, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
+        .then(res => {
+          if (!res.ok) throw new Error('Failed to fetch quotes');
+          return res.json();
+        })
+        .then(quotes => {
+          status.innerHTML = `<pre>${JSON.stringify(quotes, null, 2)}</pre>`;
+        })
+        .catch(err => {
+          status.innerHTML = `<pre class="warning">❌ Error fetching historical quotes: ${err.message}</pre>`;
+          console.error(err);
+        });
+    })
+    .catch(err => {
+      status.innerHTML = `<pre class="warning">❌ Error fetching token: ${err.message}</pre>`;
+      console.error(err);
+    });
+}
 
   </script>
 </body>

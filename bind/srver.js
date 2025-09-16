@@ -15,7 +15,7 @@ app.use(express.json());
 
 console.log('✅ GitHub token loaded:', !!token);
 
-// Trigger GitHub Actions workflow
+// 🔧 Trigger GitHub Actions workflow
 app.post('/trigger-workflow', async (req, res) => {
   try {
     const response = await fetch('https://api.github.com/repos/11tdlong/repo1/actions/workflows/cypress.yml/dispatches', {
@@ -41,7 +41,7 @@ app.post('/trigger-workflow', async (req, res) => {
   }
 });
 
-// Trigger Robot Tests workflow 
+// 🔧 Trigger Robot Tests workflow
 app.post('/trigger-robot-tests', async (req, res) => {
   try {
     const response = await fetch('https://api.github.com/repos/11tdlong/repo1/actions/workflows/robot.yml/dispatches', {
@@ -67,13 +67,11 @@ app.post('/trigger-robot-tests', async (req, res) => {
   }
 });
 
-// Serve logs from GitHub artifact
-// Cypress logs
+// 🔍 Serve logs from GitHub artifact
 app.get('/logs/cypress', async (req, res) => {
   await fetchAndSendArtifactLogs('cypress-logs', res);
 });
 
-// Robot Framework logs
 app.get('/logs/robot', async (req, res) => {
   await fetchAndSendArtifactLogs('robot-logs', res);
 });
@@ -104,7 +102,6 @@ async function fetchAndSendArtifactLogs(artifactName, res) {
     const zipBuffer = await zipRes.buffer();
     const directory = await unzipper.Open.buffer(zipBuffer);
 
-    // 🔄 Choose file based on artifact type
     const targetFile =
       artifactName === 'robot-logs'
         ? directory.files.find(f => f.path === 'log.html')
@@ -124,11 +121,11 @@ async function fetchAndSendArtifactLogs(artifactName, res) {
   }
 }
 
+// 🆕 FireAnt proxy route to bypass CORS
 app.get('/fireant/:code', async (req, res) => {
   const code = req.params.code;
 
   try {
-    // Step 1: Get accessToken
     const tokenRes = await fetch(`https://fireant.vn/ma-chung-khoan/${code}`);
     const tokenData = await tokenRes.json();
     const accessToken = tokenData.accessToken;
@@ -137,7 +134,6 @@ app.get('/fireant/:code', async (req, res) => {
       return res.status(400).send({ error: 'No accessToken found in response.' });
     }
 
-    // Step 2: Fetch historical quotes
     const quotesRes = await fetch(`https://restv2.fireant.vn/symbols/${code}/historical-quotes?startDate=2022-08-08&endDate=2025-12-12&offset=0&limit=30`, {
       headers: {
         Authorization: `Bearer ${accessToken}`
@@ -152,6 +148,6 @@ app.get('/fireant/:code', async (req, res) => {
   }
 });
 
-// Start server
+// 🚀 Start server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
