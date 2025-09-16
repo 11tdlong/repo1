@@ -466,46 +466,42 @@
 
     // Button action
 function startProcess() {
-  let interval;
   const runner = document.getElementById('runner');
   const status = document.getElementById('status');
   const container = document.querySelector('.align-left');
 
-  // Mark runner as active
   runner.setAttribute('data-running', 'true');
-  runner.style.display = 'flex'; // Ensure it's visible immediately
-
+  runner.style.display = 'flex';
   status.innerHTML = '<div id="trigger-msg">✅ Workflow triggered successfully</div>';
 
-  // Trigger workflow
-  fetch('https://repo1-qygx.onrender.com/trigger-workflow', {
-    method: 'POST'
-  })
+  fetch('https://repo1-qygx.onrender.com/trigger-workflow', { method: 'POST' })
     .then(res => res.json())
     .then(data => {
       const triggerMsg = document.getElementById('trigger-msg');
       if (triggerMsg) {
         triggerMsg.textContent = data.message || '✅ Workflow triggered successfully';
-
         setTimeout(() => {
           console.log('Showing runner now');
-          runner.style.display = 'flex'; // Ensure flex layout for animation
+          runner.style.display = 'flex';
         }, 200);
       }
 
-      // Wait before fetching logs
+      // Delay before fetching logs
       setTimeout(() => {
         fetch('https://repo1-qygx.onrender.com/logs/cypress')
           .then(res => res.json())
           .then(logData => {
-            clearInterval(interval);
             runner.style.display = 'none';
-            runner.setAttribute('data-running', 'false'); // Mark as completed
+            runner.setAttribute('data-running', 'false');
 
             const { log, warning } = extractRelevantLog(logData.logs);
+
+            // Optional: Format date inside log if needed
+            const formattedLog = formatLogDate(log);
+
             status.innerHTML = warning
-              ? `<pre class="warning">${log}</pre>`
-              : `<pre>${log}</pre>`;
+              ? `<pre class="warning">${formattedLog}</pre>`
+              : `<pre>${formattedLog}</pre>`;
 
             confetti({
               particleCount: 100,
@@ -516,22 +512,32 @@ function startProcess() {
             document.getElementById('ding').play();
           })
           .catch(err => {
-            clearInterval(interval);
             runner.style.display = 'none';
-            runner.setAttribute('data-running', 'false'); // Mark as failed
+            runner.setAttribute('data-running', 'false');
             status.textContent = '❌ Error fetching logs';
             console.error(err);
           });
       }, 120000);
     })
     .catch(err => {
-      clearInterval(interval);
       runner.style.display = 'none';
-      runner.setAttribute('data-running', 'false'); // Mark as failed
+      runner.setAttribute('data-running', 'false');
       status.textContent = '❌ Error triggering workflow';
       console.error(err);
     });
 }
+
+// Optional: Convert date inside log to Vietnam time
+function formatLogDate(log) {
+  return log.replace(/(\d{1,2})\/(\d{1,2})\/(\d{4})/, (match, d, m, y) => {
+    const date = new Date(`${y}-${m.padStart(2, '0')}-${d.padStart(2, '0')}T00:00:00Z`);
+    const localDate = new Intl.DateTimeFormat('vi-VN', {
+      timeZone: 'Asia/Ho_Chi_Minh'
+    }).format(date);
+    return localDate;
+  });
+}
+
 
 function extractRelevantLog(fullLog) {
   if (typeof fullLog !== 'string') {
