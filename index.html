@@ -298,47 +298,27 @@
 }
 
 @media (max-width: 500px) {
-  .container {
-    margin-left: -347px;
-    box-sizing: border-box;
-    overflow-x: auto;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .clock {
-    width: 250px;
-    height: 250px;
-  }
-
-  .number, .tick {
-    transform: translate(-50%, -50%);
-  }
-
-  .button-container {
-    margin-left: 0;
-    margin-top: 20px;
-    width: auto;
-  }
-
-  /* ✅ Add this block to fix log display */
   .status {
+    margin-left: 0 !important;
     width: 100%;
     max-width: 100%;
     box-sizing: border-box;
+    overflow-x: auto; /* ✅ Add this */
   }
 
   .status pre.warning {
-    width: 100%;
-    max-width: 100%;
+    width: max-content;        /* ✅ Ensures full log width is scrollable */
+    max-width: none;           /* ✅ Prevents clipping */
     overflow-x: auto;
-    overflow-y: auto;
     white-space: pre;
     font-family: monospace;
     padding: 14px 18px;
     box-sizing: border-box;
+    text-align: left;
+    direction: ltr;
   }
 }
+
 
 	.check-button {
   padding: 10px 20px;
