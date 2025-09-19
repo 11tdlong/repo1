@@ -5,3 +5,4 @@ Feature: First feature
     Given I navigate to the front page
     When I enter "hbc"
     Then I should see "hbc" is suggested
+    And I should see data

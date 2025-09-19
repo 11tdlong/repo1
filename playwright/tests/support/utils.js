@@ -16,7 +16,6 @@ async function navigateTo(page, path = '/') {
 async function searchKeyword(page, selector, keyword) {
   await page.waitForSelector(selector);
   await page.fill(selector, keyword);
-  await page.press(selector, 'Enter');
 }
 
 async function waitForInputVisible(page, xpathSelector, timeout = 12000) {
