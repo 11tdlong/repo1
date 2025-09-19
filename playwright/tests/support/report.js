@@ -1,15 +1,40 @@
-const reporter = require('cucumber-html-reporter');
-console.log('✅ HTML report generated: search_report.html');
+const report = require('multiple-cucumber-html-reporter');
+const fs = require("fs");
 
-reporter.generate({
-  theme: 'bootstrap',
-  jsonFile: './cucumber_report.json',
-  output: 'search_report.html',
-  reportSuiteAsScenarios: true,
-  launchReport: true,
-  metadata: {
-    "Browser": "Chromium",
-    "Platform": process.platform,
-    "Executed": "Local"
+function generateHtmlReport() {
+  const jsonPath = 'cucumber_report.json';
+
+  if (!fs.existsSync(jsonPath)) {
+    console.warn(`Report file not found at ${jsonPath}`);
+    return;
   }
-});
+
+  report.generate({
+    pageTitle: "Automation Report",
+    reportName: "Playwright + Cucumber Report",
+    jsonDir: 'reports/json',
+    reportPath: 'playwright-reports',
+    displayDuration: true,
+    displayReportTime: true,
+    metadata: {
+      browser: {
+        name: 'chromium',
+        version: 'latest',
+      },
+      device: 'Desktop',
+      platform: {
+        name: process.platform,
+        version: process.version,
+      },
+    },
+    customData: {
+      title: 'Run Info',
+      data: [
+        { label: 'Project', value: 'Playwright E2E' },
+        { label: 'Generated', value: new Date().toLocaleString() },
+      ],
+    },
+  });
+}
+
+generateHtmlReport();
