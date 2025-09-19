@@ -1,0 +1,21 @@
+# Node modules
+node_modules/
+
+# Playwright reports
+playwright-report/
+*.html
+*.json
+
+# Test artifacts
+*.log
+*.zip
+*.mp4
+*.png
+
+# Environment files
+.env
+.env.local
+
+# OS junk
+.DS_Store
+Thumbs.db
