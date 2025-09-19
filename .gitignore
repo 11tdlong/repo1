@@ -7,3 +7,9 @@ tmp/*
 !tmp/report.html
 !tmp/report.js
 !tmp/output.xml
+
+browser/
+out.txt
+output.xml
+playwright-log.txt
+report.html
