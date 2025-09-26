@@ -2,7 +2,7 @@ const report = require('multiple-cucumber-html-reporter');
 const fs = require("fs");
 
 function generateHtmlReport() {
-  const jsonPath = 'cucumber_report.json';
+  const jsonPath = 'reports/json/cucumber_report.json';
 
   if (!fs.existsSync(jsonPath)) {
     console.warn(`Report file not found at ${jsonPath}`);
