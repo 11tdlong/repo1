@@ -1,7 +1,7 @@
 const { setDefaultTimeout } = require('@cucumber/cucumber');
 
 // Global step timeout
-setDefaultTimeout(14000);
+setDefaultTimeout(9000);
 
 // Shared config variables
 const config = {

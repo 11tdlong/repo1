@@ -16,6 +16,8 @@ function generateHtmlReport() {
     reportPath: 'playwright-reports',
     displayDuration: true,
     displayReportTime: true,
+	screenshotsDirectory: 'screenshots/',
+	storeScreenshots: true,
     metadata: {
       browser: {
         name: 'chromium',
