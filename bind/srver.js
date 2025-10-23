@@ -232,6 +232,15 @@ app.get('/quotes/:symbol', (req, res) => {
     }
     res.setHeader('Access-Control-Allow-Origin', 'https://11tdlong.github.io');
     res.type('text/plain').send(stdout);
+	try {
+	  const quotes = JSON.parse(stdout);
+	  quotes.forEach(q => {
+		console.log(`${q.date}  ${q.open}  ${q.close}  ${q.volume}`);
+	  });
+	} catch (err) {
+	  console.error('❌ Failed to parse script output as JSON:', stdout.slice(0, 300));
+	}
+
   });
 });
 
