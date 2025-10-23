@@ -216,33 +216,53 @@ app.get('/fireant/:code', async (req, res) => {
 });
 
 app.get('/quotes/:symbol', (req, res) => {
-  const symbol = req.params.symbol.replace(/[^a-zA-Z0-9]/g, '');
+  const rawSymbol = req.params.symbol;
+  const symbol = rawSymbol.replace(/[^a-zA-Z0-9]/g, '');
   const scriptPath = path.join(__dirname, 'test4.sh');
+  const command = `bash ${scriptPath} ${symbol}`;
 
+  console.log('📥 Incoming symbol:', rawSymbol);
+  console.log('🔒 Sanitized symbol:', symbol);
   console.log('📁 Current directory:', __dirname);
-  console.log('🚀 Executing:', `bash ${scriptPath} ${symbol}`);
+  console.log('📁 Script path:', scriptPath);
+  console.log('🚀 Executing command:', command);
 
-  exec(`bash ${scriptPath} ${symbol}`, (error, stdout, stderr) => {
+  exec(command, (error, stdout, stderr) => {
+    console.log('📤 STDOUT:\n', stdout);
+    console.log('📥 STDERR:\n', stderr);
+
     if (error) {
       console.error(`❌ Script error: ${error.message}`);
       return res.status(500).send({ error: 'Script execution failed.' });
     }
-    if (stderr) {
-      console.warn(`⚠️ Script stderr: ${stderr}`);
-    }
-    res.setHeader('Access-Control-Allow-Origin', 'https://11tdlong.github.io');
-    res.type('text/plain').send(stdout);
-	try {
-	  const quotes = JSON.parse(stdout);
-	  quotes.forEach(q => {
-		console.log(`${q.date}  ${q.open}  ${q.close}  ${q.volume}`);
-	  });
-	} catch (err) {
-	  console.error('❌ Failed to parse script output as JSON:', stdout.slice(0, 300));
-	}
 
+    res.setHeader('Access-Control-Allow-Origin', 'https://11tdlong.github.io');
+    res.type('text/plain').send(stdout || '⚠️ No output from script.');
+
+    // Try parsing as JSON
+    try {
+      const quotes = JSON.parse(stdout);
+      console.log('✅ Parsed JSON:', quotes);
+
+      if (Array.isArray(quotes)) {
+        quotes.forEach((q, i) => {
+          console.log(`📊 Quote ${i + 1}:`, {
+            date: q.date || q.tradingDate,
+            open: q.open,
+            close: q.close,
+            volume: q.volume || q.totalVolume
+          });
+        });
+      } else {
+        console.warn('⚠️ Parsed JSON is not an array:', quotes);
+      }
+    } catch (err) {
+      console.error('❌ Failed to parse script output as JSON:', err.message);
+      console.log('🔍 Raw output (first 300 chars):', stdout.slice(0, 300));
+    }
   });
 });
+
 
 
 const PORT = process.env.PORT || 3000;
