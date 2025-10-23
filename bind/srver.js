@@ -31,6 +31,7 @@ app.post('/trigger-workflow', async (req, res) => {
     });
 
     if (response.ok) {
+	  res.setHeader('Access-Control-Allow-Origin', 'https://11tdlong.github.io');
       res.send({ status: '✅ Workflow triggered successfully' });
     } else {
       const error = await response.text();
@@ -56,6 +57,7 @@ app.post('/trigger-robot-tests', async (req, res) => {
     });
 
     if (response.ok) {
+	  res.setHeader('Access-Control-Allow-Origin', 'https://11tdlong.github.io');
       res.send({ status: '✅ Robot Tests workflow triggered successfully' });
     } else {
       const error = await response.text();
@@ -134,12 +136,23 @@ app.get('/fireant/:code', async (req, res) => {
   const code = req.params.code;
 
   try {
-    const tokenRes = await fetch(`https://fireant.vn/ma-chung-khoan/${code}`, {
-      headers: {
-        'User-Agent': 'curl/7.79.1'
-      }
-    });
-    const html = await tokenRes.text();
+	const initialRes = await fetch(`https://fireant.vn/ma-chung-khoan/${code}`, {
+	  headers: { 'User-Agent': 'curl/7.79.1' }
+	});
+	let html = await initialRes.text();
+
+	// 🔁 Detect and follow JS redirect
+	const redirectMatch = html.match(/window\.location\.href\s*=\s*"([^"]+)"/);
+	if (redirectMatch && redirectMatch[1]) {
+	  const redirectedUrl = redirectMatch[1];
+	  console.log(`🔁 Following redirect to: ${redirectedUrl}`);
+
+	  const redirectedRes = await fetch(redirectedUrl, {
+		headers: { 'User-Agent': 'curl/7.79.1' }
+	  });
+	  html = await redirectedRes.text();
+	}
+
 
     const scriptMatch = html.match(/<script[^>]*id=["']__NEXT_DATA__["'][^>]*>([\s\S]*?)<\/script>/);
     if (!scriptMatch || !scriptMatch[1]) {
