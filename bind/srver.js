@@ -137,8 +137,7 @@ async function fetchAndSendArtifactLogs(artifactName, res) {
   }
 }
 
-
-// ✅ FireAnt proxy route with debug logging
+// ✅ FireAnt proxy route with debug logging and flexible regex
 app.get('/fireant/:code', async (req, res) => {
   const code = req.params.code;
 
@@ -146,11 +145,13 @@ app.get('/fireant/:code', async (req, res) => {
     const tokenRes = await fetch(`https://fireant.vn/ma-chung-khoan/${code}`);
     const html = await tokenRes.text();
 
-    // ✅ Extract JSON from <script id="__NEXT_DATA__" type="application/json">
-    const scriptMatch = html.match(/<script id="__NEXT_DATA__" type="application\/json">([\s\S]*?)<\/script>/);
+    // ✅ Flexible regex for script tag
+    const scriptMatch = html.match(/<script[^>]*id=["']__NEXT_DATA__["'][^>]*>([\s\S]*?)<\/script>/);
     if (!scriptMatch || !scriptMatch[1]) {
-      console.error('❌ __NEXT_DATA__ script not found');
-      return res.status(500).send({ error: 'Failed to locate embedded token script.' });
+      const debugPath = path.join(__dirname, 'fireant_debug.html');
+      fs.writeFileSync(debugPath, html);
+      console.error('❌ __NEXT_DATA__ script not found — HTML saved to fireant_debug.html');
+      return res.status(500).send({ error: 'Failed to locate embedded token script. Debug file saved.' });
     }
 
     let jsonData;
@@ -206,7 +207,6 @@ app.get('/quotes/:symbol', (req, res) => {
     res.type('text/plain').send(stdout);
   });
 });
-
 
 // ✅ Start server
 const PORT = process.env.PORT || 3000;
