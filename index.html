@@ -663,7 +663,7 @@ function startProcess3() {
 
   status.textContent = '⏳ Fetching data...';
 
-  // ✅ Call your backend to bypass CORS
+  // ✅ First:  data
   fetch(`https://repo1-qygx.onrender.com/fireant/${code}`)
     .then(res => {
       if (!res.ok) throw new Error('Backend fetch failed');
@@ -672,16 +672,32 @@ function startProcess3() {
     .then(data => {
       if (data.error) {
         status.innerHTML = `<pre class="warning">❌ ${data.error}</pre>`;
-      } else {
-	    const output = formatQuote(data.quotes || []);
-        status.innerHTML = `<pre>${output}</pre>`;
+        return Promise.reject('FireAnt error');
       }
+
+      const fireantOutput = formatQuote(data.quotes || []);
+      status.innerHTML = `<pre><strong>📊 FireAnt Data</strong>\n\n${fireantOutput}</pre>`;
+
+      // ✅ Then: Formatted quotes from Bash script
+      return fetch(`https://repo1-qygx.onrender.com/quotes/${code}`);
+    })
+    .then(res => {
+      if (!res.ok) throw new Error('Formatted quotes fetch failed');
+      return res.text();
+    })
+    .then(formatted => {
+      // ✅ Append formatted quotes
+      status.innerHTML += `\n\n<pre><strong>📈 Formatted Quotes</strong>\n\n${formatted}</pre>`;
     })
     .catch(err => {
-      status.innerHTML = `<pre class="warning">❌ Error: ${err.message}</pre>`;
+      if (!status.innerHTML.includes('❌')) {
+        status.innerHTML = `<pre class="warning">❌ Error: ${err.message}</pre>`;
+      }
       console.error(err);
     });
 }
+
+
 function formatQuote(rawQuotes) {
   if (!Array.isArray(rawQuotes) || rawQuotes.length === 0) return 'No data available';
 

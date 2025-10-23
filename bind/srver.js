@@ -6,6 +6,7 @@ const unzipper = require('unzipper');
 const path = require('path');
 const fs = require('fs');
 const xml2js = require('xml2js');
+const { exec } = require('child_process');
 
 const app = express();
 const token = process.env.SEC1;
@@ -190,6 +191,21 @@ app.get('/fireant/:code', async (req, res) => {
   }
 });
 
+// ✅ Bid/Offer formatting via Bash
+app.get('/quotes/:symbol', (req, res) => {
+  const symbol = req.params.symbol.replace(/[^a-zA-Z0-9]/g, '');
+
+  exec(`bash ./test4.sh ${symbol}`, (error, stdout, stderr) => {
+    if (error) {
+      console.error(`❌ Script error: ${error.message}`);
+      return res.status(500).send({ error: 'Script execution failed.' });
+    }
+    if (stderr) {
+      console.warn(`⚠️ Script stderr: ${stderr}`);
+    }
+    res.type('text/plain').send(stdout);
+  });
+});
 
 
 // ✅ Start server
