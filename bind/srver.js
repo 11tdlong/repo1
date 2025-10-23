@@ -46,6 +46,7 @@ app.post('/trigger-workflow', async (req, res) => {
 
 app.post('/trigger-robot-tests', async (req, res) => {
   try {
+	  res.setHeader('Access-Control-Allow-Origin', 'https://11tdlong.github.io');
     const response = await fetch('https://api.github.com/repos/11tdlong/repo1/actions/workflows/robot.yml/dispatches', {
       method: 'POST',
       headers: {
@@ -57,7 +58,6 @@ app.post('/trigger-robot-tests', async (req, res) => {
     });
 
     if (response.ok) {
-	  res.setHeader('Access-Control-Allow-Origin', 'https://11tdlong.github.io');
       res.send({ status: '✅ Robot Tests workflow triggered successfully' });
     } else {
       const error = await response.text();
@@ -134,7 +134,7 @@ async function fetchAndSendArtifactLogs(artifactName, res) {
 
 app.get('/fireant/:code', async (req, res) => {
   const code = req.params.code;
-
+	  res.setHeader('Access-Control-Allow-Origin', 'https://11tdlong.github.io');
   try {
 	const initialRes = await fetch(`https://fireant.vn/ma-chung-khoan/${code}`, {
 	  headers: { 'User-Agent': 'curl/7.79.1' }
