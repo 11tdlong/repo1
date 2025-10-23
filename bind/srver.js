@@ -217,10 +217,12 @@ app.get('/fireant/:code', async (req, res) => {
 
 app.get('/quotes/:symbol', (req, res) => {
   const symbol = req.params.symbol.replace(/[^a-zA-Z0-9]/g, '');
-console.log('📁 Current directory:', __dirname);
-console.log('📁 Looking for script at:', path.join(__dirname, 'test4.sh'));
+  const scriptPath = path.join(__dirname, 'test4.sh');
 
-  exec(`bash ./test4.sh ${symbol}`, (error, stdout, stderr) => {
+  console.log('📁 Current directory:', __dirname);
+  console.log('🚀 Executing:', `bash ${scriptPath} ${symbol}`);
+
+  exec(`bash ${scriptPath} ${symbol}`, (error, stdout, stderr) => {
     if (error) {
       console.error(`❌ Script error: ${error.message}`);
       return res.status(500).send({ error: 'Script execution failed.' });
@@ -232,6 +234,7 @@ console.log('📁 Looking for script at:', path.join(__dirname, 'test4.sh'));
     res.type('text/plain').send(stdout);
   });
 });
+
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
