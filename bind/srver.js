@@ -12,6 +12,7 @@ const app = express();
 const token = process.env.SEC1;
 
 app.use(cors({ origin: 'https://11tdlong.github.io' }));
+app.options('*', cors({ origin: 'https://11tdlong.github.io' }));
 app.use(express.json());
 
 app.get('/ping', (req, res) => {
@@ -216,6 +217,8 @@ app.get('/fireant/:code', async (req, res) => {
 
 app.get('/quotes/:symbol', (req, res) => {
   const symbol = req.params.symbol.replace(/[^a-zA-Z0-9]/g, '');
+console.log('📁 Current directory:', __dirname);
+console.log('📁 Looking for script at:', path.join(__dirname, 'test4.sh'));
 
   exec(`bash ./test4.sh ${symbol}`, (error, stdout, stderr) => {
     if (error) {
