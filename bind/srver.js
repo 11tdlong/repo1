@@ -137,7 +137,7 @@ async function fetchAndSendArtifactLogs(artifactName, res) {
   }
 }
 
-// ✅ FireAnt proxy route with debug logging and flexible regex
+// ✅ FireAnt proxy route with debug logging and smart script preview
 app.get('/fireant/:code', async (req, res) => {
   const code = req.params.code;
 
@@ -149,7 +149,21 @@ app.get('/fireant/:code', async (req, res) => {
     if (!scriptMatch || !scriptMatch[1]) {
       const debugPath = path.join(__dirname, 'fireant_debug.html');
       fs.writeFileSync(debugPath, html);
+
+      const scriptTags = html.match(/<script[^>]*>([\s\S]*?)<\/script>/gi) || [];
+
+      console.error('\n==> ///////////////////////////////////////////////////////////');
       console.error('❌ __NEXT_DATA__ script not found — HTML saved to fireant_debug.html');
+      console.error(`📄 Found ${scriptTags.length} <script> tags. Here's a preview:`);
+
+      scriptTags.forEach((tag, i) => {
+        if (tag.includes('__NEXT_DATA__') || i < 3) {
+          console.error(`🔍 Script ${i + 1}:\n${tag.slice(0, 300)}\n`);
+        }
+      });
+
+      console.error('==> ///////////////////////////////////////////////////////////\n');
+
       return res.status(500).send({ error: 'Failed to locate embedded token script. Debug file saved.' });
     }
 
