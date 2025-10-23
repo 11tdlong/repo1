@@ -11,18 +11,13 @@ const { exec } = require('child_process');
 const app = express();
 const token = process.env.SEC1;
 
-// ✅ Middleware
-app.use(cors({
-  origin: 'https://11tdlong.github.io'
-}));
+app.use(cors({ origin: 'https://11tdlong.github.io' }));
 app.use(express.json());
 
-// ✅ Health check route
 app.get('/ping', (req, res) => {
   res.send({ status: '✅ Backend is alive' });
 });
 
-// ✅ Trigger GitHub Actions workflow
 app.post('/trigger-workflow', async (req, res) => {
   try {
     const response = await fetch('https://api.github.com/repos/11tdlong/repo1/actions/workflows/cypress.yml/dispatches', {
@@ -48,7 +43,6 @@ app.post('/trigger-workflow', async (req, res) => {
   }
 });
 
-// ✅ Trigger Robot Tests workflow
 app.post('/trigger-robot-tests', async (req, res) => {
   try {
     const response = await fetch('https://api.github.com/repos/11tdlong/repo1/actions/workflows/robot.yml/dispatches', {
@@ -74,7 +68,6 @@ app.post('/trigger-robot-tests', async (req, res) => {
   }
 });
 
-// ✅ Serve logs from GitHub artifact
 app.get('/logs/cypress', async (req, res) => {
   await fetchAndSendArtifactLogs('cypress-logs', res);
 });
@@ -137,12 +130,15 @@ async function fetchAndSendArtifactLogs(artifactName, res) {
   }
 }
 
-// ✅ FireAnt proxy route with debug logging and smart script preview
 app.get('/fireant/:code', async (req, res) => {
   const code = req.params.code;
 
   try {
-    const tokenRes = await fetch(`https://fireant.vn/ma-chung-khoan/${code}`);
+    const tokenRes = await fetch(`https://fireant.vn/ma-chung-khoan/${code}`, {
+      headers: {
+        'User-Agent': 'curl/7.79.1'
+      }
+    });
     const html = await tokenRes.text();
 
     const scriptMatch = html.match(/<script[^>]*id=["']__NEXT_DATA__["'][^>]*>([\s\S]*?)<\/script>/);
@@ -205,7 +201,6 @@ app.get('/fireant/:code', async (req, res) => {
   }
 });
 
-// ✅ Bid/Offer formatting via Bash
 app.get('/quotes/:symbol', (req, res) => {
   const symbol = req.params.symbol.replace(/[^a-zA-Z0-9]/g, '');
 
@@ -222,6 +217,5 @@ app.get('/quotes/:symbol', (req, res) => {
   });
 });
 
-// ✅ Start server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
