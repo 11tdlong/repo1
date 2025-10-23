@@ -145,7 +145,6 @@ app.get('/fireant/:code', async (req, res) => {
     const tokenRes = await fetch(`https://fireant.vn/ma-chung-khoan/${code}`);
     const html = await tokenRes.text();
 
-    // ✅ Flexible regex for script tag
     const scriptMatch = html.match(/<script[^>]*id=["']__NEXT_DATA__["'][^>]*>([\s\S]*?)<\/script>/);
     if (!scriptMatch || !scriptMatch[1]) {
       const debugPath = path.join(__dirname, 'fireant_debug.html');
@@ -168,7 +167,6 @@ app.get('/fireant/:code', async (req, res) => {
       return res.status(400).send({ error: 'accessToken not found in FireAnt data.' });
     }
 
-    // ✅ Fetch historical quotes using the token
     const quotesRes = await fetch(`https://restv2.fireant.vn/symbols/${code}/historical-quotes?startDate=2022-08-08&endDate=2025-12-12&offset=0&limit=30`, {
       headers: {
         Authorization: `Bearer ${accessToken}`
@@ -185,6 +183,7 @@ app.get('/fireant/:code', async (req, res) => {
       return res.status(500).send({ error: 'Invalid quotes response from FireAnt.' });
     }
 
+    res.setHeader('Access-Control-Allow-Origin', 'https://11tdlong.github.io');
     res.send({ quotes: quotesData });
   } catch (err) {
     console.error('❌ FireAnt error:', err.message);
@@ -204,6 +203,7 @@ app.get('/quotes/:symbol', (req, res) => {
     if (stderr) {
       console.warn(`⚠️ Script stderr: ${stderr}`);
     }
+    res.setHeader('Access-Control-Allow-Origin', 'https://11tdlong.github.io');
     res.type('text/plain').send(stdout);
   });
 });
