@@ -4,7 +4,7 @@ Resource        ../resources/keywords.robot
 *** Variables ***
 ${API_URL}    https://fireant.vn/ma-chung-khoan/
 ${HARD_URI}    https://restv2.fireant.vn/symbols/HBC/historical-quotes?startDate=2022-08-08&endDate=2025-12-12&offset=0&limit=30
-${URL2}    https://finance.vietstock.vn/IJC-ctcp-phat-trien-ha-tang-ky-thuat.htm
+${URL2}    https://iboard-query.ssi.com.vn/stock/symbol?boardId=MAIN
 *** Test Cases ***
 Test number one
 	[Timeout]    1 minutes
@@ -39,34 +39,42 @@ Test API Number One
 	Log To Console    \n${val} / ${vol} => ${result} vs ${direct}
 
 Test API Number Two
-	[Documentation]    Another test to test
-    [Tags]    api2
-    Create Session    vietstock    ${URL2}    headers={"User-Agent": "Mozilla/5.0"}
-    ${response}=    GET On Session    vietstock    ${URL2}
+    [Documentation]    Fetches and formats top 10 bid/offer levels like awk output
+    [Tags]             iboard    formatted
+
+    # Step 0: Set symbol and build final URL
+    ${code}=           Set Variable    hbc
+    ${final_url}=      Replace String    ${URL2}    symbol    ${code}
+    Log                🔗 Requesting: ${final_url}
+
+    # Step 1: Create session with browser-like headers
+    Create Session     iboard    https://iboard-query.ssi.com.vn    headers={"User-Agent": "Mozilla/5.0"}    verify=${True}
+
+    # Step 2: Send GET request
+    ${response}=       GET On Session    iboard    ${final_url}
     Should Be Equal As Integers    ${response.status_code}    200
 
-    ${html}=    Convert To String    ${response.content}
-    ${cookie_token}=    Get Cookie Token From HTML    ${html}
-	Log    ${cookie_token}
-    ${body_token}=      Get Body Token From HTML      ${html}
-	Log    ${body_token}
-	
-	${session}=    Evaluate    getattr(__import__('robot.libraries.BuiltIn', fromlist=['BuiltIn']), 'BuiltIn')().get_library_instance("RequestsLibrary")._cache.get_connection("vietstock")
-	
-	${type}=    Evaluate    (lambda s: type(s))(${session})
-	Log    ${type}
+    # Step 3: Convert response to string and parse JSON
+    ${html}=           Convert To String    ${response.content}
+    ${is_html}=        Evaluate    '''${html}'''.startswith('<!DOCTYPE html>')
+    Run Keyword If     ${is_html}    Fail    ⚠️ SSI API returned HTML — likely blocked
 
-	${cookie_string}=    Evaluate    "; ".join(["%s=%s" % (c.name, c.value) for c in ${session}.cookies])
+    ${json}=           Evaluate    json.loads('''${html}''')    json
+    ${data}=           Set Variable    ${json['data']}
+	${output}=    Set Variable
+    # Step 5: Loop through levels 1–10 and format output
+    FOR    ${i}    IN RANGE    1    11
+    ${bid_key}=        Set Variable    best${i}Bid
+    ${bidVol_key}=     Set Variable    best${i}BidVol
+    ${offer_key}=      Set Variable    best${i}Offer
+    ${offerVol_key}=   Set Variable    best${i}OfferVol
 
+    ${bid}=        Run Keyword If    '${bid_key}' in ${data}    Evaluate    str(${data['${bid_key}']}).rjust(8)    ELSE    Evaluate    '—'.rjust(8)
+    ${bidVol}=     Run Keyword If    '${bidVol_key}' in ${data}    Evaluate    str(${data['${bidVol_key}']}).rjust(10)    ELSE    Evaluate    '—'.rjust(10)
+    ${offer}=      Run Keyword If    '${offer_key}' in ${data}    Evaluate    str(${data['${offer_key}']}).rjust(8)    ELSE    Evaluate    '—'.rjust(8)
+    ${offerVol}=   Run Keyword If    '${offerVol_key}' in ${data}    Evaluate    str(${data['${offerVol_key}']}).rjust(10)    ELSE    Evaluate    '—'.rjust(10)
 
-    ${headers}=    Create Dictionary
-    ...    Content-Type=application/x-www-form-urlencoded
-    ...    Cookie=${cookie_string}
-    ...    Referer=${URL2}
-    ...    X-Requested-With=XMLHttpRequest
-
-    ${payload}=    Set Variable    type=2&__RequestVerificationToken=${body_token}
-
-    ${post_response}=    POST On Session    vietstock    ${POST_ENDPOINT}    data=${payload}    headers=${headers}
-    Log    ${post_response.status_code}
-    Log    ${post_response.content}
+    ${line}=       Set Variable    ${bid}${SPACE}${bidVol}${SPACE}${offer}${SPACE}${offerVol}
+    ${output}=     Catenate    SEPARATOR=\n    ${output}    ${line}
+	END
+	Log    ${output}
