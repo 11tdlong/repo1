@@ -47,6 +47,7 @@ jobs:
           robot -i done -d tmp .
           echo "✅ Robot tests complete."
       - name: Verify log.html exists and is not empty
+        if: always()
         run: |
           if [ ! -s tmp/log.html ]; then
             echo "❌ tmp/log.html is missing or empty"
@@ -54,6 +55,7 @@ jobs:
           fi
 
       - name: Upload Robot logs
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: robot-logs
@@ -63,6 +65,7 @@ jobs:
         run: git pull origin main
 
       - name: Commit Robot logs to tmp folder in main
+        if: always()
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
