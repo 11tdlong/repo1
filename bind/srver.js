@@ -133,7 +133,6 @@ async function fetchAndSendArtifactLogs(artifactName, res) {
   }
 }
 
-app.get('/fireant/:code', async (req, res) => {
   app.get('/fireant/:code', async (req, res) => {
   const code = req.params.code;
   const userAgent = 'curl/7.79.1';
