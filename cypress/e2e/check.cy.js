@@ -56,7 +56,7 @@ describe('Quick and Simple Test', () => {
 		})
 		cy.get('@storedValue').then((storedValue) => {
 			cy.task('log', {message: '--------------------', color: 'blue'})
-			if(storedValue == "15 tháng 10, 2025") {
+			if(storedValue == "24 tháng 10, 2025") {
 				cy.task('log', {message: storedValue})
 				cy.task('log', {message: 'OLD News', color: 'yellow'})
 			} else {
