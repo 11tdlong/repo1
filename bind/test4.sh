@@ -9,19 +9,19 @@ fi
 symbol="$1"
 url="https://iboard-query.ssi.com.vn/stock/${symbol}?boardId=MAIN"
 
-echo "🔍 Fetching data for symbol: $symbol"
-echo "🌐 Request URL: $url"
+# Fetch JSON with browser-like headers
+json=$(curl -s "$url" \
+  -H "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64)" \
+  -H "Accept: application/json, text/plain, */*" \
+  -H "Accept-Language: en-US,en;q=0.9" \
+  -H "Connection: keep-alive" \
+  -H "Referer: https://iboard.ssi.com.vn/" \
+  --compressed)
 
-# Fetch JSON with User-Agent header
-json=$(curl -s -H "User-Agent: Mozilla/5.0" "$url")
 
-# Debug: Show raw JSON length and preview
-echo "📦 JSON length: ${#json}"
-echo "$json" | head -c 300
-
-# Exit if empty response
-if [ -z "$json" ]; then
-  echo "⚠️ No data received from SSI API"
+# Exit if empty response or HTML fallback
+if [[ -z "$json" || "$json" == "<!DOCTYPE html>"* ]]; then
+  echo "⚠️ SSI API returned HTML or empty response — likely blocked by Cloudflare"
   exit 1
 fi
 
@@ -51,13 +51,12 @@ BEGIN {
   }
 }
 END {
-  printf "%-10s %-10s  %-10s %-10s\n", "Bid", "BidVol", "Offer", "OfferVol"
   for (i = 1; i <= 10; i++) {
     b = (i in bid) ? bid[i] : "—"
     bv = (i in bidVol) ? bidVol[i] : "—"
     o = (i in offer) ? offer[i] : "—"
     ov = (i in offerVol) ? offerVol[i] : "—"
-    printf "%-10s %-10s  %-10s %-10s\n", b, bv, o, ov
+    printf "%-10s%-10s %-10s%-10s\n", b, bv, o, ov
   }
 }
 '
