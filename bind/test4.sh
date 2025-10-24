@@ -7,8 +7,25 @@ if [ -z "$1" ]; then
 fi
 
 symbol="$1"
-json=$(curl -s "https://iboard-query.ssi.com.vn/stock/${symbol}?boardId=MAIN")
+url="https://iboard-query.ssi.com.vn/stock/${symbol}?boardId=MAIN"
 
+echo "🔍 Fetching data for symbol: $symbol"
+echo "🌐 Request URL: $url"
+
+# Fetch JSON with User-Agent header
+json=$(curl -s -H "User-Agent: Mozilla/5.0" "$url")
+
+# Debug: Show raw JSON length and preview
+echo "📦 JSON length: ${#json}"
+echo "$json" | head -c 300
+
+# Exit if empty response
+if [ -z "$json" ]; then
+  echo "⚠️ No data received from SSI API"
+  exit 1
+fi
+
+# Parse and format output
 echo "$json" | awk '
 BEGIN {
   FS="[:,{}\"]+"
@@ -34,6 +51,7 @@ BEGIN {
   }
 }
 END {
+  printf "%-10s %-10s  %-10s %-10s\n", "Bid", "BidVol", "Offer", "OfferVol"
   for (i = 1; i <= 10; i++) {
     b = (i in bid) ? bid[i] : "—"
     bv = (i in bidVol) ? bidVol[i] : "—"
