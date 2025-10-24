@@ -40,7 +40,7 @@ Test API Number One
 
 Test API Number Two
     [Documentation]    Fetches and formats top 10 bid/offer levels like awk output
-    [Tags]             iboard    formatted
+    [Tags]             api    done
 
     # Step 0: Set symbol and build final URL
     ${code}=           Set Variable    hbc
@@ -78,3 +78,4 @@ Test API Number Two
     ${output}=     Catenate    SEPARATOR=\n    ${output}    ${line}
 	END
 	Log    ${output}
+	Log To Console    ${output}
