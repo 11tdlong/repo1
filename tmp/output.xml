@@ -1,29 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 7.3.2 (Python 3.11.14 on linux)" generated="2025-10-18T01:03:08.934498" rpa="false" schemaversion="5">
+<robot generator="Robot 7.3.2 (Python 3.11.13 on linux)" generated="2025-10-24T07:20:27.798853" rpa="false" schemaversion="5">
 <suite id="s1" name="Repo1" source="/home/runner/work/repo1/repo1">
 <suite id="s1-s1" name="Playwright2" source="/home/runner/work/repo1/repo1/playwright2">
 <suite id="s1-s1-s1" name="Tests" source="/home/runner/work/repo1/repo1/playwright2/tests">
 <kw name="Open Default Page" owner="keywords" type="SETUP">
 <kw name="Convert To Boolean" owner="BuiltIn">
-<msg time="2025-10-18T01:03:09.138758" level="INFO">${headless_bool} = True</msg>
+<msg time="2025-10-24T07:20:28.010221" level="INFO">${headless_bool} = True</msg>
 <var>${headless_bool}</var>
 <arg>${HEADLESS}</arg>
 <doc>Converts the given item to Boolean true or false.</doc>
-<status status="PASS" start="2025-10-18T01:03:09.138510" elapsed="0.000284"/>
+<status status="PASS" start="2025-10-24T07:20:28.009942" elapsed="0.000316"/>
 </kw>
 <kw name="New Browser" owner="Browser">
-<msg time="2025-10-18T01:03:09.139534" level="INFO">{"browser": "chromium", "headless": true, "chromiumSandbox": false, "devtools": false, "handleSIGHUP": true, "handleSIGINT": true, "handleSIGTERM": true, "slowMo": 0.0, "timeout": 30000.0, "tracesDir": "/home/runner/work/repo1/repo1/tmp/browser/traces/temp/b0c0b1ad-302b-46fe-98bb-9a74c1594c9a"}</msg>
-<msg time="2025-10-18T01:03:09.143518" level="INFO">Starting Browser process /opt/hostedtoolcache/Python/3.11.14/x64/lib/python3.11/site-packages/Browser/wrapper/index.js using at 127.0.0.1:48403</msg>
-<msg time="2025-10-18T01:03:10.530670" level="INFO">Successfully created browser with options: {"browser":"chromium","headless":true,"chromiumSandbox":false,"devtools":false,"handleSIGHUP":true,"handleSIGINT":true,"handleSIGTERM":true,"slowMo":0,"timeout":30000,"tracesDir":"/home/runner/work/repo1/repo1/tmp/browser/traces/temp/b0c0b1ad-302b-46fe-98bb-9a74c1594c9a"}</msg>
+<msg time="2025-10-24T07:20:28.010971" level="INFO">{"browser": "chromium", "headless": true, "chromiumSandbox": false, "devtools": false, "handleSIGHUP": true, "handleSIGINT": true, "handleSIGTERM": true, "slowMo": 0.0, "timeout": 30000.0, "tracesDir": "/home/runner/work/repo1/repo1/tmp/browser/traces/temp/fd548c84-02f9-4aa2-a357-da502ff2b8b3"}</msg>
+<msg time="2025-10-24T07:20:28.014997" level="INFO">Starting Browser process /opt/hostedtoolcache/Python/3.11.13/x64/lib/python3.11/site-packages/Browser/wrapper/index.js using at 127.0.0.1:56733</msg>
+<msg time="2025-10-24T07:20:29.693741" level="INFO">Successfully created browser with options: {"browser":"chromium","headless":true,"chromiumSandbox":false,"devtools":false,"handleSIGHUP":true,"handleSIGINT":true,"handleSIGTERM":true,"slowMo":0,"timeout":30000,"tracesDir":"/home/runner/work/repo1/repo1/tmp/browser/traces/temp/fd548c84-02f9-4aa2-a357-da502ff2b8b3"}</msg>
 <arg>chromium</arg>
 <arg>headless=${headless_bool}</arg>
 <tag>BrowserControl</tag>
 <tag>Setter</tag>
 <doc>Create a new playwright Browser with specified options.</doc>
-<status status="PASS" start="2025-10-18T01:03:09.138946" elapsed="1.391965"/>
+<status status="PASS" start="2025-10-24T07:20:28.010397" elapsed="1.683572"/>
 </kw>
 <kw name="New Context" owner="Browser">
-<msg time="2025-10-18T01:03:10.532852" level="INFO">{
+<msg time="2025-10-24T07:20:29.695990" level="INFO">{
   "acceptDownloads": true,
   "bypassCSP": false,
   "forcedColors": "none",
@@ -37,60 +37,60 @@
     "height": 940
   }
 }</msg>
-<msg time="2025-10-18T01:03:10.543772" level="INFO">Successfully created context. </msg>
-<msg time="2025-10-18T01:03:10.543821" level="INFO">{'acceptDownloads': True, 'bypassCSP': False, 'forcedColors': 'none', 'ignoreHTTPSErrors': False, 'javaScriptEnabled': True, 'offline': False, 'reducedMotion': 'no-preference', 'serviceWorkers': 'allow', 'viewport': {'width': 1880, 'height': 940}}</msg>
+<msg time="2025-10-24T07:20:29.707512" level="INFO">Successfully created context. </msg>
+<msg time="2025-10-24T07:20:29.707580" level="INFO">{'acceptDownloads': True, 'bypassCSP': False, 'forcedColors': 'none', 'ignoreHTTPSErrors': False, 'javaScriptEnabled': True, 'offline': False, 'reducedMotion': 'no-preference', 'serviceWorkers': 'allow', 'viewport': {'width': 1880, 'height': 940}}</msg>
 <arg>viewport={'width': 1880, 'height': 940}</arg>
 <tag>BrowserControl</tag>
 <tag>Setter</tag>
 <doc>Create a new BrowserContext with specified options.</doc>
-<status status="PASS" start="2025-10-18T01:03:10.531237" elapsed="0.012660"/>
+<status status="PASS" start="2025-10-24T07:20:29.694305" elapsed="0.013352"/>
 </kw>
 <kw name="Set Browser Timeout" owner="Browser">
 <arg>30000</arg>
 <tag>Config</tag>
 <tag>Setter</tag>
 <doc>Sets the timeout used by most input and getter keywords.</doc>
-<status status="PASS" start="2025-10-18T01:03:10.544062" elapsed="0.002548"/>
+<status status="PASS" start="2025-10-24T07:20:29.707861" elapsed="0.002612"/>
 </kw>
 <kw name="New Page" owner="Browser">
-<msg time="2025-10-18T01:04:42.568649" level="INFO">Successfully initialized new page object and opened url: https://fireant.vn</msg>
+<msg time="2025-10-24T07:24:39.704684" level="INFO">Successfully initialized new page object and opened url: https://fireant.vn</msg>
 <arg>${BASE_URL}</arg>
 <arg>wait_until=load</arg>
 <tag>BrowserControl</tag>
 <tag>Setter</tag>
 <doc>Open a new Page.</doc>
-<status status="PASS" start="2025-10-18T01:03:10.546752" elapsed="92.022210"/>
+<status status="PASS" start="2025-10-24T07:20:29.710614" elapsed="249.994390"/>
 </kw>
-<status status="PASS" start="2025-10-18T01:03:09.137770" elapsed="93.431421"/>
+<status status="PASS" start="2025-10-24T07:20:28.009229" elapsed="251.696029"/>
 </kw>
 <suite id="s1-s1-s1-s1" name="First" source="/home/runner/work/repo1/repo1/playwright2/tests/first.robot">
 <test id="s1-s1-s1-s1-t1" name="Test number one" line="9">
 <kw name="Check Title" owner="keywords">
 <kw name="Get Title" owner="Browser">
-<msg time="2025-10-18T01:04:42.587279" level="INFO">Title: 'FireAnt'</msg>
-<msg time="2025-10-18T01:04:42.587408" level="INFO">${title} = FireAnt</msg>
+<msg time="2025-10-24T07:24:39.726274" level="INFO">Title: 'FireAnt'</msg>
+<msg time="2025-10-24T07:24:39.726400" level="INFO">${title} = FireAnt</msg>
 <var>${title}</var>
 <tag>Assertion</tag>
 <tag>Getter</tag>
 <tag>PageContent</tag>
 <doc>Returns the title of the current page.</doc>
-<status status="PASS" start="2025-10-18T01:04:42.584028" elapsed="0.003408"/>
+<status status="PASS" start="2025-10-24T07:24:39.723209" elapsed="0.003218"/>
 </kw>
 <kw name="Should Be Equal" owner="BuiltIn">
 <arg>${title}</arg>
 <arg>${TITLE2}</arg>
 <doc>Fails if the given objects are unequal.</doc>
-<status status="PASS" start="2025-10-18T01:04:42.587569" elapsed="0.000272"/>
+<status status="PASS" start="2025-10-24T07:24:39.726565" elapsed="0.000279"/>
 </kw>
-<status status="PASS" start="2025-10-18T01:04:42.583688" elapsed="0.004235"/>
+<status status="PASS" start="2025-10-24T07:24:39.722822" elapsed="0.004104"/>
 </kw>
 <kw name="Basic Check" owner="keywords">
 <kw name="Element Exists" owner="keywords">
 <kw name="Run Keyword And Return Status" owner="BuiltIn">
 <kw name="Wait For Elements State" owner="Browser">
-<msg time="2025-10-18T01:04:48.711066" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="browser/screenshot/fail-screenshot-1.png" target="_blank"&gt;&lt;img src="browser/screenshot/fail-screenshot-1.png" width="800px"/&gt;&lt;/a&gt;</msg>
-<msg time="2025-10-18T01:04:48.711189" level="INFO">See also file:///home/runner/work/repo1/repo1/tmp/playwright-log.txt for additional details.</msg>
-<msg time="2025-10-18T01:04:48.711581" level="FAIL">TimeoutError: locator.waitFor: Timeout 6000ms exceeded.
+<msg time="2025-10-24T07:24:45.854624" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="browser/screenshot/fail-screenshot-1.png" target="_blank"&gt;&lt;img src="browser/screenshot/fail-screenshot-1.png" width="800px"/&gt;&lt;/a&gt;</msg>
+<msg time="2025-10-24T07:24:45.854758" level="INFO">See also file:///home/runner/work/repo1/repo1/tmp/playwright-log.txt for additional details.</msg>
+<msg time="2025-10-24T07:24:45.855340" level="FAIL">TimeoutError: locator.waitFor: Timeout 6000ms exceeded.
 Call log:
   - waiting for locator('//div[@id=\'dialogPortal\']/following-sibling::button')
 </msg>
@@ -100,396 +100,607 @@ Call log:
 <tag>PageContent</tag>
 <tag>Wait</tag>
 <doc>Waits for the element found by ``selector`` to satisfy state option.</doc>
-<status status="FAIL" start="2025-10-18T01:04:42.589045" elapsed="6.150247">TimeoutError: locator.waitFor: Timeout 6000ms exceeded.
+<status status="FAIL" start="2025-10-24T07:24:39.727898" elapsed="6.141869">TimeoutError: locator.waitFor: Timeout 6000ms exceeded.
 Call log:
   - waiting for locator('//div[@id=\'dialogPortal\']/following-sibling::button')
 </status>
 </kw>
-<msg time="2025-10-18T01:04:48.739483" level="INFO">${status} = False</msg>
+<msg time="2025-10-24T07:24:45.869953" level="INFO">${status} = False</msg>
 <var>${status}</var>
 <arg>Wait For Elements State</arg>
 <arg>${locator}</arg>
 <arg>attached</arg>
 <arg>timeout=6s</arg>
 <doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
-<status status="PASS" start="2025-10-18T01:04:42.588868" elapsed="6.150660"/>
+<status status="PASS" start="2025-10-24T07:24:39.727719" elapsed="6.142262"/>
 </kw>
 <kw name="Return From Keyword" owner="BuiltIn">
-<msg time="2025-10-18T01:04:48.739958" level="INFO">Returning from the enclosing user keyword.</msg>
+<msg time="2025-10-24T07:24:45.870328" level="INFO">Returning from the enclosing user keyword.</msg>
 <arg>${status}</arg>
 <doc>Returns from the enclosing user keyword.</doc>
-<status status="PASS" start="2025-10-18T01:04:48.739765" elapsed="0.000256"/>
+<status status="PASS" start="2025-10-24T07:24:45.870179" elapsed="0.000209"/>
 </kw>
-<msg time="2025-10-18T01:04:48.740196" level="INFO">${check} = False</msg>
+<msg time="2025-10-24T07:24:45.870540" level="INFO">${check} = False</msg>
 <var>${check}</var>
 <arg>${CLOSE}</arg>
-<status status="PASS" start="2025-10-18T01:04:42.588529" elapsed="6.151693"/>
+<status status="PASS" start="2025-10-24T07:24:39.727456" elapsed="6.143109"/>
 </kw>
 <kw name="Run Keyword If" owner="BuiltIn">
 <arg>${check}</arg>
 <arg>Click</arg>
 <arg>xpath=${CLOSE}</arg>
 <doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
-<status status="PASS" start="2025-10-18T01:04:48.740332" elapsed="0.000137"/>
+<status status="PASS" start="2025-10-24T07:24:45.870676" elapsed="0.000133"/>
 </kw>
 <kw name="Fill Text" owner="Browser">
-<msg time="2025-10-18T01:04:48.741052" level="INFO">Fills the text 'HBC' in the given field.</msg>
+<msg time="2025-10-24T07:24:45.871397" level="INFO">Fills the text 'HBC' in the given field.</msg>
 <arg>xpath=//div[@data-value]//input</arg>
 <arg>${code}</arg>
 <tag>PageContent</tag>
 <tag>Setter</tag>
 <doc>Clears and fills the given ``txt`` into the text field found by ``selector``.</doc>
-<status status="PASS" start="2025-10-18T01:04:48.740577" elapsed="0.031486"/>
+<status status="PASS" start="2025-10-24T07:24:45.870917" elapsed="0.031299"/>
 </kw>
 <kw name="Set Variable" owner="BuiltIn">
-<msg time="2025-10-18T01:04:48.772739" level="INFO">${RESULT} = (//div[contains(text(),"HBC")]/ancestor::div[@role="option"])[1]</msg>
+<msg time="2025-10-24T07:24:45.902742" level="INFO">${RESULT} = (//div[contains(text(),"HBC")]/ancestor::div[@role="option"])[1]</msg>
 <var>${RESULT}</var>
 <arg>(//div[contains(text(),"HBC")]/ancestor::div[@role="option"])[1]</arg>
 <doc>Returns the given values which can then be assigned to a variables.</doc>
-<status status="PASS" start="2025-10-18T01:04:48.772345" elapsed="0.000430"/>
+<status status="PASS" start="2025-10-24T07:24:45.902421" elapsed="0.000349"/>
 </kw>
 <kw name="Set Variable" owner="BuiltIn">
-<msg time="2025-10-18T01:04:48.780729" level="INFO">${orderBook} = //button[contains(text(),'Sổ lệnh')]</msg>
+<msg time="2025-10-24T07:24:45.911217" level="INFO">${orderBook} = //button[contains(text(),'Sổ lệnh')]</msg>
 <var>${orderBook}</var>
 <arg>//button[contains(text(),'Sổ lệnh')]</arg>
 <doc>Returns the given values which can then be assigned to a variables.</doc>
-<status status="PASS" start="2025-10-18T01:04:48.772910" elapsed="0.007872"/>
+<status status="PASS" start="2025-10-24T07:24:45.902872" elapsed="0.008399"/>
 </kw>
 <kw name="Set Variable" owner="BuiltIn">
-<msg time="2025-10-18T01:04:48.781238" level="INFO">${highestBuyPrice} = (//div[contains(@class,'flex-row')]//div[contains(@class,'justify-end')]/span)[1]</msg>
+<msg time="2025-10-24T07:24:45.911695" level="INFO">${highestBuyPrice} = (//div[contains(@class,'flex-row')]//div[contains(@class,'justify-end')]/span)[1]</msg>
 <var>${highestBuyPrice}</var>
 <arg>(//div[contains(@class,'flex-row')]//div[contains(@class,'justify-end')]/span)[1]</arg>
 <doc>Returns the given values which can then be assigned to a variables.</doc>
-<status status="PASS" start="2025-10-18T01:04:48.780963" elapsed="0.000305"/>
+<status status="PASS" start="2025-10-24T07:24:45.911451" elapsed="0.000271"/>
 </kw>
 <kw name="Set Variable" owner="BuiltIn">
-<msg time="2025-10-18T01:04:48.781572" level="INFO">${highestBuyVolume} = (//div[contains(@class,'flex-row')]//div[contains(@class,'flex-row')]/span)[1]</msg>
+<msg time="2025-10-24T07:24:45.912020" level="INFO">${highestBuyVolume} = (//div[contains(@class,'flex-row')]//div[contains(@class,'flex-row')]/span)[1]</msg>
 <var>${highestBuyVolume}</var>
 <arg>(//div[contains(@class,'flex-row')]//div[contains(@class,'flex-row')]/span)[1]</arg>
 <doc>Returns the given values which can then be assigned to a variables.</doc>
-<status status="PASS" start="2025-10-18T01:04:48.781371" elapsed="0.000227"/>
+<status status="PASS" start="2025-10-24T07:24:45.911823" elapsed="0.000249"/>
 </kw>
 <kw name="Wait For Elements State" owner="Browser">
-<msg time="2025-10-18T01:04:50.576729" level="INFO">Waited for Element with selector (//div[contains(text(),"HBC")]/ancestor::div[@role="option"])[1] at state attached</msg>
+<msg time="2025-10-24T07:24:48.205450" level="INFO">Waited for Element with selector (//div[contains(text(),"HBC")]/ancestor::div[@role="option"])[1] at state attached</msg>
 <arg>${RESULT}</arg>
 <arg>attached</arg>
 <arg>timeout=12s</arg>
 <tag>PageContent</tag>
 <tag>Wait</tag>
 <doc>Waits for the element found by ``selector`` to satisfy state option.</doc>
-<status status="PASS" start="2025-10-18T01:04:48.781710" elapsed="1.795222"/>
+<status status="PASS" start="2025-10-24T07:24:45.912198" elapsed="2.293448"/>
 </kw>
 <for flavor="IN RANGE">
 <iter>
 <kw name="Run Keyword And Ignore Error" owner="BuiltIn">
 <kw name="Click" owner="Browser">
-<msg time="2025-10-18T01:04:50.578274" level="INFO">Clicks the element 'xpath=(//div[contains(text(),"HBC")]/ancestor::div[@role="option"])[1]'.</msg>
+<msg time="2025-10-24T07:24:48.206893" level="INFO">Clicks the element 'xpath=(//div[contains(text(),"HBC")]/ancestor::div[@role="option"])[1]'.</msg>
 <arg>xpath=${RESULT}</arg>
 <tag>PageContent</tag>
 <tag>Setter</tag>
 <doc>Simulates mouse click on the element found by ``selector``.</doc>
-<status status="PASS" start="2025-10-18T01:04:50.577772" elapsed="0.076515"/>
+<status status="PASS" start="2025-10-24T07:24:48.206440" elapsed="0.072026"/>
 </kw>
-<msg time="2025-10-18T01:04:50.654523" level="INFO">${status} = PASS</msg>
-<msg time="2025-10-18T01:04:50.654587" level="INFO">${msg} = None</msg>
+<msg time="2025-10-24T07:24:48.278685" level="INFO">${status} = PASS</msg>
+<msg time="2025-10-24T07:24:48.278744" level="INFO">${msg} = None</msg>
 <var>${status}</var>
 <var>${msg}</var>
 <arg>Click</arg>
 <arg>xpath=${RESULT}</arg>
 <doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
-<status status="PASS" start="2025-10-18T01:04:50.577578" elapsed="0.077042"/>
+<status status="PASS" start="2025-10-24T07:24:48.206253" elapsed="0.072520"/>
 </kw>
 <kw name="Run Keyword If" owner="BuiltIn">
 <kw name="Exit For Loop" owner="BuiltIn">
-<msg time="2025-10-18T01:04:50.655475" level="INFO">Exiting for loop altogether.</msg>
+<msg time="2025-10-24T07:24:48.279581" level="INFO">Exiting for loop altogether.</msg>
 <doc>Stops executing the enclosing FOR loop.</doc>
-<status status="PASS" start="2025-10-18T01:04:50.655262" elapsed="0.000325"/>
+<status status="PASS" start="2025-10-24T07:24:48.279391" elapsed="0.000288"/>
 </kw>
 <arg>'${status}' == 'PASS'</arg>
 <arg>Exit For Loop</arg>
 <doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
-<status status="PASS" start="2025-10-18T01:04:50.654837" elapsed="0.000822"/>
+<status status="PASS" start="2025-10-24T07:24:48.278991" elapsed="0.000761"/>
 </kw>
 <kw name="Run Keyword If" owner="BuiltIn">
 <arg>'${status}' != 'PASS'</arg>
 <arg>Click</arg>
 <arg>xpath=//div[@data-value]</arg>
 <doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
-<status status="NOT RUN" start="2025-10-18T01:04:50.655796" elapsed="0.000066"/>
+<status status="NOT RUN" start="2025-10-24T07:24:48.279888" elapsed="0.000069"/>
 </kw>
 <var name="${kw}">1</var>
-<status status="PASS" start="2025-10-18T01:04:50.577396" elapsed="0.078523"/>
+<status status="PASS" start="2025-10-24T07:24:48.206081" elapsed="0.073934"/>
 </iter>
 <var>${kw}</var>
 <value>1</value>
 <value>4</value>
-<status status="PASS" start="2025-10-18T01:04:50.577057" elapsed="0.078942"/>
+<status status="PASS" start="2025-10-24T07:24:48.205765" elapsed="0.074346"/>
 </for>
 <kw name="Wait Until Keyword Succeeds" owner="BuiltIn">
 <kw name="Click" owner="Browser">
-<msg time="2025-10-18T01:04:50.660148" level="INFO">Clicks the element 'xpath=//button[contains(text(),'Sổ lệnh')]'.</msg>
+<msg time="2025-10-24T07:24:48.281114" level="INFO">Clicks the element 'xpath=//button[contains(text(),'Sổ lệnh')]'.</msg>
 <arg>xpath=${orderBook}</arg>
 <tag>PageContent</tag>
 <tag>Setter</tag>
 <doc>Simulates mouse click on the element found by ``selector``.</doc>
-<status status="PASS" start="2025-10-18T01:04:50.659529" elapsed="1.490890"/>
+<status status="PASS" start="2025-10-24T07:24:48.280553" elapsed="1.324877"/>
 </kw>
 <arg>10 sec</arg>
 <arg>2 sec</arg>
 <arg>Click</arg>
 <arg>xpath=${orderBook}</arg>
 <doc>Runs the specified keyword and retries if it fails.</doc>
-<status status="PASS" start="2025-10-18T01:04:50.659197" elapsed="1.491327"/>
+<status status="PASS" start="2025-10-24T07:24:48.280271" elapsed="1.325258"/>
 </kw>
 <kw name="Wait For Elements State" owner="Browser">
-<msg time="2025-10-18T01:04:52.544191" level="INFO">Waited for Element with selector (//div[contains(@class,'flex-row')]//div[contains(@class,'justify-end')]/span)[1] at state attached</msg>
+<msg time="2025-10-24T07:24:49.888260" level="INFO">Waited for Element with selector (//div[contains(@class,'flex-row')]//div[contains(@class,'justify-end')]/span)[1] at state attached</msg>
 <arg>${highestBuyPrice}</arg>
 <arg>attached</arg>
 <arg>timeout=12s</arg>
 <tag>PageContent</tag>
 <tag>Wait</tag>
 <doc>Waits for the element found by ``selector`` to satisfy state option.</doc>
-<status status="PASS" start="2025-10-18T01:04:52.150697" elapsed="0.393698"/>
+<status status="PASS" start="2025-10-24T07:24:49.605692" elapsed="0.282770"/>
 </kw>
 <kw name="Get Text" owner="Browser">
-<msg time="2025-10-18T01:04:52.579649" level="INFO">Text: '\xa0710,100'</msg>
-<msg time="2025-10-18T01:04:52.579835" level="INFO">${highestBuyVolume} =  710,100</msg>
+<msg time="2025-10-24T07:24:49.924827" level="INFO">Text: '\xa017,200'</msg>
+<msg time="2025-10-24T07:24:49.925007" level="INFO">${highestBuyVolume} =  17,200</msg>
 <var>${highestBuyVolume}</var>
 <arg>${highestBuyVolume}</arg>
 <tag>Assertion</tag>
 <tag>Getter</tag>
 <tag>PageContent</tag>
 <doc>Returns text attribute of the element found by ``selector``.</doc>
-<status status="PASS" start="2025-10-18T01:04:52.544605" elapsed="0.035260"/>
+<status status="PASS" start="2025-10-24T07:24:49.888677" elapsed="0.036359"/>
 </kw>
 <kw name="Get Text" owner="Browser">
-<msg time="2025-10-18T01:04:52.594546" level="INFO">Text: '\xa06.50'</msg>
-<msg time="2025-10-18T01:04:52.594698" level="INFO">${highestBuyPrice} =  6.50</msg>
+<msg time="2025-10-24T07:24:49.939440" level="INFO">Text: '\xa06.20'</msg>
+<msg time="2025-10-24T07:24:49.939633" level="INFO">${highestBuyPrice} =  6.20</msg>
 <var>${highestBuyPrice}</var>
 <arg>${highestBuyPrice}</arg>
 <tag>Assertion</tag>
 <tag>Getter</tag>
 <tag>PageContent</tag>
 <doc>Returns text attribute of the element found by ``selector``.</doc>
-<status status="PASS" start="2025-10-18T01:04:52.580078" elapsed="0.014648"/>
+<status status="PASS" start="2025-10-24T07:24:49.925259" elapsed="0.014402"/>
 </kw>
 <kw name="Log" owner="BuiltIn">
-<msg time="2025-10-18T01:04:52.595191" level="INFO"> 710,100  6.50</msg>
+<msg time="2025-10-24T07:24:49.940169" level="INFO"> 17,200  6.20</msg>
 <arg>${highestBuyVolume} ${highestBuyPrice}</arg>
 <doc>Logs the given message with the given level.</doc>
-<status status="PASS" start="2025-10-18T01:04:52.594892" elapsed="0.000353"/>
+<status status="PASS" start="2025-10-24T07:24:49.939844" elapsed="0.000380"/>
 </kw>
 <arg>HBC</arg>
-<status status="PASS" start="2025-10-18T01:04:42.588158" elapsed="10.007165"/>
+<status status="PASS" start="2025-10-24T07:24:39.727175" elapsed="10.213126"/>
 </kw>
 <doc>A test to try ui</doc>
 <tag>done</tag>
 <timeout value="1 minute"/>
-<status status="PASS" start="2025-10-18T01:04:42.580370" elapsed="10.015086"/>
+<status status="PASS" start="2025-10-24T07:24:39.719153" elapsed="10.221285"/>
 </test>
 <test id="s1-s1-s1-s1-t2" name="Test API Number One" line="16">
 <kw name="Set Variable" owner="BuiltIn">
-<msg time="2025-10-18T01:04:52.602257" level="INFO">${fullURL} = https://fireant.vn/ma-chung-khoan/HBC</msg>
+<msg time="2025-10-24T07:24:49.947187" level="INFO">${fullURL} = https://fireant.vn/ma-chung-khoan/HBC</msg>
 <var>${fullURL}</var>
 <arg>${API_URL}HBC</arg>
 <doc>Returns the given values which can then be assigned to a variables.</doc>
-<status status="PASS" start="2025-10-18T01:04:52.601977" elapsed="0.000308"/>
+<status status="PASS" start="2025-10-24T07:24:49.946904" elapsed="0.000311"/>
 </kw>
 <kw name="Create Session" owner="RequestsLibrary">
-<msg time="2025-10-18T01:04:52.602574" level="INFO">Creating Session using : alias=jsonplaceholder, url=https://fireant.vn/ma-chung-khoan/HBC, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<msg time="2025-10-24T07:24:49.947503" level="INFO">Creating Session using : alias=jsonplaceholder, url=https://fireant.vn/ma-chung-khoan/HBC, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
 <arg>jsonplaceholder</arg>
 <arg>${fullURL}</arg>
 <doc>Create Session: create a HTTP session to a server</doc>
-<status status="PASS" start="2025-10-18T01:04:52.602392" elapsed="0.000360"/>
+<status status="PASS" start="2025-10-24T07:24:49.947320" elapsed="0.000365"/>
 </kw>
 <kw name="GET" owner="RequestsLibrary">
-<msg time="2025-10-18T01:04:54.414673" level="INFO">GET Request : url=https://fireant.vn/ma-chung-khoan/HBC 
+<msg time="2025-10-24T07:24:51.113211" level="INFO">GET Request : url=https://fireant.vn/ma-chung-khoan/HBC 
  path_url=/ma-chung-khoan/HBC 
  headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
  body=None 
  </msg>
-<msg time="2025-10-18T01:04:54.416275" level="INFO">GET Response : url=https://fireant.vn/ma-chung-khoan/HBC 
+<msg time="2025-10-24T07:24:51.113345" level="INFO">GET Response : url=https://fireant.vn/ma-chung-khoan/HBC 
  status=200, reason=OK 
- headers={'Server': 'nginx', 'Date': 'Sat, 18 Oct 2025 01:04:53 GMT', 'Content-Type': 'text/html; charset=utf-8', 'Content-Length': '110009', 'Cache-Control': 'private, no-cache, no-store, max-age=0, must-revalidate', 'Content-Encoding': 'gzip', 'ETag': '"iorllfidjdk3a"', 'Vary': 'Accept-Encoding', 'Set-Cookie': 'currentUser.recentSymbols=NoXSA; Path=/; SameSite=Strict, currentUser.chartOptions=N4IgDgpgTglg9gExALhAWzgOwC4AsDOIANONPAgMJwCuOKAzCQMa4CGU2AyjAF4QMAGASXy44AdwAyEAOYRMSZNijUIJavggAVKKwQxMMgGowI4gGLUANlc5MoEeSmWqRZCIWSgAbnCvU0fiUVNRAmVgUrD2wYJgBrZxCSdghWFAAzVitNEisDIMzs0IAjdgysnPQ05ABtAEZhAFYBAF0SKHwYcqKSYr88w2gAIQiET0LNAF9JoA; Path=/; SameSite=Strict, watchlists.defaultWatchlistID=LQRiA; Path=/; SameSite=Strict, __Host-next-auth.csrf-token=6404d1936a455b119fa3acc82d5a3bdfe2b435707d36cd9b7f53c25404a650ba%7C1b140ac1501f61c0062c4f7fa4cefbba58afa5fd888c612d64b17235d13fa39e; Path=/; HttpOnly; Secure; SameSite=Lax, __Secure-next-auth.callback-url=https%3A%2F%2Ffireant.vn; Path=/; HttpOnly; Secure; SameSite=Lax', 'X-Powered-By': 'Next.js, ARR/3.0, ASP.NET', 'Timing-Allow-Origin': '*', 'Via': 'mly inter', 'X-Mly-Id': '7e224dc2e466bb870ceff5f2fc549ac4', 'Accept-Ranges': 'bytes'} 
- body=&lt;!DOCTYPE html&gt;&lt;html&gt;&lt;head&gt;&lt;meta charSet="utf-8"/&gt;&lt;meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/&gt;&lt;meta property="og:site_name" content="fireant.vn"/&gt;&lt;meta property="og:rich_attachment" content="true"/&gt;&lt;meta property="og:type" content="website"/&gt;&lt;meta property="og:image" content="https://fireant.vn/logo.png"/&gt;&lt;meta property="og:image:width" content="1000"/&gt;&lt;meta property="og:image:height" content="1000"/&gt;&lt;title&gt;HBC - CTCP Tập đoàn Xây dựng Hòa Bình&lt;/title&gt;&lt;meta name="description" content="CTCP Tập đoàn Xây dựng Hòa Bình"/&gt;&lt;meta property="og:description" content="CTCP Tập đoàn Xây dựng Hòa Bình"/&gt;&lt;meta property="og:url" content="https://fireant.vn/ma-chung-khoan/HBC"/&gt;&lt;meta name="apple-itunes-app" content="app-id=1060422890, app-argument=https://fireant.vn/ma-chung-khoan/HBC"/&gt;&lt;meta name="next-head-count" content="13"/&gt;&lt;link rel="stylesheet" href="https://rsms.me/inter/inter.css"/&gt;&lt;script type="text/javascript" src="https://static.fireant.vn/tradingView_v27/charting_library.standalone.js"&gt;&lt;/script&gt;&lt;script async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1942934517676156" crossorigin="anonymous"&gt;&lt;/script&gt;&lt;link rel="preload" href="https://static.fireant.vn/web/v2/_next/static/css/bf3078ce30a09708.css" as="style"/&gt;&lt;link rel="stylesheet" href="https://static.fireant.vn/web/v2/_next/static/css/bf3078ce30a09708.css" data-n-g=""/&gt;&lt;noscript data-n-css=""&gt;&lt;/noscript&gt;&lt;script defer="" nomodule="" src="https://static.fireant.vn/web/v2/_next/static/chunks/polyfills-78c92fac7aa8fdd8.js"&gt;&lt;/script&gt;&lt;script src="https://static.fireant.vn/web/v2/_next/static/chunks/webpack-8e17d451465dd4d2.js" defer=""&gt;&lt;/script&gt;&lt;script src="https://static.fireant.vn/web/v2/_next/static/chunks/framework-1b27f628bea1456c.js" defer=""&gt;&lt;/script&gt;&lt;script src="https://static.fireant.vn/web/v2/_next/static/chunks/main-9ca0c585ea937548.js" defer=""&gt;&lt;/script&gt;&lt;script src="https://static.fireant.vn/web/v2/_next/static/chunks/pages/_app-5cf6c1d5de88691b.js" defer=""&gt;&lt;/script&gt;&lt;script src="https://static.fireant.vn/web/v2/_next/static/chunks/008a4efc-b5f8fde31192ca14.js" defer=""&gt;&lt;/script&gt;&lt;script src="https://static.fireant.vn/web/v2/_next/static/chunks/8959-30f78f2e3d94adb1.js" defer=""&gt;&lt;/script&gt;&lt;script src="https://static.fireant.vn/web/v2/_next/static/chunks/770-96aa6ad0ea7126d9.js" defer=""&gt;&lt;/script&gt;&lt;script src="https://static.fireant.vn/web/v2/_next/static/chunks/9460-2de604a1d12b56f9.js" defer=""&gt;&lt;/script&gt;&lt;script src="https://static.fireant.vn/web/v2/_next/static/chunks/3160-7ef56a261df7e332.js" defer=""&gt;&lt;/script&gt;&lt;script src="https://static.fireant.vn/web/v2/_next/static/chunks/8809-19eed88200a7564a.js" defer=""&gt;&lt;/script&gt;&lt;script src="https://static.fireant.vn/web/v2/_next/static/chunks/3768-151e0115d064db01.js" defer=""&gt;&lt;/script&gt;&lt;script src="https://static.fireant.vn/web/v2/_next/static/chunks/pages/ma-chung-khoan/%5Bsymbol%5D-5c2e844785f580a8.js" defer=""&gt;&lt;/script&gt;&lt;script src="https://static.fireant.vn/web/v2/_next/static/JDxmQ9PsLpZRBILU6smsi/_buildManifest.js" defer=""&gt;&lt;/script&gt;&lt;script src="https://static.fireant.vn/web/v2/_next/static/JDxmQ9PsLpZRBILU6smsi/_ssgManifest.js" defer=""&gt;&lt;/script&gt;&lt;/head&gt;&lt;body&gt;&lt;div id="__next"&gt;&lt;script&gt;!function(){try{var d=document.documentElement,c=d.classList;c.remove('light','dark');var e=localStorage.getItem('theme');if('system'===e||(!e&amp;&amp;false)){var t='(prefers-color-scheme: dark)',m=window.matchMedia(t);if(m.media!==t||m.matches){d.style.colorScheme = 'dark';c.add('dark')}else{d.style.colorScheme = 'light';c.add('light')}}else if(e){c.add(e|| '')}else{c.add('dark')}if(e==='light'||e==='dark'||!e)d.style.colorScheme=e||'dark'}catch(e){}}()&lt;/script&gt;&lt;div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8"&gt;&lt;div class="fixed z-50 transform -translate-x-1/2 bottom-14 md:hidden left-1/2"&gt;&lt;div class="flex flex-row p-2 items-center bg-green-600 shadow-2xl shadow-green-400 rounded-full cursor-pointer gap-x-1 hover:bg-sky-500 hover:shadow-sky-300"&gt;&lt;svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-download text-white w-5"&gt;&lt;path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"&gt;&lt;/path&gt;&lt;polyline points="7 10 12 15 17 10"&gt;&lt;/polyline&gt;&lt;line x1="12" x2="12" y1="15" y2="3"&gt;&lt;/line&gt;&lt;/svg&gt;&lt;a target="_blank" class="text-sm font-semibold tracking-wider text-white uppercase" href="https://onelink.to/n29nz8"&gt;Tải APP&lt;/a&gt;&lt;/div&gt;&lt;svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-x absolute cursor-pointer -top-4 -right-4 dark:text-gray-300 text-slate-400 opacity-60"&gt;&lt;circle cx="12" cy="12" r="10"&gt;&lt;/circle&gt;&lt;path d="m15 9-6 6"&gt;&lt;/path&gt;&lt;path d="m9 9 6 6"&gt;&lt;/path&gt;&lt;/svg&gt;&lt;/div&gt;&lt;div class="flex flex-col min-h-screen"&gt;&lt;header class="sticky h-[70px] top-0 z-[50] max-w-full py-4 bg-white border-b border-slate-100 dark:border-zinc-800 dark:bg-[#121212]"&gt;&lt;nav class="relative z-50 flex justify-between justify-items-end"&gt;&lt;div class="flex flex-row items-center text-sm md:gap-x-8"&gt;&lt;a aria-label="Trang chủ" href="/"&gt;&lt;div class="flex flex-row"&gt;&lt;svg width="32" height="32" viewBox="0 0 32 32"&gt;&lt;defs&gt;&lt;radialGradient id="radial-gradient" cx="36.22" cy="5.33" r="39.36" gradientUnits="userSpaceOnUse"&gt;&lt;stop offset="0" stop-color="#05e6fd"&gt;&lt;/stop&gt;&lt;stop offset="1" stop-color="#157cff"&gt;&lt;/stop&gt;&lt;/radialGradient&gt;&lt;linearGradient id="linear-gradient" x1="10.43" y1="16.55" x2="13.14" y2="24.88" gradientUnits="userSpaceOnUse"&gt;&lt;stop offset="0" stop-color="#fff" stop-opacity="0"&gt;&lt;/stop&gt;&lt;stop offset="0.12" stop-color="#fff" stop-opacity="0.17"&gt;&lt;/stop&gt;&lt;stop offset="0.3" stop-color="#fff" stop-opacity="0.42"&gt;&lt;/stop&gt;&lt;stop offset="0.47" stop-color="#fff" stop-opacity="0.63"&gt;&lt;/stop&gt;&lt;stop offset="0.64" stop-color="#fff" stop-opacity="0.79"&gt;&lt;/stop&gt;&lt;stop offset="0.78" stop-color="#fff" stop-opacity="0.9"&gt;&lt;/stop&gt;&lt;stop offset="0.91" stop-color="#fff" stop-opacity="0.97"&gt;&lt;/stop&gt;&lt;stop offset="1" stop-color="#fff"&gt;&lt;/stop&gt;&lt;/linearGradient&gt;&lt;linearGradient id="linear-gradient-2" x1="15.93" y1="25.47" x2="16.27" y2="8.37" gradientUnits="userSpaceOnUse"&gt;&lt;stop offset="0" stop-color="#fff" stop-opacity="0"&gt;&lt;/stop&gt;&lt;stop offset="1" stop-color="#fff"&gt;&lt;/stop&gt;&lt;/linearGradient&gt;&lt;/defs&gt;&lt;rect fill="url(#radial-gradient)" width="32" height="32" rx="5.63"&gt;&lt;/rect&gt;&lt;path fill="url(#linear-gradient)" d="M9,26.16h.92A4.56,4.56,0,0,0,14.4,22L15,15.33h0s-1.19-.9-3.57,2.71-3,4.93-3,5.72c0,.49-.05,1.3-.07,1.84A.54.54,0,0,0,9,26.16Z"&gt;&lt;/path&gt;&lt;path fill="url(#linear-gradient-2)" d="M17.4,10.83l.92-.16h0c-.39-.35-.8-.69-1.22-1A.35.35,0,0,1,17,9.29a.34.34,0,0,1,.32-.23h.07a18.59,18.59,0,0,1,2.7.81c.32.13.65.26,1,.41a.94.94,0,0,0,.37.07h.07A.87.87,0,0,0,22,9.87h0v0l1.61-3.7h0c-.5-.07-1-.13-1.51-.18-.27,0-.54,0-.82-.06h0c-.64,0-1.28-.07-1.93-.07a29.37,29.37,0,0,0-7.13.87l-.15,0h0A4.21,4.21,0,0,0,9,10.53H9v.27H9l-.11,3.07h0c.32-.18.64-.34,1-.5A29.1,29.1,0,0,1,17.4,10.83Z"&gt;&lt;/path&gt;&lt;path fill="white" d="M22.18,11.24s0,0,0,0v.05c-.09.28-.19.55-.3.83s-.13.35-.21.52-.25.6-.39.88A18.06,18.06,0,0,1,19,17.13h0a18.36,18.36,0,0,0,.89-4.41h0a18.25,18.25,0,0,0-11,10.73,2,2,0,0,0-.08.22c-.15.39-.28.79-.39,1.19h0l.05-1.32.25-6.91a1.38,1.38,0,0,1,.32-.84l0-.06a11.17,11.17,0,0,1,3.94-2.86,26,26,0,0,1,5.12-1.69,7.11,7.11,0,0,1,1-.13h0c-.19-.19-.38-.38-.58-.56A16.81,16.81,0,0,0,17.3,9.4h0a18.41,18.41,0,0,1,2.65.8,17.47,17.47,0,0,1,2.23,1.05Z"&gt;&lt;/path&gt;&lt;/svg&gt;&lt;div class="hidden md:block"&gt;&lt;svg width="96" height="32" viewBox="0 0 96 32"&gt;&lt;path fill="#2898f1" d="M102.81,25.78h-2.09a1,1,0,0,1-.59-.17,1.06,1.06,0,0,1-.33-.45l-1.87-4.69H89l-1.87,4.69a.95.95,0,0,1-.9.62h-2.1l8-19.43h2.74Zm-5.64-7.21L94,10.66c-.09-.23-.19-.5-.29-.82s-.2-.64-.29-1a16.42,16.42,0,0,1-.6,1.83l-3.14,7.89Zm10-4.53a8.3,8.3,0,0,1,1-.91,7.05,7.05,0,0,1,1.1-.7,5.92,5.92,0,0,1,2.63-.6,5.19,5.19,0,0,1,2,.37,3.9,3.9,0,0,1,1.48,1.06,4.54,4.54,0,0,1,.9,1.65,6.81,6.81,0,0,1,.31,2.13v8.74h-2.5V17a3.61,3.61,0,0,0-.73-2.42,2.75,2.75,0,0,0-2.23-.86,4.27,4.27,0,0,0-2.05.51,6.62,6.62,0,0,0-1.77,1.4V25.78h-2.5V12.05h1.5a.6.6,0,0,1,.65.5Zm17.37,12a3.43,3.43,0,0,1-2.57-.91,3.56,3.56,0,0,1-.9-2.62v-8.4H119.4a.57.57,0,0,1-.37-.13.48.48,0,0,1-.16-.4v-1l2.32-.29.57-4.24a.61.61,0,0,1,.19-.34.6.6,0,0,1,.38-.12h1.26v4.73h4.09v1.75h-4.09v8.24A1.72,1.72,0,0,0,124,23.6a1.54,1.54,0,0,0,1.12.42,2,2,0,0,0,.68-.1,2.48,2.48,0,0,0,.49-.23l.36-.22a.45.45,0,0,1,.26-.1.42.42,0,0,1,.34.23l.73,1.15a4.59,4.59,0,0,1-1.55.92A5.42,5.42,0,0,1,124.58,26Z" transform="translate(-32)"&gt;&lt;/path&gt;&lt;path class="fill-black dark:fill-white" d="M42.71,8.49v6.8h8.22v2.14H42.71v8.35H40V6.35H52.32V8.49Zm15.58-.75a1.44,1.44,0,0,1-.14.65,2,2,0,0,1-.39.55,2.15,2.15,0,0,1-.57.37,1.82,1.82,0,0,1-.7.13,1.67,1.67,0,0,1-.67-.13,1.77,1.77,0,0,1-.55-.37,1.75,1.75,0,0,1-.38-.55,1.58,1.58,0,0,1-.14-.65,1.71,1.71,0,0,1,.52-1.23,1.62,1.62,0,0,1,.55-.37A1.52,1.52,0,0,1,56.49,6a1.65,1.65,0,0,1,.7.14,1.93,1.93,0,0,1,.57.37,2,2,0,0,1,.39.55A1.59,1.59,0,0,1,58.29,7.74Zm-.53,4.31V25.78H55.28V12.05ZM64.2,14.8a6,6,0,0,1,1.64-2.2,3.69,3.69,0,0,1,2.39-.8,3.49,3.49,0,0,1,.86.1,2.16,2.16,0,0,1,.73.3L69.64,14a.4.4,0,0,1-.42.34,3.28,3.28,0,0,1-.57-.08,3.72,3.72,0,0,0-.85-.08,3.44,3.44,0,0,0-1.2.19,2.69,2.69,0,0,0-.93.56,4.09,4.09,0,0,0-.74.92,7.25,7.25,0,0,0-.59,1.25v8.68h-2.5V12.05h1.42a.8.8,0,0,1,.56.15.93.93,0,0,1,.21.51Zm18.7,9.06a4.85,4.85,0,0,1-1.11.94,6.42,6.42,0,0,1-1.37.66,8.56,8.56,0,0,1-1.51.38,9.09,9.09,0,0,1-1.55.13,7.37,7.37,0,0,1-2.7-.48,5.88,5.88,0,0,1-2.14-1.41,6.32,6.32,0,0,1-1.4-2.3,9,9,0,0,1-.5-3.14A7.87,7.87,0,0,1,71.07,16a6.23,6.23,0,0,1,1.31-2.16,6,6,0,0,1,2.07-1.44,7,7,0,0,1,2.77-.52,6.67,6.67,0,0,1,2.35.41,5.27,5.27,0,0,1,3.1,3.12A7.14,7.14,0,0,1,83.12,18a1.58,1.58,0,0,1-.12.76.54.54,0,0,1-.48.19H73.07a7.92,7.92,0,0,0,.37,2.27,4.55,4.55,0,0,0,.92,1.6,3.76,3.76,0,0,0,1.39,1,5,5,0,0,0,1.82.31,5.47,5.47,0,0,0,1.61-.21,7.83,7.83,0,0,0,1.16-.45,8.19,8.19,0,0,0,.8... (set the log level to DEBUG or TRACE to see the full content) 
+ headers={'Server': 'nginx', 'Date': 'Fri, 24 Oct 2025 07:24:50 GMT', 'Content-Type': 'text/html', 'Transfer-Encoding': 'chunked', 'Cache-Control': 'private', 'Timing-Allow-Origin': '*', 'Via': 'mly inter', 'X-Mly-Id': '15089c4ba860a7c2ca3cecbbcc47bdee'} 
+ body=&lt;html&gt;&lt;head&gt;&lt;title&gt;Attention Required&lt;/title&gt;&lt;/head&gt;&lt;body&gt;&lt;script&gt;window.location.href="https://fireant.vn/ma-chung-khoan/HBC?jskey=qcYjnFpL2n7CNZmGAlYAs7Bd0B7i8jKtizBgQ1sQFM4G";&lt;/script&gt;&lt;/body&gt;&lt;/html&gt;
+ 
  </msg>
-<msg time="2025-10-18T01:04:54.416611" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<msg time="2025-10-24T07:24:51.113556" level="INFO">${response} = &lt;Response [200]&gt;</msg>
 <var>${response}</var>
 <arg>${fullURL}</arg>
 <doc>Sends a GET request.</doc>
-<status status="PASS" start="2025-10-18T01:04:52.602855" elapsed="1.813784"/>
+<status status="PASS" start="2025-10-24T07:24:49.947788" elapsed="1.165868"/>
 </kw>
 <kw name="Set Variable" owner="BuiltIn">
-<msg time="2025-10-18T01:04:54.417105" level="INFO">${pattern} = "accessToken":"([^"]+)"</msg>
+<msg time="2025-10-24T07:24:51.114161" level="INFO">${pattern} = "accessToken":"([^"]+)"</msg>
 <var>${pattern}</var>
 <arg>"accessToken\":\"([^\"]+)"</arg>
 <doc>Returns the given values which can then be assigned to a variables.</doc>
-<status status="PASS" start="2025-10-18T01:04:54.416827" elapsed="0.000323"/>
+<status status="PASS" start="2025-10-24T07:24:51.113848" elapsed="0.000341"/>
 </kw>
 <kw name="Get Regexp Matches" owner="String">
-<msg time="2025-10-18T01:04:54.420070" level="INFO">${token} = ['"accessToken":"eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6IkdYdExONzViZlZQakdvNERWdjV4QkRITHpnSSIsImtpZCI6IkdYdExONzViZlZQakdvNERWdjV4QkRITHpnSSJ9.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmZpcmVhbnQudm4iLC...</msg>
+<msg time="2025-10-24T07:24:51.115082" level="INFO">${token} = []</msg>
 <var>${token}</var>
 <arg>${response.text}</arg>
 <arg>${pattern}</arg>
 <doc>Returns a list of all non-overlapping matches in the given string.</doc>
-<status status="PASS" start="2025-10-18T01:04:54.417256" elapsed="0.002845"/>
+<status status="PASS" start="2025-10-24T07:24:51.114310" elapsed="0.000813"/>
 </kw>
 <kw name="Split String" owner="String">
-<msg time="2025-10-18T01:04:54.420731" level="INFO">${parts} = ['"accessToken', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6IkdYdExONzViZlZQakdvNERWdjV4QkRITHpnSSIsImtpZCI6IkdYdExONzViZlZQakdvNERWdjV4QkRITHpnSSJ9.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmZpcmVhbnQudm4iL...</msg>
+<msg time="2025-10-24T07:24:51.115936" level="FAIL">Resolving variable '${token[0]}' failed: IndexError: list index out of range</msg>
 <var>${parts}</var>
 <arg>${token[0]}</arg>
 <arg>":"</arg>
 <doc>Splits the ``string`` using ``separator`` as a delimiter string.</doc>
-<status status="PASS" start="2025-10-18T01:04:54.420227" elapsed="0.000531"/>
+<status status="FAIL" start="2025-10-24T07:24:51.115280" elapsed="0.000712">Resolving variable '${token[0]}' failed: IndexError: list index out of range</status>
 </kw>
 <kw name="Replace String" owner="String">
-<msg time="2025-10-18T01:04:54.421595" level="INFO">${token} = eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6IkdYdExONzViZlZQakdvNERWdjV4QkRITHpnSSIsImtpZCI6IkdYdExONzViZlZQakdvNERWdjV4QkRITHpnSSJ9.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmZpcmVhbnQudm4iLCJhdWQiOiJodHRwczo...</msg>
 <var>${token}</var>
 <arg>${parts[1]}</arg>
 <arg>"\""</arg>
 <arg>${EMPTY}</arg>
 <doc>Replaces ``search_for`` in the given ``string`` with ``replace_with``.</doc>
-<status status="PASS" start="2025-10-18T01:04:54.420861" elapsed="0.000761"/>
+<status status="NOT RUN" start="2025-10-24T07:24:51.116190" elapsed="0.000081"/>
 </kw>
 <kw name="Replace String" owner="String">
-<msg time="2025-10-18T01:04:54.422274" level="INFO">${token} = eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6IkdYdExONzViZlZQakdvNERWdjV4QkRITHpnSSIsImtpZCI6IkdYdExONzViZlZQakdvNERWdjV4QkRITHpnSSJ9.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmZpcmVhbnQudm4iLCJhdWQiOiJodHRwczo...</msg>
 <var>${token}</var>
 <arg>${token}</arg>
 <arg>"</arg>
 <arg>${EMPTY}</arg>
 <doc>Replaces ``search_for`` in the given ``string`` with ``replace_with``.</doc>
-<status status="PASS" start="2025-10-18T01:04:54.421723" elapsed="0.000595"/>
+<status status="NOT RUN" start="2025-10-24T07:24:51.116431" elapsed="0.000080"/>
 </kw>
 <kw name="Create Dictionary" owner="BuiltIn">
-<msg time="2025-10-18T01:04:54.422785" level="INFO">${headers} = {'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6IkdYdExONzViZlZQakdvNERWdjV4QkRITHpnSSIsImtpZCI6IkdYdExONzViZlZQakdvNERWdjV4QkRITHpnSSJ9.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmZpcmVhb...</msg>
 <var>${headers}</var>
 <arg>Authorization=Bearer ${token}</arg>
 <doc>Creates and returns a dictionary based on the given ``items``.</doc>
-<status status="PASS" start="2025-10-18T01:04:54.422480" elapsed="0.000332"/>
+<status status="NOT RUN" start="2025-10-24T07:24:51.116634" elapsed="0.000051"/>
 </kw>
 <kw name="GET" owner="RequestsLibrary">
-<msg time="2025-10-18T01:04:55.288014" level="INFO">GET Request : url=https://restv2.fireant.vn/symbols/HBC/historical-quotes?startDate=2022-08-08&amp;endDate=2025-12-12&amp;offset=0&amp;limit=30 
- path_url=/symbols/HBC/historical-quotes?startDate=2022-08-08&amp;endDate=2025-12-12&amp;offset=0&amp;limit=30 
- headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6IkdYdExONzViZlZQakdvNERWdjV4QkRITHpnSSIsImtpZCI6IkdYdExONzViZlZQakdvNERWdjV4QkRITHpnSSJ9.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmZpcmVhbnQudm4iLCJhdWQiOiJodHRwczovL2FjY291bnRzLmZpcmVhbnQudm4vcmVzb3VyY2VzIiwiZXhwIjoxODg5NjIyNTMwLCJuYmYiOjE1ODk2MjI1MzAsImNsaWVudF9pZCI6ImZpcmVhbnQudHJhZGVzdGF0aW9uIiwic2NvcGUiOlsiYWNhZGVteS1yZWFkIiwiYWNhZGVteS13cml0ZSIsImFjY291bnRzLXJlYWQiLCJhY2NvdW50cy13cml0ZSIsImJsb2ctcmVhZCIsImNvbXBhbmllcy1yZWFkIiwiZmluYW5jZS1yZWFkIiwiaW5kaXZpZHVhbHMtcmVhZCIsImludmVzdG9wZWRpYS1yZWFkIiwib3JkZXJzLXJlYWQiLCJvcmRlcnMtd3JpdGUiLCJwb3N0cy1yZWFkIiwicG9zdHMtd3JpdGUiLCJzZWFyY2giLCJzeW1ib2xzLXJlYWQiLCJ1c2VyLWRhdGEtcmVhZCIsInVzZXItZGF0YS13cml0ZSIsInVzZXJzLXJlYWQiXSwianRpIjoiMjYxYTZhYWQ2MTQ5Njk1ZmJiYzcwODM5MjM0Njc1NWQifQ.dA5-HVzWv-BRfEiAd24uNBiBxASO-PAyWeWESovZm_hj4aXMAZA1-bWNZeXt88dqogo18AwpDQ-h6gefLPdZSFrG5umC1dVWaeYvUnGm62g4XS29fj6p01dhKNNqrsu5KrhnhdnKYVv9VdmbmqDfWR8wDgglk5cJFqalzq6dJWJInFQEPmUs9BW_Zs8tQDn-i5r4tYq2U8vCdqptXoM7YgPllXaPVDeccC9QNu2Xlp9WUvoROzoQXg25lFub1IYkTrM66gJ6t9fJRZToewCt495WNEOQFa_rwLCZ1QwzvL0iYkONHS_jZ0BOhBCdW9dWSawD6iF1SIQaFROvMDH1rg'} 
- body=None 
- </msg>
-<msg time="2025-10-18T01:04:55.288094" level="INFO">GET Response : url=https://restv2.fireant.vn/symbols/HBC/historical-quotes?startDate=2022-08-08&amp;endDate=2025-12-12&amp;offset=0&amp;limit=30 
- status=200, reason=OK 
- headers={'Cache-Control': 'no-cache', 'Pragma': 'no-cache', 'Content-Type': 'application/json; charset=utf-8', 'Content-Encoding': 'gzip', 'Expires': '-1', 'Vary': 'Accept-Encoding', 'Server': 'Microsoft-IIS/10.0', 'X-AspNet-Version': '4.0.30319', 'X-Powered-By': 'ASP.NET', 'Date': 'Sat, 18 Oct 2025 01:04:54 GMT', 'Content-Length': '4926'} 
- body=[{"date":"2025-10-17T00:00:00","symbol":"HBC","priceHigh":6.8,"priceLow":6.5,"priceOpen":6.8,"priceAverage":6.6,"priceClose":6.5,"priceBasic":6.8,"totalVolume":3439700.0,"dealVolume":3315700.0,"putthroughVolume":124000.0,"totalValue":22815390000.0,"putthroughValue":868000000.0,"buyForeignQuantity":61435.0,"buyForeignValue":406652563.45568055,"sellForeignQuantity":686603.0,"sellForeignValue":4544785057.806798,"buyCount":2029.0,"buyQuantity":6033124.0,"sellCount":1038.0,"sellQuantity":6724210.0,"adjRatio":1.0,"currentForeignRoom":136450853.0,"propTradingNetDealValue":0.0,"propTradingNetPTValue":0.0,"propTradingNetValue":0.0,"unit":1000.0},{"date":"2025-10-16T00:00:00","symbol":"HBC","priceHigh":7.0,"priceLow":6.7,"priceOpen":6.8,"priceAverage":6.8,"priceClose":6.8,"priceBasic":6.9,"totalVolume":2193700.0,"dealVolume":1935700.0,"putthroughVolume":258000.0,"totalValue":15054670000.0,"putthroughValue":1878000000.0,"buyForeignQuantity":20200.0,"buyForeignValue":137505157.82404298,"sellForeignQuantity":500000.0,"sellForeignValue":3403593015.4466085,"buyCount":1490.0,"buyQuantity":5963156.0,"sellCount":969.0,"sellQuantity":5633324.0,"adjRatio":1.0,"currentForeignRoom":136448888.0,"propTradingNetDealValue":0.0,"propTradingNetPTValue":0.0,"propTradingNetValue":0.0,"unit":1000.0},{"date":"2025-10-15T00:00:00","symbol":"HBC","priceHigh":7.1,"priceLow":6.8,"priceOpen":7.1,"priceAverage":6.9,"priceClose":6.8,"priceBasic":7.0,"totalVolume":1671811.0,"dealVolume":1572300.0,"putthroughVolume":99511.0,"totalValue":11637618000.0,"putthroughValue":796088000.0,"buyForeignQuantity":2100.0,"buyForeignValue":14480196.527380271,"sellForeignQuantity":300000.0,"sellForeignValue":2068599503.9114673,"buyCount":1296.0,"buyQuantity":4288728.0,"sellCount":951.0,"sellQuantity":5097618.0,"adjRatio":1.0,"currentForeignRoom":136583788.0,"propTradingNetDealValue":0.0,"propTradingNetPTValue":0.0,"propTradingNetValue":0.0,"unit":1000.0},{"date":"2025-10-14T00:00:00","symbol":"HBC","priceHigh":7.2,"priceLow":6.9,"priceOpen":7.0,"priceAverage":7.0,"priceClose":7.0,"priceBasic":7.0,"totalVolume":2189000.0,"dealVolume":2039000.0,"putthroughVolume":150000.0,"totalValue":15355450000.0,"putthroughValue":1050000000.0,"buyForeignQuantity":27078.0,"buyForeignValue":189976937.27317312,"sellForeignQuantity":100.0,"sellForeignValue":701591.46640510054,"buyCount":1159.0,"buyQuantity":4490619.0,"sellCount":1123.0,"sellQuantity":5236129.0,"adjRatio":1.0,"currentForeignRoom":136587888.0,"propTradingNetDealValue":0.0,"propTradingNetPTValue":0.0,"propTradingNetValue":0.0,"unit":1000.0},{"date":"2025-10-13T00:00:00","symbol":"HBC","priceHigh":7.1,"priceLow":6.9,"priceOpen":7.0,"priceAverage":7.0,"priceClose":7.1,"priceBasic":7.1,"totalVolume":1560724.0,"dealVolume":1487900.0,"putthroughVolume":72824.0,"totalValue":11016914400.0,"putthroughValue":589874400.0,"buyForeignQuantity":0.0,"buyForeignValue":0.0,"sellForeignQuantity":0.0,"sellForeignValue":0.0,"buyCount":1301.0,"buyQuantity":4591901.0,"sellCount":950.0,"sellQuantity":4849964.0,"adjRatio":1.0,"currentForeignRoom":136548008.0,"propTradingNetDealValue":0.0,"propTradingNetPTValue":0.0,"propTradingNetValue":0.0,"unit":1000.0},{"date":"2025-10-10T00:00:00","symbol":"HBC","priceHigh":7.2,"priceLow":7.0,"priceOpen":7.2,"priceAverage":7.1,"priceClose":7.2,"priceBasic":7.1,"totalVolume":1706800.0,"dealVolume":1586800.0,"putthroughVolume":120000.0,"totalValue":12269010000.0,"putthroughValue":972000000.0,"buyForeignQuantity":0.0,"buyForeignValue":0.0,"sellForeignQuantity":0.0,"sellForeignValue":0.0,"buyCount":1106.0,"buyQuantity":5119142.0,"sellCount":968.0,"sellQuantity":5205730.0,"adjRatio":1.0,"currentForeignRoom":136484659.0,"propTradingNetDealValue":0.0,"propTradingNetPTValue":0.0,"propTradingNetValue":0.0,"unit":1000.0},{"date":"2025-10-09T00:00:00","symbol":"HBC","priceHigh":7.3,"priceLow":7.1,"priceOpen":7.2,"priceAverage":7.1,"priceClose":7.2,"priceBasic":7.3,"totalVolume":1713200.0,"dealVolume":1713200.0,"putthroughVolume":0.0,"totalValue":12225710000.0,"putthroughValue":0.0,"buyForeignQuantity":21000.0,"buyForeignValue":149859858.74387112,"sellForeignQuantity":61000.0,"sellForeignValue":435307208.73219705,"buyCount":1310.0,"buyQuantity":3833018.0,"sellCount":1018.0,"sellQuantity":6056840.0,"adjRatio":1.0,"currentForeignRoom":136446786.0,"propTradingNetDealValue":0.0,"propTradingNetPTValue":0.0,"propTradingNetValue":0.0,"unit":1000.0},{"date":"2025-10-08T00:00:00","symbol":"HBC","priceHigh":7.5,"priceLow":7.2,"priceOpen":7.3,"priceAverage":7.3,"priceClose":7.3,"priceBasic":7.3,"totalVolume":1275100.0,"dealVolume":1275100.0,"putthroughVolume":0.0,"totalValue":9270540000.0,"putthroughValue":0.0,"buyForeignQuantity":4100.0,"buyForeignValue":29808810.289389066,"sellForeignQuantity":120100.0,"sellForeignValue":873180028.23307979,"buyCount":1025.0,"buyQuantity":3301177.0,"sellCount":1062.0,"sellQuantity":5402005.0,"adjRatio":1.0,"currentForeignRoom":136462586.0,"propTradingNetDealValue":0.0,"propTradingNetPTValue":0.0,"propTradingNetValue":0.0,"unit":1000.0},{"date":"2025-10-07T00:00:00","symbol":"HBC","priceHigh":7.4,"priceLow":7.2,"priceOpen":7.4,"priceAverage":7.3,"priceClose":7.3,"priceBasic":7.2,"totalVolume":773400.0,"dealVolume":773400.0,"putthroughVolume":0.0,"totalValue":5618050000.0,"putthroughValue":0.0,"buyForeignQuantity":527.0,"buyForeignValue":3828177.33385053,"sellForeignQuantity":1100.0,"sellForeignValue":7990502.9738815622,"buyCount":890.0,"buyQuantity":3535537.0,"sellCount":951.0,"sellQuantity":4304854.0,"adjRatio":1.0,"currentForeignRoom":136470759.0,"propTradingNetDealValue":0.0,"propTradingNetPTValue":0.0,"propTradingNetValue":0.0,"unit":1000.0},{"date":"2025-10-06T00:00:00","symbol":"HBC","priceHigh":7.4,"priceLow":7.1,"priceOpen":7.3,"priceAverage":7.2,"priceClose":7.4,"priceBasic":7.2,"totalVolume":1406500.0,"dealVolume":1406500.0,"putthroughVolume":0.0,"totalValue":10180850000.0,"putthroughValue":0.0,"buyForeignQuantity":400.0,"buyForeignValue":2895371.4895129753,"sellForeignQuantity":7000.0,"sellForeignValue":50669001.066477068,"buyCount":1159.0,"buyQuantity":4357731.0,"sellCount":1024.0,"sellQuantity":4883646.0,"adjRatio":1.0,"currentForeignRoom":136560041.0,"propTradingNetDealValue":0.0,"propTradingNetPTValue":0.0,"propTradingNetValue":0.0,"unit":1000.0},{"date":"2025-10-03T00:00:00","symbol":"HBC","priceHigh":7.4,"priceLow":7.1,"priceOpen":7.4,"priceAverage":7.2,"priceClose":7.3,"priceBasic":7.4,"totalVolume":2423800.0,"dealVolume":2423800.0,"putthroughVolume":0.0,"totalValue":17497020000.0,"putthroughValue":0.0,"buyForeignQuantity":4400.0,"buyForeignValue":31762888.027064938,"sellForeignQuantity":0.0,"sellForeignValue":0.0,"buyCount":1663.0,"buyQuantity":5578011.0,"sellCount":1010.0,"sellQuantity":6322930.0,"adjRatio":1.0,"currentForeignRoom":136354023.0,"propTradingNetDealValue":0.0,"propTradingNetPTValue":0.0,"propTradingNetValue":0.0,"unit":1000.0},{"date":"2025-10-02T00:00:00","symbol":"HBC","priceHigh":7.6,"priceLow":7.3,"priceOpen":7.5,"priceAverage":7.4,"priceClose":7.5,"priceBasic":7.5,"totalVolume":1116300.0,"dealVolume":1116300.0,"putthroughVolume":0.0,"totalValue":8286700000.0,"putthroughValue":0.0,"buyForeignQuantity":2800.0,"buyForeignValue":20785416.10678133,"sellForeignQuantity":5063.0,"sellForeignValue":37584486.338797815,"buyCount":982.0,"buyQuantity":2388578.0,"sellCount":979.0,"sellQuantity":4514811.0,"adjRatio":1.0,"currentForeignRoom":136480041.0,"propTradingNetDealValue":0.0,"propTradingNetPTValue":0.0,"propTradingNetValue":0.0,"unit":1000.0},{"date":"2025-10-01T00:00:00","symbol":"HBC","priceHigh":7.6,"priceLow":7.4,"priceOpen":7.5,"priceAverage":7.5,"priceClose":7.5,"priceBasic":7.4,"totalVolume":1088700.0,"dealVolume":1088700.0,"putthroughVolume":0.0,"totalValue":8110900000.0,"putthroughValue":0.0,"buyForeignQuantity":2800.0,"buyForeignValue":20860218.609350603,"sellForeignQuantity":0.0,"sellForeignValue":0.0,"buyCount":1069.0,"buyQuantity":3271859.0,"sellCount":968.0,"sellQuantity":5196899.0,"adjRatio":1.0,"currentForeignRoom":136459343.0,"propTradingNetDealValue":0.0,"propTradingNetPTValue":0.0,"propTradingNetValue":0.0,"unit":1000.0},{"date":"2025-09-30T00:00:00","symbol":"HBC","priceHigh":7.7,"priceLow":7.3,"priceOpen":7.6,"priceAverage":7.4,"priceClose":7.4,"priceBasic":7.5,"totalVolume":2093300.0,"dealVolume":2093300.0,"putthroughVolume":0.0,"totalValue":15581590000.0,"putthroughValue":0.0,"buyForeignQuantity":20091.0,"buyForeignValue":149548428.17083076,"sellForeignQuantity":0.0,"sellForeignValue":0.0,"buyCount":1411.0,"buyQuantity":3733086.0,"sellCount":1156.0,"sellQuantity":6976765.0,"adjRatio":1.0,"currentForeignRoom":136499143.0,"propTradingNetDealValue":0.0,"propTradingNetPTValue":0.0,"propTradingNetValue":0.0,"unit":1000.0},{"date":"2025-09-29T00:00:00","symbol":"HBC","priceHigh":7.7,"priceLow":7.5,"priceOpen":7.7,"priceAverage":7.5,"priceClose":7.6,"priceBasic":7.7,"totalVolume":1702400.0,"dealVolume":1702400.0,"putthroughVolume":0.0,"totalValue":12834710000.0,"putthroughValue":0.0,"buyForeignQuantity":3000.0,"buyForeignValue":22617557.565789472,"sellForeignQuantity":1500.0,"sellForeignValue":11308778.782894736,"buyCount":1256.0,"buyQuantity":3306041.0,"sellCount":1222.0,"sellQuantity":6405459.0,"adjRatio":1.0,"currentForeignRoom":136495744.0,"propTradingNetDealValue":0.0,"propTradingNetPTValue":0.0,"propTradingNetValue":0.0,"unit":1000.0},{"date":"2025-09-26T00:00:00","symbol":"HBC","priceHigh":7.8,"priceLow":7.6,"priceOpen":7.8,"priceAverage":7.7,"priceClose":7.7,"priceBasic":7.8,"totalVolume":1712300.0,"dealVolume":1602300.0,"putthroughVolume":110000.0,"totalValue":13261830000.0,"putthroughValue":979000000.0,"buyForeignQuantity":0.0,"buyForeignValue":0.0,"sellForeignQuantity":0.0,"sellForeignValue":0.0,"buyCount":1213.0,"buyQuantity":3588376.0,"sellCount":1280.0,"sellQuantity":6370301.0,"adjRatio":1.0,"currentForeignRoom":136505534.0,"propTradingNetDealValue":0.0,"propTradingNetPTValue":0.0,"propTradingNetValue":0.0,"unit":1000.0},{"date":"2025-... (set the log level to DEBUG or TRACE to see the full content) 
- </msg>
-<msg time="2025-10-18T01:04:55.289457" level="INFO">${response} = &lt;Response [200]&gt;</msg>
 <var>${response}</var>
 <arg>${HARD_URI}</arg>
 <arg>headers=${headers}</arg>
 <doc>Sends a GET request.</doc>
-<status status="PASS" start="2025-10-18T01:04:54.422912" elapsed="0.866584"/>
+<status status="NOT RUN" start="2025-10-24T07:24:51.116803" elapsed="0.000052"/>
 </kw>
 <kw name="Log" owner="BuiltIn">
-<msg time="2025-10-18T01:04:55.290426" level="INFO">[{"date":"2025-10-17T00:00:00","symbol":"HBC","priceHigh":6.8,"priceLow":6.5,"priceOpen":6.8,"priceAverage":6.6,"priceClose":6.5,"priceBasic":6.8,"totalVolume":3439700.0,"dealVolume":3315700.0,"putthroughVolume":124000.0,"totalValue":22815390000.0,"putthroughValue":868000000.0,"buyForeignQuantity":61435.0,"buyForeignValue":406652563.45568055,"sellForeignQuantity":686603.0,"sellForeignValue":4544785057.806798,"buyCount":2029.0,"buyQuantity":6033124.0,"sellCount":1038.0,"sellQuantity":6724210.0,"adjRatio":1.0,"currentForeignRoom":136450853.0,"propTradingNetDealValue":0.0,"propTradingNetPTValue":0.0,"propTradingNetValue":0.0,"unit":1000.0},{"date":"2025-10-16T00:00:00","symbol":"HBC","priceHigh":7.0,"priceLow":6.7,"priceOpen":6.8,"priceAverage":6.8,"priceClose":6.8,"priceBasic":6.9,"totalVolume":2193700.0,"dealVolume":1935700.0,"putthroughVolume":258000.0,"totalValue":15054670000.0,"putthroughValue":1878000000.0,"buyForeignQuantity":20200.0,"buyForeignValue":137505157.82404298,"sellForeignQuantity":500000.0,"sellForeignValue":3403593015.4466085,"buyCount":1490.0,"buyQuantity":5963156.0,"sellCount":969.0,"sellQuantity":5633324.0,"adjRatio":1.0,"currentForeignRoom":136448888.0,"propTradingNetDealValue":0.0,"propTradingNetPTValue":0.0,"propTradingNetValue":0.0,"unit":1000.0},{"date":"2025-10-15T00:00:00","symbol":"HBC","priceHigh":7.1,"priceLow":6.8,"priceOpen":7.1,"priceAverage":6.9,"priceClose":6.8,"priceBasic":7.0,"totalVolume":1671811.0,"dealVolume":1572300.0,"putthroughVolume":99511.0,"totalValue":11637618000.0,"putthroughValue":796088000.0,"buyForeignQuantity":2100.0,"buyForeignValue":14480196.527380271,"sellForeignQuantity":300000.0,"sellForeignValue":2068599503.9114673,"buyCount":1296.0,"buyQuantity":4288728.0,"sellCount":951.0,"sellQuantity":5097618.0,"adjRatio":1.0,"currentForeignRoom":136583788.0,"propTradingNetDealValue":0.0,"propTradingNetPTValue":0.0,"propTradingNetValue":0.0,"unit":1000.0},{"date":"2025-10-14T00:00:00","symbol":"HBC","priceHigh":7.2,"priceLow":6.9,"priceOpen":7.0,"priceAverage":7.0,"priceClose":7.0,"priceBasic":7.0,"totalVolume":2189000.0,"dealVolume":2039000.0,"putthroughVolume":150000.0,"totalValue":15355450000.0,"putthroughValue":1050000000.0,"buyForeignQuantity":27078.0,"buyForeignValue":189976937.27317312,"sellForeignQuantity":100.0,"sellForeignValue":701591.46640510054,"buyCount":1159.0,"buyQuantity":4490619.0,"sellCount":1123.0,"sellQuantity":5236129.0,"adjRatio":1.0,"currentForeignRoom":136587888.0,"propTradingNetDealValue":0.0,"propTradingNetPTValue":0.0,"propTradingNetValue":0.0,"unit":1000.0},{"date":"2025-10-13T00:00:00","symbol":"HBC","priceHigh":7.1,"priceLow":6.9,"priceOpen":7.0,"priceAverage":7.0,"priceClose":7.1,"priceBasic":7.1,"totalVolume":1560724.0,"dealVolume":1487900.0,"putthroughVolume":72824.0,"totalValue":11016914400.0,"putthroughValue":589874400.0,"buyForeignQuantity":0.0,"buyForeignValue":0.0,"sellForeignQuantity":0.0,"sellForeignValue":0.0,"buyCount":1301.0,"buyQuantity":4591901.0,"sellCount":950.0,"sellQuantity":4849964.0,"adjRatio":1.0,"currentForeignRoom":136548008.0,"propTradingNetDealValue":0.0,"propTradingNetPTValue":0.0,"propTradingNetValue":0.0,"unit":1000.0},{"date":"2025-10-10T00:00:00","symbol":"HBC","priceHigh":7.2,"priceLow":7.0,"priceOpen":7.2,"priceAverage":7.1,"priceClose":7.2,"priceBasic":7.1,"totalVolume":1706800.0,"dealVolume":1586800.0,"putthroughVolume":120000.0,"totalValue":12269010000.0,"putthroughValue":972000000.0,"buyForeignQuantity":0.0,"buyForeignValue":0.0,"sellForeignQuantity":0.0,"sellForeignValue":0.0,"buyCount":1106.0,"buyQuantity":5119142.0,"sellCount":968.0,"sellQuantity":5205730.0,"adjRatio":1.0,"currentForeignRoom":136484659.0,"propTradingNetDealValue":0.0,"propTradingNetPTValue":0.0,"propTradingNetValue":0.0,"unit":1000.0},{"date":"2025-10-09T00:00:00","symbol":"HBC","priceHigh":7.3,"priceLow":7.1,"priceOpen":7.2,"priceAverage":7.1,"priceClose":7.2,"priceBasic":7.3,"totalVolume":1713200.0,"dealVolume":1713200.0,"putthroughVolume":0.0,"totalValue":12225710000.0,"putthroughValue":0.0,"buyForeignQuantity":21000.0,"buyForeignValue":149859858.74387112,"sellForeignQuantity":61000.0,"sellForeignValue":435307208.73219705,"buyCount":1310.0,"buyQuantity":3833018.0,"sellCount":1018.0,"sellQuantity":6056840.0,"adjRatio":1.0,"currentForeignRoom":136446786.0,"propTradingNetDealValue":0.0,"propTradingNetPTValue":0.0,"propTradingNetValue":0.0,"unit":1000.0},{"date":"2025-10-08T00:00:00","symbol":"HBC","priceHigh":7.5,"priceLow":7.2,"priceOpen":7.3,"priceAverage":7.3,"priceClose":7.3,"priceBasic":7.3,"totalVolume":1275100.0,"dealVolume":1275100.0,"putthroughVolume":0.0,"totalValue":9270540000.0,"putthroughValue":0.0,"buyForeignQuantity":4100.0,"buyForeignValue":29808810.289389066,"sellForeignQuantity":120100.0,"sellForeignValue":873180028.23307979,"buyCount":1025.0,"buyQuantity":3301177.0,"sellCount":1062.0,"sellQuantity":5402005.0,"adjRatio":1.0,"currentForeignRoom":136462586.0,"propTradingNetDealValue":0.0,"propTradingNetPTValue":0.0,"propTradingNetValue":0.0,"unit":1000.0},{"date":"2025-10-07T00:00:00","symbol":"HBC","priceHigh":7.4,"priceLow":7.2,"priceOpen":7.4,"priceAverage":7.3,"priceClose":7.3,"priceBasic":7.2,"totalVolume":773400.0,"dealVolume":773400.0,"putthroughVolume":0.0,"totalValue":5618050000.0,"putthroughValue":0.0,"buyForeignQuantity":527.0,"buyForeignValue":3828177.33385053,"sellForeignQuantity":1100.0,"sellForeignValue":7990502.9738815622,"buyCount":890.0,"buyQuantity":3535537.0,"sellCount":951.0,"sellQuantity":4304854.0,"adjRatio":1.0,"currentForeignRoom":136470759.0,"propTradingNetDealValue":0.0,"propTradingNetPTValue":0.0,"propTradingNetValue":0.0,"unit":1000.0},{"date":"2025-10-06T00:00:00","symbol":"HBC","priceHigh":7.4,"priceLow":7.1,"priceOpen":7.3,"priceAverage":7.2,"priceClose":7.4,"priceBasic":7.2,"totalVolume":1406500.0,"dealVolume":1406500.0,"putthroughVolume":0.0,"totalValue":10180850000.0,"putthroughValue":0.0,"buyForeignQuantity":400.0,"buyForeignValue":2895371.4895129753,"sellForeignQuantity":7000.0,"sellForeignValue":50669001.066477068,"buyCount":1159.0,"buyQuantity":4357731.0,"sellCount":1024.0,"sellQuantity":4883646.0,"adjRatio":1.0,"currentForeignRoom":136560041.0,"propTradingNetDealValue":0.0,"propTradingNetPTValue":0.0,"propTradingNetValue":0.0,"unit":1000.0},{"date":"2025-10-03T00:00:00","symbol":"HBC","priceHigh":7.4,"priceLow":7.1,"priceOpen":7.4,"priceAverage":7.2,"priceClose":7.3,"priceBasic":7.4,"totalVolume":2423800.0,"dealVolume":2423800.0,"putthroughVolume":0.0,"totalValue":17497020000.0,"putthroughValue":0.0,"buyForeignQuantity":4400.0,"buyForeignValue":31762888.027064938,"sellForeignQuantity":0.0,"sellForeignValue":0.0,"buyCount":1663.0,"buyQuantity":5578011.0,"sellCount":1010.0,"sellQuantity":6322930.0,"adjRatio":1.0,"currentForeignRoom":136354023.0,"propTradingNetDealValue":0.0,"propTradingNetPTValue":0.0,"propTradingNetValue":0.0,"unit":1000.0},{"date":"2025-10-02T00:00:00","symbol":"HBC","priceHigh":7.6,"priceLow":7.3,"priceOpen":7.5,"priceAverage":7.4,"priceClose":7.5,"priceBasic":7.5,"totalVolume":1116300.0,"dealVolume":1116300.0,"putthroughVolume":0.0,"totalValue":8286700000.0,"putthroughValue":0.0,"buyForeignQuantity":2800.0,"buyForeignValue":20785416.10678133,"sellForeignQuantity":5063.0,"sellForeignValue":37584486.338797815,"buyCount":982.0,"buyQuantity":2388578.0,"sellCount":979.0,"sellQuantity":4514811.0,"adjRatio":1.0,"currentForeignRoom":136480041.0,"propTradingNetDealValue":0.0,"propTradingNetPTValue":0.0,"propTradingNetValue":0.0,"unit":1000.0},{"date":"2025-10-01T00:00:00","symbol":"HBC","priceHigh":7.6,"priceLow":7.4,"priceOpen":7.5,"priceAverage":7.5,"priceClose":7.5,"priceBasic":7.4,"totalVolume":1088700.0,"dealVolume":1088700.0,"putthroughVolume":0.0,"totalValue":8110900000.0,"putthroughValue":0.0,"buyForeignQuantity":2800.0,"buyForeignValue":20860218.609350603,"sellForeignQuantity":0.0,"sellForeignValue":0.0,"buyCount":1069.0,"buyQuantity":3271859.0,"sellCount":968.0,"sellQuantity":5196899.0,"adjRatio":1.0,"currentForeignRoom":136459343.0,"propTradingNetDealValue":0.0,"propTradingNetPTValue":0.0,"propTradingNetValue":0.0,"unit":1000.0},{"date":"2025-09-30T00:00:00","symbol":"HBC","priceHigh":7.7,"priceLow":7.3,"priceOpen":7.6,"priceAverage":7.4,"priceClose":7.4,"priceBasic":7.5,"totalVolume":2093300.0,"dealVolume":2093300.0,"putthroughVolume":0.0,"totalValue":15581590000.0,"putthroughValue":0.0,"buyForeignQuantity":20091.0,"buyForeignValue":149548428.17083076,"sellForeignQuantity":0.0,"sellForeignValue":0.0,"buyCount":1411.0,"buyQuantity":3733086.0,"sellCount":1156.0,"sellQuantity":6976765.0,"adjRatio":1.0,"currentForeignRoom":136499143.0,"propTradingNetDealValue":0.0,"propTradingNetPTValue":0.0,"propTradingNetValue":0.0,"unit":1000.0},{"date":"2025-09-29T00:00:00","symbol":"HBC","priceHigh":7.7,"priceLow":7.5,"priceOpen":7.7,"priceAverage":7.5,"priceClose":7.6,"priceBasic":7.7,"totalVolume":1702400.0,"dealVolume":1702400.0,"putthroughVolume":0.0,"totalValue":12834710000.0,"putthroughValue":0.0,"buyForeignQuantity":3000.0,"buyForeignValue":22617557.565789472,"sellForeignQuantity":1500.0,"sellForeignValue":11308778.782894736,"buyCount":1256.0,"buyQuantity":3306041.0,"sellCount":1222.0,"sellQuantity":6405459.0,"adjRatio":1.0,"currentForeignRoom":136495744.0,"propTradingNetDealValue":0.0,"propTradingNetPTValue":0.0,"propTradingNetValue":0.0,"unit":1000.0},{"date":"2025-09-26T00:00:00","symbol":"HBC","priceHigh":7.8,"priceLow":7.6,"priceOpen":7.8,"priceAverage":7.7,"priceClose":7.7,"priceBasic":7.8,"totalVolume":1712300.0,"dealVolume":1602300.0,"putthroughVolume":110000.0,"totalValue":13261830000.0,"putthroughValue":979000000.0,"buyForeignQuantity":0.0,"buyForeignValue":0.0,"sellForeignQuantity":0.0,"sellForeignValue":0.0,"buyCount":1213.0,"buyQuantity":3588376.0,"sellCount":1280.0,"sellQuantity":6370301.0,"adjRatio":1.0,"currentForeignRoom":136505534.0,"propTradingNetDealValue":0.0,"propTradingNetPTValue":0.0,"propTradingNetValue":0.0,"unit":1000.0},{"date":"2025-09-25T00:00:00","symbol":"HBC","priceHigh":7.9,"priceLow":7.6,"priceOpen":7.6,"priceAverage":7.8,"priceClose":7.7,"priceBasic":7.6,"totalVolume":2296400.0,"dealVolume":2186400.0,"putthroughVolume":110000.0,"totalValue":17911160000.0,"putthroughValue":957000000.0,"buyForeignQuantity":110002.0,"buyForeignValue":852996482.03439438,"sellForeignQuantity":250.0,"sellForeignValue":1938593.1211123308,"buyCount":1220.0,"buyQuantity":5996346.0,"sellCount":1574.0,"sellQuantity":8288825.0,"adjRatio":1.0,"currentForeignRoom":136620584.0,"propTradingNetDealValue":-1905000.0,"propTradingNetPTValue":0.0,"propTradingNetValue":-1905000.0,"unit":1000.0},{"date":"2025-09-24T00:00:00","symbol":"HBC","priceHigh":7.7,"priceLow":7.5,"priceOpen":7.6,"priceAverage":7.6,"priceClose":7.7,"priceBasic":7.6,"totalVolume":1985500.0,"dealVolume":1517500.0,"putthroughVolume":468000.0,"totalValue":15141580000.0,"putthroughValue":3677800000.0,"buyForeignQuantity":112715.0,"buyForeignValue":851492561.91103792,"sellForeignQuantity":0.0,"sellForeignValue":0.0,"buyCount":1261.0,"buyQuantity":4070940.0,"sellCount":857.0,"sellQuantity":4903552.0,"adjRatio":1.0,"currentForeignRoom":136727986.0,"propTradingNetDealValue":0.0,"propTradingNetPTValue":0.0,"propTradingNetValue":0.0,"unit":1000.0},{"date":"2025-09-23T00:00:00","symbol":"HBC","priceHigh":7.7,"priceLow":7.5,"priceOpen":7.7,"priceAverage":7.6,"priceClose":7.6,"priceBasic":7.7,"totalVolume":1733100.0,"dealVolume":1623100.0,"putthroughVolume":110000.0,"totalValue":13291830000.0,"putthroughValue":968000000.0,"buyForeignQuantity":130000.0,"buyForeignValue":987060501.50945723,"sellForeignQuantity":0.0,"sellForeignValue":0.0,"buyCount":1389.0,"buyQuantity":4307997.0,"sellCount":893.0,"sellQuantity":5424153.0,"adjRatio":1.0,"currentForeignRoom":136840101.0,"propTradingNetDealValue":0.0,"propTradingNetPTValue":0.0,"propTradingNetValue":0.0,"unit":1000.0},{"date":"2025-09-22T00:00:00","symbol":"HBC","priceHigh":7.8,"priceLow":7.6,"priceOpen":7.8,"priceAverage":7.7,"priceClose":7.6,"priceBasic":7.7,"totalVolume":1867600.0,"dealVolume":1757600.0,"putthroughVolume":110000.0,"totalValue":14426640000.0,"putthroughValue":968000000.0,"buyForeignQuantity":113000.0,"buyForeignValue":865285798.816568,"sellForeignQuantity":500.0,"sellForeignValue":3828698.2248520711,"buyCount":1354.0,"buyQuantity":3932395.0,"sellCount":1155.0,"sellQuantity":5529964.0,"adjRatio":1.0,"currentForeignRoom":136697701.0,"propTradingNetDealValue":0.0,"propTradingNetPTValue":0.0,"propTradingNetValue":0.0,"unit":1000.0},{"date":"2025-09-19T00:00:00","symbol":"HBC","priceHigh":7.8,"priceLow":7.6,"priceOpen":7.7,"priceAverage":7.7,"priceClose":7.8,"priceBasic":7.7,"totalVolume":1684700.0,"dealVolume":1684700.0,"putthroughVolume":0.0,"totalValue":13003330000.0,"putthroughValue":0.0,"buyForeignQuantity":0.0,"buyForeignValue":0.0,"sellForeignQuantity":300.0,"sellForeignValue":2315545.2009259807,"buyCount":1464.0,"buyQuantity":4552292.0,"sellCount":1126.0,"sellQuantity":6781393.0,"adjRatio":1.0,"currentForeignRoom":136826901.0,"propTradingNetDealValue":0.0,"propTradingNetPTValue":0.0,"propTradingNetValue":0.0,"unit":1000.0},{"date":"2025-09-18T00:00:00","symbol":"HBC","priceHigh":7.9,"priceLow":7.7,"priceOpen":7.8,"priceAverage":7.7,"priceClose":7.7,"priceBasic":7.8,"totalVolume":2059500.0,"dealVolume":2059500.0,"putthroughVolume":0.0,"totalValue":15923560000.0,"putthroughValue":0.0,"buyForeignQuantity":0.0,"buyForeignValue":0.0,"sellForeignQuantity":251700.0,"sellForeignValue":1946084026.2199564,"buyCount":1440.0,"buyQuantity":5298510.0,"sellCount":1196.0,"sellQuantity":7810863.0,"adjRatio":1.0,"currentForeignRoom":136828301.0,"propTradingNetDealValue":0.0,"propTradingNetPTValue":0.0,"propTradingNetValue":0.0,"unit":1000.0},{"date":"2025-09-17T00:00:00","symbol":"HBC","priceHigh":8.0,"priceLow":7.7,"priceOpen":7.9,"priceAverage":7.8,"priceClose":7.8,"priceBasic":8.0,"totalVolume":2522800.0,"dealVolume":2522800.0,"putthroughVolume":0.0,"totalValue":19769830000.0,"putthroughValue":0.0,"buyForeignQuantity":4000.0,"buyForeignValue":31345853.813223403,"sellForeignQuantity":100.0,"sellForeignValue":783646.345330585,"buyCount":1918.0,"buyQuantity":6247641.0,"sellCount":1475.0,"sellQuantity":9847908.0,"adjRatio":1.0,"currentForeignRoom":136335601.0,"propTradingNetDealValue":0.0,"propTradingNetPTValue":0.0,"propTradingNetValue":0.0,"unit":1000.0},{"date":"2025-09-16T00:00:00","symbol":"HBC","priceHigh":8.3,"priceLow":7.9,"priceOpen":8.3,"priceAverage":8.0,"priceClose":7.9,"priceBasic":8.0,"totalVolume":2738200.0,"dealVolume":2738200.0,"putthroughVolume":0.0,"totalValue":21960220000.0,"putthroughValue":0.0,"buyForeignQuantity":6100.0,"buyForeignValue":48921679.205317363,"sellForeignQuantity":0.0,"sellForeignValue":0.0,"buyCount":1752.0,"buyQuantity":5225336.0,"sellCount":2158.0,"sellQuantity":11798624.0,"adjRatio":1.0,"currentForeignRoom":136317100.0,"propTradingNetDealValue":0.0,"propTradingNetPTValue":0.0,"propTradingNetValue":0.0,"unit":1000.0},{"date":"2025-09-15T00:00:00","symbol":"HBC","priceHigh":8.1,"priceLow":7.8,"priceOpen":7.9,"priceAverage":8.0,"priceClose":8.1,"priceBasic":7.8,"totalVolume":4477400.0,"dealVolume":4477400.0,"putthroughVolume":0.0,"totalValue":35678850000.0,"putthroughValue":0.0,"buyForeignQuantity":3000.0,"buyForeignValue":23905961.048822977,"sellForeignQuantity":519000.0,"sellForeignValue":4135731261.4463749,"buyCount":2059.0,"buyQuantity":8528897.0,"sellCount":2102.0,"sellQuantity":9705904.0,"adjRatio":1.0,"currentForeignRoom":136498100.0,"propTradingNetDealValue":0.0,"propTradingNetPTValue":0.0,"propTradingNetValue":0.0,"unit":1000.0},{"date":"2025-09-12T00:00:00","symbol":"HBC","priceHigh":7.9,"priceLow":7.7,"priceOpen":7.9,"priceAverage":7.8,"priceClose":7.9,"priceBasic":7.6,"totalVolume":2107800.0,"dealVolume":2107800.0,"putthroughVolume":0.0,"totalValue":16451910000.0,"putthroughValue":0.0,"buyForeignQuantity":0.0,"buyForeignValue":0.0,"sellForeignQuantity":1301.0,"sellForeignValue":10154632.749786507,"buyCount":1325.0,"buyQuantity":5691960.0,"sellCount":1431.0,"sellQuantity":6443554.0,"adjRatio":1.0,"currentForeignRoom":136307700.0,"propTradingNetDealValue":0.0,"propTradingNetPTValue":0.0,"propTradingNetValue":0.0,"unit":1000.0},{"date":"2025-09-11T00:00:00","symbol":"HBC","priceHigh":7.9,"priceLow":7.5,"priceOpen":7.9,"priceAverage":7.6,"priceClose":7.8,"priceBasic":7.9,"totalVolume":3605000.0,"dealVolume":3605000.0,"putthroughVolume":0.0,"totalValue":27550750000.0,"putthroughValue":0.0,"buyForeignQuantity":400.0,"buyForeignValue":3056948.6823855755,"sellForeignQuantity":40.0,"sellForeignValue":305694.86823855754,"buyCount":2479.0,"buyQuantity":8482299.0,"sellCount":1298.0,"sellQuantity":8366520.0,"adjRatio":1.0,"currentForeignRoom":136503460.0,"propTradingNetDealValue":0.0,"propTradingNetPTValue":0.0,"propTradingNetValue":0.0,"unit":1000.0},{"date":"2025-09-10T00:00:00","symbol":"HBC","priceHigh":8.2,"priceLow":7.8,"priceOpen":8.1,"priceAverage":7.9,"priceClose":7.9,"priceBasic":8.0,"totalVolume":1378400.0,"dealVolume":1378400.0,"putthroughVolume":0.0,"totalValue":10889300000.0,"putthroughValue":0.0,"buyForeignQuantity":0.0,"buyForeignValue":0.0,"sellForeignQuantity":0.0,"sellForeignValue":0.0,"buyCount":1338.0,"buyQuantity":4398063.0,"sellCount":1447.0,"sellQuantity":8501807.0,"adjRatio":1.0,"currentForeignRoom":136504311.0,"propTradingNetDealValue":0.0,"propTradingNetPTValue":0.0,"propTradingNetValue":0.0,"unit":1000.0},{"date":"2025-09-09T00:00:00","symbol":"HBC","priceHigh":8.3,"priceLow":7.8,"priceOpen":7.8,"priceAverage":8.0,"priceClose":8.0,"priceBasic":7.8,"totalVolume":4491800.0,"dealVolume":4491800.0,"putthroughVolume":0.0,"totalValue":36082290000.0,"putthroughValue":0.0,"buyForeignQuantity":0.0,"buyForeignValue":0.0,"sellForeignQuantity":0.0,"sellForeignValue":0.0,"buyCount":1848.0,"buyQuantity":9190201.0,"sellCount":2408.0,"sellQuantity":12324410.0,"adjRatio":1.0,"currentForeignRoom":136504311.0,"propTradingNetDealValue":0.0,"propTradingNetPTValue":0.0,"propTradingNetValue":0.0,"unit":1000.0},{"date":"2025-09-08T00:00:00","symbol":"HBC","priceHigh":8.0,"priceLow":7.6,"priceOpen":7.8,"priceAverage":7.8,"priceClose":7.7,"priceBasic":7.9,"totalVolume":4691400.0,"dealVolume":4691400.0,"putthroughVolume":0.0,"totalValue":36609050000.0,"putthroughValue":0.0,"buyForeignQuantity":2200.0,"buyForeignValue":17167564.053374261,"sellForeignQuantity":2549.0,"sellForeignValue":19890963.987295903,"buyCount":2139.0,"buyQuantity":7843998.0,"sellCount":1408.0,"sellQuantity":9873029.0,"adjRatio":1.0,"currentForeignRoom":136315611.0,"propTradingNetDealValue":0.0,"propTradingNetPTValue":0.0,"propTradingNetValue":0.0,"unit":1000.0}]</msg>
 <arg>${response.text}</arg>
 <doc>Logs the given message with the given level.</doc>
-<status status="PASS" start="2025-10-18T01:04:55.289862" elapsed="0.000757"/>
+<status status="NOT RUN" start="2025-10-24T07:24:51.116954" elapsed="0.000047"/>
 </kw>
 <kw name="Should Be Equal As Strings" owner="BuiltIn">
-<msg time="2025-10-18T01:04:55.291124" level="INFO">Argument types are:
-&lt;class 'int'&gt;
-&lt;class 'str'&gt;</msg>
 <arg>${response.status_code}</arg>
 <arg>200</arg>
 <doc>Fails if objects are unequal after converting them to strings.</doc>
-<status status="PASS" start="2025-10-18T01:04:55.290723" elapsed="0.000490"/>
+<status status="NOT RUN" start="2025-10-24T07:24:51.117112" elapsed="0.000048"/>
 </kw>
 <kw name="Should Contain" owner="BuiltIn">
 <arg>'${response.text}'</arg>
 <arg>HBC</arg>
 <doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
-<status status="PASS" start="2025-10-18T01:04:55.291311" elapsed="0.000416"/>
+<status status="NOT RUN" start="2025-10-24T07:24:51.117250" elapsed="0.000044"/>
 </kw>
 <kw name="Get From List" owner="Collections">
-<msg time="2025-10-18T01:04:55.292493" level="INFO">${first} = {'date': '2025-10-17T00:00:00', 'symbol': 'HBC', 'priceHigh': 6.8, 'priceLow': 6.5, 'priceOpen': 6.8, 'priceAverage': 6.6, 'priceClose': 6.5, 'priceBasic': 6.8, 'totalVolume': 3439700.0, 'dealVolume':...</msg>
 <var>${first}</var>
 <arg>${response.json()}</arg>
 <arg>0</arg>
 <doc>Returns the value specified with an ``index`` from ``list``.</doc>
-<status status="PASS" start="2025-10-18T01:04:55.291826" elapsed="0.000695"/>
+<status status="NOT RUN" start="2025-10-24T07:24:51.117384" elapsed="0.000044"/>
 </kw>
 <kw name="Get From Dictionary" owner="Collections">
-<msg time="2025-10-18T01:04:55.292829" level="INFO">${vol} = 3439700.0</msg>
 <var>${vol}</var>
 <arg>${first}</arg>
 <arg>totalVolume</arg>
 <doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
-<status status="PASS" start="2025-10-18T01:04:55.292620" elapsed="0.000233"/>
+<status status="NOT RUN" start="2025-10-24T07:24:51.117516" elapsed="0.000044"/>
 </kw>
 <kw name="Get From Dictionary" owner="Collections">
-<msg time="2025-10-18T01:04:55.293170" level="INFO">${val} = 22815390000.0</msg>
 <var>${val}</var>
 <arg>${first}</arg>
 <arg>totalValue</arg>
 <doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
-<status status="PASS" start="2025-10-18T01:04:55.292949" elapsed="0.000248"/>
+<status status="NOT RUN" start="2025-10-24T07:24:51.117655" elapsed="0.000042"/>
 </kw>
 <kw name="Get From Dictionary" owner="Collections">
-<msg time="2025-10-18T01:04:55.293486" level="INFO">${direct} = 6.6</msg>
 <var>${direct}</var>
 <arg>${first}</arg>
 <arg>priceAverage</arg>
 <doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
-<status status="PASS" start="2025-10-18T01:04:55.293293" elapsed="0.000216"/>
+<status status="NOT RUN" start="2025-10-24T07:24:51.117783" elapsed="0.000042"/>
 </kw>
 <kw name="Evaluate" owner="BuiltIn">
-<msg time="2025-10-18T01:04:55.293862" level="INFO">${result} = 6632.959269703753</msg>
 <var>${result}</var>
 <arg>float(${val} / ${vol})</arg>
 <doc>Evaluates the given expression in Python and returns the result.</doc>
-<status status="PASS" start="2025-10-18T01:04:55.293602" elapsed="0.000285"/>
+<status status="NOT RUN" start="2025-10-24T07:24:51.117920" elapsed="0.000044"/>
 </kw>
 <kw name="Log" owner="BuiltIn">
-<msg time="2025-10-18T01:04:55.294257" level="INFO">22815390000.0 / 3439700.0 =&gt; 6632.959269703753</msg>
 <arg>${val} / ${vol} =&gt; ${result}</arg>
 <doc>Logs the given message with the given level.</doc>
-<status status="PASS" start="2025-10-18T01:04:55.293978" elapsed="0.000326"/>
+<status status="NOT RUN" start="2025-10-24T07:24:51.118065" elapsed="0.000046"/>
 </kw>
 <kw name="Log To Console" owner="BuiltIn">
 <arg>\n${val} / ${vol} =&gt; ${result} vs ${direct}</arg>
 <doc>Logs the given message to the console.</doc>
-<status status="PASS" start="2025-10-18T01:04:55.294394" elapsed="0.000323"/>
+<status status="NOT RUN" start="2025-10-24T07:24:51.118195" elapsed="0.000042"/>
 </kw>
 <doc>A test to try api</doc>
 <tag>api</tag>
 <tag>done</tag>
 <timeout value="1 minute"/>
-<status status="PASS" start="2025-10-18T01:04:52.599476" elapsed="2.695393"/>
+<status status="FAIL" start="2025-10-24T07:24:49.944450" elapsed="1.173937">Resolving variable '${token[0]}' failed: IndexError: list index out of range</status>
 </test>
-<status status="PASS" start="2025-10-18T01:04:42.569292" elapsed="12.730419"/>
+<test id="s1-s1-s1-s1-t3" name="Test API Number Two" line="41">
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-10-24T07:24:51.125894" level="INFO">${code} = hbc</msg>
+<var>${code}</var>
+<arg>hbc</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-10-24T07:24:51.125718" elapsed="0.000202"/>
+</kw>
+<kw name="Replace String" owner="String">
+<msg time="2025-10-24T07:24:51.126244" level="INFO">${final_url} = https://iboard-query.ssi.com.vn/stock/hbc?boardId=MAIN</msg>
+<var>${final_url}</var>
+<arg>${URL2}</arg>
+<arg>symbol</arg>
+<arg>${code}</arg>
+<doc>Replaces ``search_for`` in the given ``string`` with ``replace_with``.</doc>
+<status status="PASS" start="2025-10-24T07:24:51.126021" elapsed="0.000247"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2025-10-24T07:24:51.126508" level="INFO">🔗 Requesting: https://iboard-query.ssi.com.vn/stock/hbc?boardId=MAIN</msg>
+<arg>🔗 Requesting: ${final_url}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2025-10-24T07:24:51.126364" elapsed="0.000186"/>
+</kw>
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2025-10-24T07:24:51.126899" level="INFO">Creating Session using : alias=iboard, url=https://iboard-query.ssi.com.vn, headers={'User-Agent': 'Mozilla/5.0'},                     cookies={}, auth=None, timeout=None, proxies=None, verify=True,                     debug=0 </msg>
+<arg>iboard</arg>
+<arg>https://iboard-query.ssi.com.vn</arg>
+<arg>headers={"User-Agent": "Mozilla/5.0"}</arg>
+<arg>verify=${True}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2025-10-24T07:24:51.126643" elapsed="0.000427"/>
+</kw>
+<kw name="GET On Session" owner="RequestsLibrary">
+<msg time="2025-10-24T07:24:51.968305" level="INFO">GET Request : url=https://iboard-query.ssi.com.vn/stock/hbc?boardId=MAIN 
+ path_url=/stock/hbc?boardId=MAIN 
+ headers={'User-Agent': 'Mozilla/5.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg time="2025-10-24T07:24:51.968413" level="INFO">GET Response : url=https://iboard-query.ssi.com.vn/stock/hbc?boardId=MAIN 
+ status=403, reason=Forbidden 
+ headers={'Date': 'Fri, 24 Oct 2025 07:24:51 GMT', 'Content-Type': 'text/html; charset=UTF-8', 'Transfer-Encoding': 'chunked', 'Connection': 'keep-alive', 'Cache-Control': 'private, max-age=0, no-store, no-cache, must-revalidate, post-check=0, pre-check=0', 'Expires': 'Thu, 01 Jan 1970 00:00:01 GMT', 'Set-Cookie': '__cf_bm=HkqG0qNL81ZYW1CVlxuI9Jp_526Ag620rd0PIuPRFrU-1761290691-1.0.1.1-xL22qtAPN994vfonv82NN_cTe7YE12nCsIgAX.t3OiFF_Gb7IptNhe6fRxJcth0a4m5Y8mmxlMLGVOxEItfZJDiup0E29a_.Dvrl3c3.q80; path=/; expires=Fri, 24-Oct-25 07:54:51 GMT; domain=.ssi.com.vn; HttpOnly; Secure; SameSite=None', 'Report-To': '{"endpoints":[{"url":"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=52rqLDtTE2XW8eGTmzfLzSFUDLniEA5zX5IeWKo6xfG%2BGSMgJmCEFSMVNXJj4awcudUqh2OGQi%2B0UFJdyrY0%2BboyJk6ijRBuzTcz9mq2WqmiqsRExMn%2BiYrXNL872s2cImS4mNnJPEy%2F"}],"group":"cf-nel","max_age":604800}', 'NEL': '{"success_fraction":0.01,"report_to":"cf-nel","max_age":604800}', 'Vary': 'Accept-Encoding', 'expect-ct': 'max-age=86400, enforce', 'referrer-policy': 'same-origin', 'x-content-type-options': 'nosniff', 'x-frame-options': 'SAMEORIGIN', 'x-xss-protection': '1; mode=block', 'Server': 'cloudflare', 'CF-RAY': '9937bca7e85dcef5-SJC', 'Content-Encoding': 'gzip'} 
+ body=&lt;!doctype html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+&lt;meta charset="utf-8"&gt;
+&lt;meta name="robots" content="noindex, nofollow"&gt;
+&lt;meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"&gt;
+&lt;title&gt;Blocked - SSI&lt;/title&gt;
+&lt;style&gt;body{background-color:#fff;color:#000;font-family:Arial,Helvetica,sans-serif;font-size:16px;line-height:1.5;margin:0}.container{margin:50px auto;max-width:600px;padding:0 24px;text-align:center}small{font-size:14px}&lt;/style&gt;
+
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div class="container"&gt;
+&lt;svg xmlns="http://www.w3.org/2000/svg" width="200px" height="84px" viewBox="0 0 2202.96 1993.62"&gt;
+&lt;defs&gt;
+&lt;style&gt;.cls-1{fill:#e22127;stroke:#fff;stroke-miterlimit:10;stroke-width:5px}.cls-2{fill:#fff}&lt;/style&gt;
+&lt;/defs&gt;
+&lt;title&gt;logo&lt;/title&gt;
+&lt;g id="Layer_2" data-name="Layer 2"&gt;
+&lt;g id="Layer_1-2" data-name="Layer 1"&gt;
+&lt;path class="cls-1" d="M2200.46 1991.12H2.5V2.5h2197.96v1988.62z" /&gt;
+&lt;path class="cls-2" d="M1014.29 1271.05c58 34.42 154.77 87 263.49 88.5h4.47c61.4 0 105.22-16.69 133.65-43 29.07-26.93 40.37-62.36 40.75-94.79-1.12-111.4-118.05-163.17-223.58-222.15C1125.74 940.73 1028 878.24 1028 767.55l.09-3.24c1.89-142.8 127.43-214.66 294.37-214.74h2.91c94.11.95 192.21 25.46 230.45 33.81l2.51.54v-35.55l-1.55-.38c-41.59-9.26-137.24-32.21-231-33.23l-6.63-.06c-85.62 0-164.53 16.92-224.29 55C1033.49 608.48 993.6 680.07 993 763.84v1.6c0 136 116.31 205.84 223.2 264.61 108.1 58.22 205.77 109.93 205.5 187.61l-.19 3.65c-2.29 49.46-28.39 102.89-143.13 103.43-106.55-1-207.78-60.06-261.73-92.91l-.64-.39-1.68 1.69v37.92z" /&gt;
+&lt;path class="cls-2" d="M1328 601.69h.13c89.64.92 181.24 33.51 230 49.57h.15v-27.53c-51-16.86-139.23-45.26-229.83-46.33h-5.14c-62.31 0-121.11 11.21-165 40h.06c-45.09 29.19-76.7 78.2-77 141 .37 115.6 116.8 172.35 222.93 231.69 107.7 58.81 205.92 118.64 205.7 218.2v3.22c-2 100.36-77.35 176.63-231.47 176.79h-1.24c-109.12-1-219.55-50-261.26-70l-1.74-.87v29.3l.62.33c50.39 23.21 154.15 64.16 262.29 65.49h6.5c79.21 0 142.85-15.93 187.75-50.14 46.2-35.12 71.34-90.83 71.75-150.55v-.71c-.13-126.36-116.19-191-222.8-250-107.86-58.66-206-113.7-205.77-198.92v-3.44C1116 655 1207.3 601.76 1328 601.69z" /&gt;
+&lt;path class="cls-2" d="M1408.84 921.17c-108.2-57.58-206.67-106.71-206-164.07l.18-3.56c1.42-63.54 47.78-88.92 120.64-89.79 84.08.76 171 39.22 231.85 63.6l.87.39 1.92-1.93V691l-1.15-.43C1497.49 666.49 1412.46 630.2 1324 629h-2.85c-39.61 0-76.48 8.29-105 28.12-29.35 20.19-48.15 53.69-48.24 96 2.85 96.15 118.75 138.61 223.79 198.51 106.68 59.14 204.91 127.5 204.87 246.91v3.17c-2.23 151.58-124.76 238.52-317 238.73h-2.94c-109.62-1.17-225.93-37.87-260.61-47l-1.8-.53v36l.62.15c40.79 11.36 152.88 44.88 261.36 46.06l8.08.05c97.85 0 182.43-20.78 244.51-63.73 63.7-43.83 102.1-122.32 102.81-209.36v-2.26c-.06-142.54-115.75-219.4-222.83-278.61zM313.68 1271.05c57.88 34.42 154.77 87 263.43 88.5h4.46c61.41 0 105.26-16.69 133.65-43 29.08-26.93 40.38-62.36 40.79-94.79-1.15-111.4-118-163.17-223.58-222.15-107.36-58.88-205.12-121.37-205-232.06v-3.24c2-142.8 127.39-214.66 294.34-214.74h3.06c94.05.95 192.18 25.46 230.36 33.81l2.51.54v-35.55l-1.55-.38c-41.56-9.26-137.25-32.21-230.92-33.23l-6.69-.06c-85.56 0-164.52 16.92-224.22 55C332.88 608.48 293 680.07 292.35 763.84v1.6c0 136 116.31 205.84 223.14 264.61 108.17 58.22 205.8 109.93 205.43 187.61l-.15 3.65c-2.27 49.46-28.31 102.89-143.13 103.43-106.5-1-207.69-60.06-261.64-92.91l-.65-.39-1.67 1.69v37.92z" /&gt;
+&lt;path class="cls-2" d="M627.34 601.69h.22c89.49.92 181.24 33.51 230 49.57h.1v-27.53c-51-16.86-139.17-45.26-229.77-46.33h-5.17c-62.31 0-121.15 11.21-164.9 40-45.09 29.19-76.7 78.2-77.1 141 .46 115.6 116.89 172.35 223 231.69 107.61 58.83 205.71 118.66 205.65 218.22v3.22c-2 100.36-77.38 176.63-231.53 176.79h-1.24c-109.07-1-219.49-50-261.2-70l-1.77-.87v29.3l.59.33c50.38 23.21 154.12 64.16 262.28 65.49h6.6c79.18 0 142.75-15.93 187.72-50.14 46.14-35.12 71.34-90.83 71.74-150.55v-.71c-.12-126.36-116.18-191-222.76-250-107.87-58.64-206.07-113.68-205.8-198.9v-3.44c1.3-103.79 92.59-157.07 213.3-157.14z" /&gt;
+&lt;path class="cls-2" d="M708.16 921.17C600 863.59 501.49 814.46 502.24 757.1l.06-3.56c1.48-63.54 47.87-88.92 120.7-89.79 84 .76 171 39.22 231.88 63.6l.81.39 2-1.93V691l-1.27-.43C796.88 666.49 711.78 630.2 623.38 629h-2.92c-39.57 0-76.39 8.29-104.94 28.12-29.36 20.19-48 53.69-48.28 96C470.12 849.21 586 891.67 691 951.57c106.77 59.14 205 127.5 204.9 246.91v3.17c-2.17 151.58-124.61 238.52-316.87 238.73h-3c-109.5-1.17-225.93-37.87-260.61-47l-1.74-.53v36l.5.15c40.81 11.36 153 44.88 261.48 46.06l8 .05c98 0 182.48-20.78 244.54-63.73C892 1367.57 930.29 1289.08 931 1202v-2.26c-.06-142.54-115.66-219.4-222.83-278.61zm1097.94 544.59h31.62V528.6h-31.62v937.16zm-72.71-935.21c9.39 197.36.41 901.05 0 934l1.27 1.31h34.5v-937.2h-33.79l-1.95 1.89zm177.1 0c-9.38 197.36-.28 901.05.12 934l-1.33 1.31h-34.4v-937.2h33.75l1.86 1.89z" /&gt;
+&lt;/g&gt;
+&lt;/g&gt;
+&lt;/svg&gt;
+&lt;h1&gt;Sorry, your access has been denied&lt;/h1&gt;
+&lt;p&gt; You are unable to access this website. Try to disable VPN or switch to other networks (4G/5G/Wifi)&lt;/p&gt;
+&lt;p&gt; Please contact us if the problem persists. &lt;/p&gt;
+&lt;p&gt; &lt;small&gt;&lt;strong&gt;IP :&lt;/strong&gt; 172.184.209.118&lt;/small&gt; &lt;/p&gt;
+&lt;p&gt; &lt;small&gt;&lt;strong&gt;Ray ID:&lt;/strong&gt; 9937bca7e85dcef5&lt;/small&gt; &lt;/p&gt;
+&lt;/div&gt;
+&lt;script defer integrity="sha512-jGCTpDpBAYDGNYR5ztKt4BQPGef1P0giN6ZGVUi835kFF88FOmmn8jBQWNgrNd8g/Yu421NdgWhwQoaOPFflDw==" data-cf-beacon='{"rayId":"7ceba5f071aec75a","version":"2023.4.0","b":1,"token":"55616b0c29c54933afb037e2684c1082","si":100}' crossorigin="anonymous"&gt;!function(){var e={343:function(e){"use strict";for(var t=[],n=0;n&lt;256;++n)t[n]=(n+256).toString(16).substr(1);e.exports=function(e,n){var r=n||0,i=t;return[i[e[r++]],i[e[r++]],i[e[r++]],i[e[r++]],"-",i[e[r++]],i[e[r++]],"-",i[e[r++]],i[e[r++]],"-",i[e[r++]],i[e[r++]],"-",i[e[r++]],i[e[r++]],i[e[r++]],i[e[r++]],i[e[r++]],i[e[r++]]].join("")}},944:function(e){"use strict";var t="undefined"!=typeof crypto&amp;&amp;crypto.getRandomValues&amp;&amp;crypto.getRandomValues.bind(crypto)||"undefined"!=typeof msCrypto&amp;&amp;"function"==typeof window.msCrypto.getRandomValues&amp;&amp;msCrypto.getRandomValues.bind(msCrypto);if(t){var n=new Uint8Array(16);e.exports=function(){return t(n),n}}else{var r=new Array(16);e.exports=function(){for(var e,t=0;t&lt;16;t++)0==(3&amp;t)&amp;&amp;(e=4294967296*Math.random()),r[t]=e&gt;&gt;&gt;((3&amp;t)&lt;&lt;3)&amp;255;return r}}},508:function(e,t,n){"use strict";var r=n(944),i=n(343);e.exports=function(e,t,n){var o=t&amp;&amp;n||0;"string"==typeof e&amp;&amp;(t="binary"===e?new Array(16):null,e=null);var a=(e=e||{}).random||(e.rng||r)();if(a[6]=15&amp;a[6]|64,a[8]=63&amp;a[8]|128,t)for(var c=0;c&lt;16;++c)t[o+c]=a[c];return t||i(a)}},168:function(e,t,n){"use strict";var r=this&amp;&amp;this.__assign||function(){return r=Object.assign||function(e){for(var t,n=1,r=arguments.length;n&lt;r;n++)for(var i in t=arguments[n])Object.prototype.hasOwnProperty.call(t,i)&amp;&amp;(e[i]=t[i]);return e},r.apply(this,arguments)};t.__esModule=!0;var i=n(699),o=n(752),a=n(104),c=n(508);!function(){function e(e){var t="";if(t=window.location.origin?window.location.origin:"".concat(window.location.protocol,"://").concat(window.location.host),e&amp;&amp;"string"==typeof e)if(0===e.indexOf("/"))t+=e;else try{var n=new URL(e);return"".concat(n.protocol,"://").concat(n.host).concat(n.pathname)}catch(e){}else{var r=window.location.pathname;r&amp;&amp;r.length&gt;0&amp;&amp;(t+=r)}return t}function t(e){return null==e?void 0:Math.round(1e3*e)/1e3}function n(e,t){for(var n in e){var r=e[n];void 0!==t&amp;&amp;("number"==typeof r||"string"==typeof r?t[n]=r:Array.isArray(r)&amp;&amp;(t[n]=JSON.parse(JSON.stringify(r))))}}!function(){var u,s,f=window.performance||window.webkitPerformance||window.msPerformance||window.mozPerformance,d="data-cf-beacon",l=document.currentScript||("function"==typeof document.querySelector?document.querySelector("script[".concat(d,"]")):void 0),v=c(),p=[],m=window.__cfBeacon?window.__cfBeacon:{};if(!m||"single"!==m.load){if(l){var g=l.getAttribute(d);if(g)try{m=r(r({},m),JSON.parse(g))}catch(e){}else{var y=l.getAttribute("src");if(y&amp;&amp;"function"==typeof URLSearchParams){var h=new URLSearchParams(y.replace(/^[^\?]+\??/,"")),T=h.get("token");T&amp;&amp;(m.token=T);var w=h.get("spa");m.spa=null===w||"true"===w}}m&amp;&amp;"multi"!==m.load&amp;&amp;(m.load="single"),window.__cfBeacon=m}if(f&amp;&amp;m&amp;&amp;m.token){var S,b=!1;document.addEventListener("visibilitychange",(function(){if("hidden"===document.visibilityState){if(L&amp;&amp;A()){var t=e();(null==S?void 0:S.url)==t&amp;&amp;(null==S?void 0:S.triggered)||P(),x(t)}!b&amp;&amp;S&amp;&amp;(b=!0,R())}else"visible"===document.visibilityState&amp;&amp;(new Date).getTime()}));var E={};"function"==typeof PerformanceObserver&amp;&amp;((0,a.onLCP)(O),(0,a.onFID)(O),(0,a.onFCP)(O),(0,a.onINP)(O),(0,a.onTTFB)(O),PerformanceObserver.supportedEntryTypes&amp;&amp;PerformanceObserver.supportedEntryTypes.includes("layout-shift")&amp;&amp;(0,a.onCLS)(O));var L=m&amp;&amp;(void 0===m.spa||!0===m.spa),C=m.send&amp;&amp;m.send.to?m.send.to:void 0===m.version?"https://cloudflareinsights.com/cdn-cgi/rum":null,P=function(r){var a=function(e,t){c.resources=e,0!=t&amp;&amp;(c.bypassTiming=!0),m&amp;&amp;(1===m.r&amp;&amp;(c.resources=[]),(0,o.sendObjectBeacon)("",c,(function(){}),!1,C),void 0!==m.forward&amp;&amp;void 0!==m.forward.url&amp;&amp;(0,o.sendObjectBeacon)("",c,(function(){}),!1,m.forward.url))},c=function(r){var o,a,c,s=f.timing,d=f.memory,l=r||e(),g={memory:{},timings:{},resources:[],tempResources:[],referrer:(a=document.referrer||"",c=p[p.length-1],L&amp;&amp;S&amp;&amp;c?c.url:a),eventType:i.EventType.Load,firstPaint:0,firstContentfulPaint:0,startTime:k(),versions:{fl:m?m.version:"",js:"2023.4.2",timings:1},pageloadId:v,location:l,wd:M(),b:m.b};if(null==u){if("function"==typeof f.getEntriesByType){var y=f.getEntriesByType("navigation");y&amp;&amp;Array.isArray(y)&amp;&amp;y.length&gt;0&amp;&amp;(g.timingsV2={},g.versions.timings=2,delete g.timings,n(y[0],g.timingsV2))}1===g.versions.timings&amp;&amp;n(s,g.timings),n(d,g.memory)}else _(g);if(g.firstPaint=F("first-paint"),g.firstContentfulPaint=F("first-contentful-paint"),m&amp;&amp;(m.icTag&amp;&amp;(g.icTag=m.icTag),g.siteToken=m.token),"function"==typeof f.getEntriesByType){var h=null!==(o=f.getEntriesByType("resource"))&amp;&amp;void 0!==o?o:[],T=0,w=0;h.forEach((function(e){var n={n:e.name,s:t(e.startTime),d:t(e.duration),i:e.initiatorType,p:e.nextHopProtoc... (set the log level to DEBUG or TRACE to see the full content) 
+ </msg>
+<msg time="2025-10-24T07:24:51.968678" level="FAIL">HTTPError: 403 Client Error: Forbidden for url: https://iboard-query.ssi.com.vn/stock/hbc?boardId=MAIN</msg>
+<var>${response}</var>
+<arg>iboard</arg>
+<arg>${final_url}</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="FAIL" start="2025-10-24T07:24:51.127175" elapsed="0.842237">HTTPError: 403 Client Error: Forbidden for url: https://iboard-query.ssi.com.vn/stock/hbc?boardId=MAIN</status>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<arg>${response.status_code}</arg>
+<arg>200</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="NOT RUN" start="2025-10-24T07:24:51.969602" elapsed="0.000100"/>
+</kw>
+<kw name="Convert To String" owner="BuiltIn">
+<var>${html}</var>
+<arg>${response.content}</arg>
+<doc>Converts the given item to a Unicode string.</doc>
+<status status="NOT RUN" start="2025-10-24T07:24:51.969803" elapsed="0.000048"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<var>${is_html}</var>
+<arg>'''${html}'''.startswith('&lt;!DOCTYPE html&gt;')</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2025-10-24T07:24:51.969951" elapsed="0.000047"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<arg>${is_html}</arg>
+<arg>Fail</arg>
+<arg>⚠️ SSI API returned HTML — likely blocked</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="NOT RUN" start="2025-10-24T07:24:51.970125" elapsed="0.000055"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<var>${json}</var>
+<arg>json.loads('''${html}''')</arg>
+<arg>json</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2025-10-24T07:24:51.970276" elapsed="0.000046"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<var>${data}</var>
+<arg>${json['data']}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" start="2025-10-24T07:24:51.970414" elapsed="0.000043"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<var>${output}</var>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" start="2025-10-24T07:24:51.970542" elapsed="0.000043"/>
+</kw>
+<for flavor="IN RANGE">
+<iter>
+<kw name="Set Variable" owner="BuiltIn">
+<var>${bid_key}</var>
+<arg>best${i}Bid</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" start="2025-10-24T07:24:51.970907" elapsed="0.000049"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<var>${bidVol_key}</var>
+<arg>best${i}BidVol</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" start="2025-10-24T07:24:51.971061" elapsed="0.000048"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<var>${offer_key}</var>
+<arg>best${i}Offer</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" start="2025-10-24T07:24:51.971196" elapsed="0.000043"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<var>${offerVol_key}</var>
+<arg>best${i}OfferVol</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" start="2025-10-24T07:24:51.971323" elapsed="0.000041"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<var>${bid}</var>
+<arg>'${bid_key}' in ${data}</arg>
+<arg>Evaluate</arg>
+<arg>str(${data['${bid_key}']}).rjust(8)</arg>
+<arg>ELSE</arg>
+<arg>Evaluate</arg>
+<arg>'—'.rjust(8)</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="NOT RUN" start="2025-10-24T07:24:51.971461" elapsed="0.000049"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<var>${bidVol}</var>
+<arg>'${bidVol_key}' in ${data}</arg>
+<arg>Evaluate</arg>
+<arg>str(${data['${bidVol_key}']}).rjust(10)</arg>
+<arg>ELSE</arg>
+<arg>Evaluate</arg>
+<arg>'—'.rjust(10)</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="NOT RUN" start="2025-10-24T07:24:51.971612" elapsed="0.000044"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<var>${offer}</var>
+<arg>'${offer_key}' in ${data}</arg>
+<arg>Evaluate</arg>
+<arg>str(${data['${offer_key}']}).rjust(8)</arg>
+<arg>ELSE</arg>
+<arg>Evaluate</arg>
+<arg>'—'.rjust(8)</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="NOT RUN" start="2025-10-24T07:24:51.971756" elapsed="0.000045"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<var>${offerVol}</var>
+<arg>'${offerVol_key}' in ${data}</arg>
+<arg>Evaluate</arg>
+<arg>str(${data['${offerVol_key}']}).rjust(10)</arg>
+<arg>ELSE</arg>
+<arg>Evaluate</arg>
+<arg>'—'.rjust(10)</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="NOT RUN" start="2025-10-24T07:24:51.971905" elapsed="0.000052"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<var>${line}</var>
+<arg>${bid}${SPACE}${bidVol}${SPACE}${offer}${SPACE}${offerVol}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" start="2025-10-24T07:24:51.972068" elapsed="0.000045"/>
+</kw>
+<kw name="Catenate" owner="BuiltIn">
+<var>${output}</var>
+<arg>SEPARATOR=\n</arg>
+<arg>${output}</arg>
+<arg>${line}</arg>
+<doc>Catenates the given items together and returns the resulted string.</doc>
+<status status="NOT RUN" start="2025-10-24T07:24:51.972199" elapsed="0.000042"/>
+</kw>
+<var name="${i}"/>
+<status status="NOT RUN" start="2025-10-24T07:24:51.970796" elapsed="0.001485"/>
+</iter>
+<var>${i}</var>
+<value>1</value>
+<value>11</value>
+<status status="NOT RUN" start="2025-10-24T07:24:51.970653" elapsed="0.001672"/>
+</for>
+<kw name="Log" owner="BuiltIn">
+<arg>${output}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" start="2025-10-24T07:24:51.972427" elapsed="0.000044"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>${output}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2025-10-24T07:24:51.972556" elapsed="0.000046"/>
+</kw>
+<doc>Fetches and formats top 10 bid/offer levels like awk output</doc>
+<tag>api</tag>
+<tag>done</tag>
+<status status="FAIL" start="2025-10-24T07:24:51.123220" elapsed="0.849535">HTTPError: 403 Client Error: Forbidden for url: https://iboard-query.ssi.com.vn/stock/hbc?boardId=MAIN</status>
+</test>
+<status status="FAIL" start="2025-10-24T07:24:39.705381" elapsed="12.272120"/>
 </suite>
 <kw name="Close Browser" owner="Browser" type="TEARDOWN">
-<msg time="2025-10-18T01:04:55.348338" level="INFO">Closed browser</msg>
+<msg time="2025-10-24T07:24:52.040929" level="INFO">Closed browser</msg>
 <tag>BrowserControl</tag>
 <tag>Setter</tag>
 <doc>Closes the current browser.</doc>
-<status status="PASS" start="2025-10-18T01:04:55.302523" elapsed="0.045993"/>
+<status status="PASS" start="2025-10-24T07:24:51.980224" elapsed="0.060905"/>
 </kw>
-<status status="PASS" start="2025-10-18T01:03:08.957302" elapsed="106.391297"/>
+<status status="FAIL" start="2025-10-24T07:20:27.821975" elapsed="264.219235"/>
 </suite>
-<status status="PASS" start="2025-10-18T01:03:08.956359" elapsed="106.396190"/>
+<status status="FAIL" start="2025-10-24T07:20:27.821039" elapsed="264.224150"/>
 </suite>
-<status status="PASS" start="2025-10-18T01:03:08.935242" elapsed="106.417797"/>
+<status status="FAIL" start="2025-10-24T07:20:27.799627" elapsed="264.246061"/>
 </suite>
 <statistics>
 <total>
-<stat pass="2" fail="0" skip="0">All Tests</stat>
+<stat pass="1" fail="2" skip="0">All Tests</stat>
 </total>
 <tag>
-<stat pass="1" fail="0" skip="0">api</stat>
-<stat pass="2" fail="0" skip="0">done</stat>
+<stat pass="0" fail="2" skip="0">api</stat>
+<stat pass="1" fail="2" skip="0">done</stat>
 </tag>
 <suite>
-<stat name="Repo1" id="s1" pass="2" fail="0" skip="0">Repo1</stat>
-<stat name="Playwright2" id="s1-s1" pass="2" fail="0" skip="0">Repo1.Playwright2</stat>
-<stat name="Tests" id="s1-s1-s1" pass="2" fail="0" skip="0">Repo1.Playwright2.Tests</stat>
-<stat name="First" id="s1-s1-s1-s1" pass="2" fail="0" skip="0">Repo1.Playwright2.Tests.First</stat>
+<stat name="Repo1" id="s1" pass="1" fail="2" skip="0">Repo1</stat>
+<stat name="Playwright2" id="s1-s1" pass="1" fail="2" skip="0">Repo1.Playwright2</stat>
+<stat name="Tests" id="s1-s1-s1" pass="1" fail="2" skip="0">Repo1.Playwright2.Tests</stat>
+<stat name="First" id="s1-s1-s1-s1" pass="1" fail="2" skip="0">Repo1.Playwright2.Tests.First</stat>
 </suite>
 </statistics>
 <errors>
