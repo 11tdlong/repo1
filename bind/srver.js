@@ -8,7 +8,6 @@ const fs = require('fs');
 const xml2js = require('xml2js');
 const { exec } = require('child_process');
 
-const axios = require('axios');
 const app = express();
 const token = process.env.SEC1;
 
@@ -232,44 +231,45 @@ app.get('/quotes/:symbol', async (req, res) => {
   console.log('🌐 Fetching from:', url);
 
   try {
-	const response = await axios.get(url);
-	const data = response.data;
+    const response = await fetch(url);
+    const data = await response.json();
 
-	const bid = {};
-	const bidVol = {};
-	const offer = {};
-	const offerVol = {};
+    const bid = {};
+    const bidVol = {};
+    const offer = {};
+    const offerVol = {};
 
-	// Extract matching fields
-	Object.entries(data).forEach(([key, value]) => {
-	  const bidMatch = key.match(/^best(\d+)Bid$/);
-	  const bidVolMatch = key.match(/^best(\d+)BidVol$/);
-	  const offerMatch = key.match(/^best(\d+)Offer$/);
-	  const offerVolMatch = key.match(/^best(\d+)OfferVol$/);
+    // Extract matching fields
+    Object.entries(data).forEach(([key, value]) => {
+      const bidMatch = key.match(/^best(\d+)Bid$/);
+      const bidVolMatch = key.match(/^best(\d+)BidVol$/);
+      const offerMatch = key.match(/^best(\d+)Offer$/);
+      const offerVolMatch = key.match(/^best(\d+)OfferVol$/);
 
-	  if (bidMatch) bid[bidMatch[1]] = value;
-	  if (bidVolMatch) bidVol[bidVolMatch[1]] = value;
-	  if (offerMatch) offer[offerMatch[1]] = value;
-	  if (offerVolMatch) offerVol[offerVolMatch[1]] = value;
-	});
+      if (bidMatch) bid[bidMatch[1]] = value;
+      if (bidVolMatch) bidVol[bidVolMatch[1]] = value;
+      if (offerMatch) offer[offerMatch[1]] = value;
+      if (offerVolMatch) offerVol[offerVolMatch[1]] = value;
+    });
 
-	// Format output like AWK
-	let formatted = 'Bid       Vol       Offer     Vol\n';
-	for (let i = 1; i <= 10; i++) {
-	  const b = bid[i] ?? '—';
-	  const bv = bidVol[i] ?? '—';
-	  const o = offer[i] ?? '—';
-	  const ov = offerVol[i] ?? '—';
-	  formatted += `${b.padEnd(10)}${bv.padEnd(10)} ${o.padEnd(10)}${ov.padEnd(10)}\n`;
-	}
+    // Format output like AWK
+    let formatted = 'Bid       Vol       Offer     Vol\n';
+    for (let i = 1; i <= 10; i++) {
+      const b = bid[i] ?? '—';
+      const bv = bidVol[i] ?? '—';
+      const o = offer[i] ?? '—';
+      const ov = offerVol[i] ?? '—';
+      formatted += `${b.padEnd(10)}${bv.padEnd(10)} ${o.padEnd(10)}${ov.padEnd(10)}\n`;
+    }
 
-	res.setHeader('Access-Control-Allow-Origin', 'https://11tdlong.github.io');
-	res.type('text/plain').send(formatted);
+    res.setHeader('Access-Control-Allow-Origin', 'https://11tdlong.github.io');
+    res.type('text/plain').send(formatted);
   } catch (error) {
-	console.error('❌ API fetch error:', error.message);
-	res.status(500).send({ error: 'Failed to fetch stock data.' });
+    console.error('❌ Fetch error:', error.message);
+    res.status(500).send({ error: 'Failed to fetch stock data.' });
   }
 });
+
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
