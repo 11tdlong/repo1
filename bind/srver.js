@@ -8,6 +8,7 @@ const fs = require('fs');
 const xml2js = require('xml2js');
 const { exec } = require('child_process');
 
+const axios = require('axios');
 const app = express();
 const token = process.env.SEC1;
 
@@ -221,54 +222,54 @@ async function fetchAndSendArtifactLogs(artifactName, res) {
   }
 });
 
-app.get('/quotes/:symbol', (req, res) => {
+app.get('/quotes/:symbol', async (req, res) => {
   const rawSymbol = req.params.symbol;
   const symbol = rawSymbol.replace(/[^a-zA-Z0-9]/g, '');
-  const scriptPath = path.join(__dirname, 'test4.sh');
-  const command = `bash ${scriptPath} ${symbol}`;
+  const url = `https://iboard-query.ssi.com.vn/stock/${symbol}?boardId=MAIN`;
 
   console.log('📥 Incoming symbol:', rawSymbol);
   console.log('🔒 Sanitized symbol:', symbol);
-  console.log('📁 Current directory:', __dirname);
-  console.log('📁 Script path:', scriptPath);
-  console.log('🚀 Executing command:', command);
+  console.log('🌐 Fetching from:', url);
 
-  exec(command, (error, stdout, stderr) => {
-    console.log('📤 STDOUT:\n', stdout);
-    console.log('📥 STDERR:\n', stderr);
+  try {
+	const response = await axios.get(url);
+	const data = response.data;
 
-    if (error) {
-      console.error(`❌ Script error: ${error.message}`);
-      return res.status(500).send({ error: 'Script execution failed.' });
-    }
+	const bid = {};
+	const bidVol = {};
+	const offer = {};
+	const offerVol = {};
 
-    res.setHeader('Access-Control-Allow-Origin', 'https://11tdlong.github.io');
-    res.type('text/plain').send(stdout || '⚠️ No output from script.');
+	// Extract matching fields
+	Object.entries(data).forEach(([key, value]) => {
+	  const bidMatch = key.match(/^best(\d+)Bid$/);
+	  const bidVolMatch = key.match(/^best(\d+)BidVol$/);
+	  const offerMatch = key.match(/^best(\d+)Offer$/);
+	  const offerVolMatch = key.match(/^best(\d+)OfferVol$/);
 
-    // Try parsing as JSON
-    try {
-      const quotes = JSON.parse(stdout);
-      console.log('✅ Parsed JSON:', quotes);
+	  if (bidMatch) bid[bidMatch[1]] = value;
+	  if (bidVolMatch) bidVol[bidVolMatch[1]] = value;
+	  if (offerMatch) offer[offerMatch[1]] = value;
+	  if (offerVolMatch) offerVol[offerVolMatch[1]] = value;
+	});
 
-      if (Array.isArray(quotes)) {
-        quotes.forEach((q, i) => {
-          console.log(`📊 Quote ${i + 1}:`, {
-            date: q.date || q.tradingDate,
-            open: q.open,
-            close: q.close,
-            volume: q.volume || q.totalVolume
-          });
-        });
-      } else {
-        console.warn('⚠️ Parsed JSON is not an array:', quotes);
-      }
-    } catch (err) {
-      console.error('❌ Failed to parse script output as JSON:', err.message);
-      console.log('🔍 Raw output (first 300 chars):', stdout.slice(0, 300));
-    }
-  });
+	// Format output like AWK
+	let formatted = 'Bid       Vol       Offer     Vol\n';
+	for (let i = 1; i <= 10; i++) {
+	  const b = bid[i] ?? '—';
+	  const bv = bidVol[i] ?? '—';
+	  const o = offer[i] ?? '—';
+	  const ov = offerVol[i] ?? '—';
+	  formatted += `${b.padEnd(10)}${bv.padEnd(10)} ${o.padEnd(10)}${ov.padEnd(10)}\n`;
+	}
+
+	res.setHeader('Access-Control-Allow-Origin', 'https://11tdlong.github.io');
+	res.type('text/plain').send(formatted);
+  } catch (error) {
+	console.error('❌ API fetch error:', error.message);
+	res.status(500).send({ error: 'Failed to fetch stock data.' });
+  }
 });
-
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
