@@ -224,40 +224,54 @@ async function fetchAndSendArtifactLogs(artifactName, res) {
 app.get('/quotes/:symbol', async (req, res) => {
   const rawSymbol = req.params.symbol;
   const symbol = rawSymbol.replace(/[^a-zA-Z0-9]/g, '');
+  const corsOrigin = 'https://11tdlong.github.io';
+  const userAgent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/118 Safari/537.36';
   const url = `https://iboard-query.ssi.com.vn/stock/${symbol}?boardId=MAIN`;
+
+  res.setHeader('Access-Control-Allow-Origin', corsOrigin);
 
   console.log('📥 Incoming symbol:', rawSymbol);
   console.log('🔒 Sanitized symbol:', symbol);
   console.log('🌐 Fetching from:', url);
 
   try {
-    const response = await fetch(url, {
-      headers: { 'User-Agent': 'Mozilla/5.0' }
+    let response = await fetch(url, {
+      headers: { 'User-Agent': userAgent }
     });
+    let body = await response.text();
 
-    if (!response.ok) {
-      const html = await response.text();
-      console.error('❌ Non-JSON response:', html.slice(0, 300));
-      return res.status(response.status).send({ error: 'Non-JSON response from SSI API.' });
+    // 🔁 Detect and follow JS redirect
+    const redirectMatch = body.match(/window\.location\.href\s*=\s*"([^"]+)"/);
+    if (redirectMatch && redirectMatch[1]) {
+      const redirectedUrl = redirectMatch[1];
+      console.log(`🔁 Following redirect to: ${redirectedUrl}`);
+
+      response = await fetch(redirectedUrl, {
+        headers: { 'User-Agent': userAgent }
+      });
+      body = await response.text();
     }
 
-    const data = await response.json();
+    // 🧠 Try parsing JSON
+    let data;
+    try {
+      data = JSON.parse(body);
+    } catch (err) {
+      console.error('❌ Failed to parse JSON:', body.slice(0, 300));
+      return res.status(500).send({ error: 'Invalid JSON response from SSI.' });
+    }
 
-    const bid = {};
-    const bidVol = {};
-    const offer = {};
-    const offerVol = {};
+    const bid = {}, bidVol = {}, offer = {}, offerVol = {};
 
     Object.entries(data).forEach(([key, value]) => {
-      const bidMatch = key.match(/^best(\d+)Bid$/);
-      const bidVolMatch = key.match(/^best(\d+)BidVol$/);
-      const offerMatch = key.match(/^best(\d+)Offer$/);
-      const offerVolMatch = key.match(/^best(\d+)OfferVol$/);
-
-      if (bidMatch) bid[bidMatch[1]] = value;
-      if (bidVolMatch) bidVol[bidVolMatch[1]] = value;
-      if (offerMatch) offer[offerMatch[1]] = value;
-      if (offerVolMatch) offerVol[offerVolMatch[1]] = value;
+      const m = key.match(/^best(\d+)(Bid|BidVol|Offer|OfferVol)$/);
+      if (m) {
+        const [ , level, type ] = m;
+        if (type === 'Bid') bid[level] = value;
+        if (type === 'BidVol') bidVol[level] = value;
+        if (type === 'Offer') offer[level] = value;
+        if (type === 'OfferVol') offerVol[level] = value;
+      }
     });
 
     let formatted = 'Bid       Vol       Offer     Vol\n';
@@ -269,14 +283,12 @@ app.get('/quotes/:symbol', async (req, res) => {
       formatted += `${b.padEnd(10)}${bv.padEnd(10)} ${o.padEnd(10)}${ov.padEnd(10)}\n`;
     }
 
-    res.setHeader('Access-Control-Allow-Origin', 'https://11tdlong.github.io');
     res.type('text/plain').send(formatted);
   } catch (error) {
-    console.error('❌ Fetch error:', error.message);
-    res.status(500).send({ error: 'Failed to fetch stock data.' });
+    console.error('❌ SSI fetch error:', error.message);
+    res.status(500).send({ error: 'Failed to fetch SSI data.' });
   }
 });
-
 
 
 const PORT = process.env.PORT || 3000;
