@@ -235,30 +235,26 @@ app.get('/quotes/:symbol', async (req, res) => {
   console.log('🌐 Fetching from:', url);
 
   try {
-    let response = await fetch(url, {
-      headers: { 'User-Agent': userAgent }
+    const response = await fetch(url, {
+      headers: {
+        'User-Agent': userAgent,
+        'Accept': 'application/json, text/plain, */*',
+        'Accept-Language': 'en-US,en;q=0.9',
+        'Referer': 'https://iboard.ssi.com.vn/',
+        'Origin': 'https://iboard.ssi.com.vn',
+        'Connection': 'keep-alive'
+      }
     });
-    let body = await response.text();
 
-    // 🔁 Detect and follow JS redirect
-    const redirectMatch = body.match(/window\.location\.href\s*=\s*"([^"]+)"/);
-    if (redirectMatch && redirectMatch[1]) {
-      const redirectedUrl = redirectMatch[1];
-      console.log(`🔁 Following redirect to: ${redirectedUrl}`);
+    const body = await response.text();
+    console.log('📄 Full response body:\n', body);
 
-      response = await fetch(redirectedUrl, {
-        headers: { 'User-Agent': userAgent }
-      });
-      body = await response.text();
-    }
-
-    // 🧠 Try parsing JSON
     let data;
     try {
       data = JSON.parse(body);
     } catch (err) {
-      console.error('❌ Failed to parse JSON:', body.slice(0, 300));
-      return res.status(500).send({ error: 'Invalid JSON response from SSI.' });
+      console.error('❌ Failed to parse JSON — response was HTML or invalid.');
+      return res.status(502).send({ error: 'SSI returned non-JSON content. Likely blocked as bot.' });
     }
 
     const bid = {}, bidVol = {}, offer = {}, offerVol = {};
@@ -285,10 +281,11 @@ app.get('/quotes/:symbol', async (req, res) => {
 
     res.type('text/plain').send(formatted);
   } catch (error) {
-    console.error('❌ SSI fetch error:', error.message);
+    console.error('❌ Fetch error:', error.message);
     res.status(500).send({ error: 'Failed to fetch SSI data.' });
   }
 });
+
 
 
 const PORT = process.env.PORT || 3000;
