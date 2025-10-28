@@ -221,6 +221,10 @@ async function fetchAndSendArtifactLogs(artifactName, res) {
   }
 });
 
+const express = require('express');
+const fetch = require('node-fetch');
+const app = express();
+
 app.get('/quotes/:symbol', async (req, res) => {
   const rawSymbol = req.params.symbol;
   const symbol = rawSymbol.replace(/[^a-zA-Z0-9]/g, '');
@@ -231,7 +235,16 @@ app.get('/quotes/:symbol', async (req, res) => {
   console.log('🌐 Fetching from:', url);
 
   try {
-    const response = await fetch(url);
+    const response = await fetch(url, {
+      headers: { 'User-Agent': 'Mozilla/5.0' }
+    });
+
+    if (!response.ok) {
+      const html = await response.text();
+      console.error('❌ Non-JSON response:', html.slice(0, 300));
+      return res.status(response.status).send({ error: 'Non-JSON response from SSI API.' });
+    }
+
     const data = await response.json();
 
     const bid = {};
@@ -239,7 +252,6 @@ app.get('/quotes/:symbol', async (req, res) => {
     const offer = {};
     const offerVol = {};
 
-    // Extract matching fields
     Object.entries(data).forEach(([key, value]) => {
       const bidMatch = key.match(/^best(\d+)Bid$/);
       const bidVolMatch = key.match(/^best(\d+)BidVol$/);
@@ -252,7 +264,6 @@ app.get('/quotes/:symbol', async (req, res) => {
       if (offerVolMatch) offerVol[offerVolMatch[1]] = value;
     });
 
-    // Format output like AWK
     let formatted = 'Bid       Vol       Offer     Vol\n';
     for (let i = 1; i <= 10; i++) {
       const b = bid[i] ?? '—';
@@ -269,6 +280,7 @@ app.get('/quotes/:symbol', async (req, res) => {
     res.status(500).send({ error: 'Failed to fetch stock data.' });
   }
 });
+
 
 
 const PORT = process.env.PORT || 3000;
