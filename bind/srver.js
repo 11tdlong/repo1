@@ -221,10 +221,6 @@ async function fetchAndSendArtifactLogs(artifactName, res) {
   }
 });
 
-const express = require('express');
-const fetch = require('node-fetch');
-const app = express();
-
 app.get('/quotes/:symbol', async (req, res) => {
   const rawSymbol = req.params.symbol;
   const symbol = rawSymbol.replace(/[^a-zA-Z0-9]/g, '');
