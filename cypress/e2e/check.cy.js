@@ -118,6 +118,8 @@ describe('Quick and Simple Test', () => {
 		let report = '//*[@class="txt7" and contains(text(),"2025")]';
 		let firstCombo = "(//span/span[@role='textbox'])[1]";
 		let all = "//li[normalize-space()='Tất cả']";
+		let tt = "//h3/following-sibling::div/a[contains(@href,'tt-codong.html') and @class='btn-link']";
+		let ttData = "(//h3)[1]/following-sibling::div";
 		cy.viewport(1600, 1200)
         //cy.visit('https://vipco.petrolimex.com.vn/ndt.html');
 		visitWithRetry('https://vipco.petrolimex.com.vn/ndt.html');
@@ -127,7 +129,7 @@ describe('Quick and Simple Test', () => {
 		cy.wait(1000);
 		cy.xpath(firstCombo).click()
 		cy.xpath(all, { timeout: 10000 }).should('be.visible');
-		cy.xpath(all).click()
+		cy.xpath(all).click();
 		cy.xpath('(//ul/li//div[@class="title-normal"]/following-sibling::span)[1]').then(($text) => {
 			let storedValue = $text.text().trim()
 			cy.wrap(storedValue).as('storedValue')
@@ -142,6 +144,22 @@ describe('Quick and Simple Test', () => {
 			} else {
 				cy.task('log', {message: storedValue})
 				cy.task('log', {message: 'NEW Report', color: 'red'})
+			}
+		})
+		cy.xpath(tt).click();
+		cy.xpath(ttData).then(($text) => {
+			let storedValue = $text.text().trim()
+			cy.wrap(storedValue).as('storedValue')
+		})
+		//red, green, yellow, blue, magenta, cyan, white, gray
+		cy.get('@storedValue').then((storedValue) => {
+			cy.task('log', {message: '--------------------', color: 'blue'})
+			if(storedValue.includes("17/10/2025")) {
+				cy.task('log', {message: storedValue})
+				cy.task('log', {message: 'OLD News', color: 'yellow'})
+			} else {
+				cy.task('log', {message: storedValue})
+				cy.task('log', {message: 'NEW News', color: 'red'})
 			}
 		})
     })
