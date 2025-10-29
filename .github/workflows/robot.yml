@@ -75,6 +75,10 @@ jobs:
           git add tmp/
           git diff --cached --quiet || git commit -m "Update Robot logs in tmp folder"
           git push origin main
+      - name: Install Playwright only
+        if: always()
+        run: npm install playwright
+
       - name: Run Playwright script and capture output
         if: always()
         run: |
