@@ -79,5 +79,5 @@ jobs:
         if: always()
         run: |
           echo "🎭 Running Playwright script..."
-          node playwright/playwright.js | tee -a tmp/output.txt
+          node cypress/e2e/playwright.js | tee -a tmp/output.txt
           echo "✅ Playwright script complete." | tee -a tmp/output.txt
