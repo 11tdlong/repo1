@@ -24,7 +24,26 @@ jobs:
 
       - name: Checkout code
         uses: actions/checkout@v3
+        
+      - name: Install Playwright only
+        if: always()
+        run: npm install playwright
+      - name: Install Playwright browsers
+        if: always()
+        run: npx playwright install chromium
 
+      - name: Run Playwright script and capture output
+        if: always()
+        run: |
+          echo "🎭 Running Playwright script..."
+          node cypress/e2e/playwright.js | tee -a tmp/playwright_output.txt
+          echo "✅ Playwright script complete." | tee -a tmp/playwright_output.txt
+      - name: Set Playwright output as env variable
+        run: |
+          echo "PLAYWRIGHT_LOG<<EOF" >> $GITHUB_ENV
+          cat tmp/playwright_output.txt >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+          
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
@@ -44,7 +63,7 @@ jobs:
       - name: Run Robot Framework tests
         run: |
           echo "🤖 Starting Robot tests..."
-          robot -i done -d tmp .
+          robot --variable PLAYWRIGHT_LOG:"${{ env.PLAYWRIGHT_LOG }}" -i done -d tmp .
           echo "✅ Robot tests complete."
       - name: Verify log.html exists and is not empty
         if: always()
@@ -75,16 +94,3 @@ jobs:
           git add tmp/
           git diff --cached --quiet || git commit -m "Update Robot logs in tmp folder"
           git push origin main
-      - name: Install Playwright only
-        if: always()
-        run: npm install playwright
-      - name: Install Playwright browsers
-        if: always()
-        run: npx playwright install chromium
-
-      - name: Run Playwright script and capture output
-        if: always()
-        run: |
-          echo "🎭 Running Playwright script..."
-          node cypress/e2e/playwright.js | tee -a tmp/output.txt
-          echo "✅ Playwright script complete." | tee -a tmp/output.txt
