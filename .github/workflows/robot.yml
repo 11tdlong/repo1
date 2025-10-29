@@ -76,6 +76,7 @@ jobs:
           git diff --cached --quiet || git commit -m "Update Robot logs in tmp folder"
           git push origin main
       - name: Run Playwright script and capture output
+        if: always()
         run: |
           echo "🎭 Running Playwright script..."
           node playwright/playwright.js | tee -a tmp/output.txt
