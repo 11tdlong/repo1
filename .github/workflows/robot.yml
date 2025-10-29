@@ -80,7 +80,7 @@ jobs:
         run: npm install playwright
       - name: Install Playwright browsers
         if: always()
-        run: npx playwright install
+        run: npx playwright install chromium
 
       - name: Run Playwright script and capture output
         if: always()
