@@ -5,11 +5,14 @@ Resource        ../resources/keywords.robot
 ${API_URL}    https://fireant.vn/ma-chung-khoan/
 ${HARD_URI}    https://restv2.fireant.vn/symbols/HBC/historical-quotes?startDate=2022-08-08&endDate=2025-12-12&offset=0&limit=30
 ${URL2}    https://iboard-query.ssi.com.vn/stock/symbol?boardId=MAIN
+${PLAYWRIGHT_LOG}    None
+
 *** Test Cases ***
 Test number one
 	[Timeout]    1 minutes
     [Documentation]    A test to try ui
     [Tags]    done
+	Log Many    ${PLAYWRIGHT_LOG}
     Check Title
     Basic Check    HBC
 
