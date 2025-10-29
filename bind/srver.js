@@ -221,71 +221,53 @@ async function fetchAndSendArtifactLogs(artifactName, res) {
   }
 });
 
-app.get('/quotes/:symbol', async (req, res) => {
+app.get('/quotes/:symbol', (req, res) => {
   const rawSymbol = req.params.symbol;
   const symbol = rawSymbol.replace(/[^a-zA-Z0-9]/g, '');
-  const corsOrigin = 'https://11tdlong.github.io';
-  const userAgent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/118 Safari/537.36';
-  const url = `https://iboard-query.ssi.com.vn/stock/${symbol}?boardId=MAIN`;
-
-  res.setHeader('Access-Control-Allow-Origin', corsOrigin);
+  const scriptPath = path.join(__dirname, 'test4.sh');
+  const command = `bash ${scriptPath} ${symbol}`;
 
   console.log('📥 Incoming symbol:', rawSymbol);
   console.log('🔒 Sanitized symbol:', symbol);
-  console.log('🌐 Fetching from:', url);
+  console.log('📁 Current directory:', __dirname);
+  console.log('📁 Script path:', scriptPath);
+  console.log('🚀 Executing command:', command);
 
-  try {
-    const response = await fetch(url, {
-      headers: {
-        'User-Agent': userAgent,
-        'Accept': 'application/json, text/plain, */*',
-        'Accept-Language': 'en-US,en;q=0.9',
-        'Referer': 'https://iboard.ssi.com.vn/',
-        'Origin': 'https://iboard.ssi.com.vn',
-        'Connection': 'keep-alive'
-      }
-    });
+  exec(command, (error, stdout, stderr) => {
+    console.log('📤 STDOUT:\n', stdout);
+    console.log('📥 STDERR:\n', stderr);
 
-    const body = await response.text();
-    console.log('📄 Full response body:\n', body);
+    if (error) {
+      console.error(`❌ Script error: ${error.message}`);
+      return res.status(500).send({ error: 'Script execution failed.' });
+    }
 
-    let data;
+    res.setHeader('Access-Control-Allow-Origin', 'https://11tdlong.github.io');
+    res.type('text/plain').send(stdout || '⚠️ No output from script.');
+
+    // Try parsing as JSON
     try {
-      data = JSON.parse(body);
-    } catch (err) {
-      console.error('❌ Failed to parse JSON — response was HTML or invalid.');
-      return res.status(502).send({ error: 'SSI returned non-JSON content. Likely blocked as bot.' });
-    }
+      const quotes = JSON.parse(stdout);
+      console.log('✅ Parsed JSON:', quotes);
 
-    const bid = {}, bidVol = {}, offer = {}, offerVol = {};
-
-    Object.entries(data).forEach(([key, value]) => {
-      const m = key.match(/^best(\d+)(Bid|BidVol|Offer|OfferVol)$/);
-      if (m) {
-        const [ , level, type ] = m;
-        if (type === 'Bid') bid[level] = value;
-        if (type === 'BidVol') bidVol[level] = value;
-        if (type === 'Offer') offer[level] = value;
-        if (type === 'OfferVol') offerVol[level] = value;
+      if (Array.isArray(quotes)) {
+        quotes.forEach((q, i) => {
+          console.log(`📊 Quote ${i + 1}:`, {
+            date: q.date || q.tradingDate,
+            open: q.open,
+            close: q.close,
+            volume: q.volume || q.totalVolume
+          });
+        });
+      } else {
+        console.warn('⚠️ Parsed JSON is not an array:', quotes);
       }
-    });
-
-    let formatted = 'Bid       Vol       Offer     Vol\n';
-    for (let i = 1; i <= 10; i++) {
-      const b = bid[i] ?? '—';
-      const bv = bidVol[i] ?? '—';
-      const o = offer[i] ?? '—';
-      const ov = offerVol[i] ?? '—';
-      formatted += `${b.padEnd(10)}${bv.padEnd(10)} ${o.padEnd(10)}${ov.padEnd(10)}\n`;
+    } catch (err) {
+      console.error('❌ Failed to parse script output as JSON:', err.message);
+      console.log('🔍 Raw output (first 300 chars):', stdout.slice(0, 300));
     }
-
-    res.type('text/plain').send(formatted);
-  } catch (error) {
-    console.error('❌ Fetch error:', error.message);
-    res.status(500).send({ error: 'Failed to fetch SSI data.' });
-  }
+  });
 });
-
 
 
 const PORT = process.env.PORT || 3000;
