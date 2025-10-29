@@ -136,7 +136,7 @@ describe('Quick and Simple Test', () => {
 		cy.get('@storedValue').then((storedValue) => {
 			cy.task('log', {message: '--------------------', color: 'blue'})
 			cy.log("x" + storedValue + "x") //prints value
-			if(storedValue.includes("22/8/2025")) {
+			if(storedValue.includes("29/10/2025")) {
 				cy.task('log', {message: storedValue})
 				cy.task('log', {message: 'OLD Report', color: 'yellow'})
 			} else {
