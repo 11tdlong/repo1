@@ -602,19 +602,20 @@ function startProcess2() {
       status.textContent = data.status || '✅ Robot Tests workflow triggered';
 
       setTimeout(() => {
-        fetch('https://repo1-qygx.onrender.com/logs/robot')
-          .then(res => res.json())
-          .then(logData => {
+        Promise.all([
+          fetch('https://repo1-qygx.onrender.com/logs/robot').then(res => res.json()),
+          fetch('https://11tdlong.github.io/repo1/tmp/playwright_output.txt').then(res => res.text())
+        ])
+          .then(([logData, playwrightOutput]) => {
             clearInterval(interval);
             runner.style.display = 'none';
             runner.setAttribute('data-running', 'false');
 
             status.innerHTML = `
               <div style="white-space: pre-wrap; font-family: monospace;">
-                ✅ Robot Tests completed<br>
-                📄 <a class="log-label" href="${logData.logUrl}" target="_blank" rel="nofollow">Robot Log</a><br>
+                ✅ Robot Tests completed: 📄 <a class="log-label" href="${logData.logUrl}" target="_blank" rel="nofollow">Robot Log</a><br>
                 🎭 <strong>Playwright Output:</strong><br>
-                ${logData.playwrightOutput}
+                ${playwrightOutput.trimStart()}
               </div>
             `;
 
@@ -638,7 +639,6 @@ function startProcess2() {
       console.error(err);
     });
 }
-
 
 
 function toggleFold2() {
