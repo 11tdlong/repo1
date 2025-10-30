@@ -36,7 +36,8 @@ jobs:
         if: always()
         run: |
           echo "🎭 Running Playwright script..."
-          node cypress/e2e/playwright.js | tee -a tmp/playwright_output.txt
+          node cypress/e2e/playwright.js | tee tmp/playwright_output.txt
+
       - name: Set Playwright output as env variable
         run: |
           echo "PLAYWRIGHT_LOG<<EOF" >> $GITHUB_ENV

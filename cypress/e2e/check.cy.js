@@ -136,7 +136,6 @@ describe('Quick and Simple Test', () => {
 		})
 		//red, green, yellow, blue, magenta, cyan, white, gray
 		cy.get('@storedValue').then((storedValue) => {
-			cy.task('log', {message: '--------------------', color: 'blue'})
 			cy.log("x" + storedValue + "x") //prints value
 			if(storedValue.includes("29/10/2025")) {
 				cy.task('log', {message: storedValue})
