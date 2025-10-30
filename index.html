@@ -602,31 +602,36 @@ function startProcess2() {
       status.textContent = data.status || '✅ Robot Tests workflow triggered';
 
       setTimeout(() => {
-        fetch('https://repo1-qygx.onrender.com/logs/robot')
-          .then(res => res.json())
-          .then(logData => {
+	  Promise.all([
+		fetch('https://repo1-qygx.onrender.com/logs/robot').then(res => res.json()),
+		fetch('https://repo1-qygx.onrender.com/logs/playwright').then(res => res.text())
+	  ])
+		.then(([logData, playwrightOutput]) => {
 		  clearInterval(interval);
 		  runner.style.display = 'none';
 		  runner.setAttribute('data-running', 'false');
 
-		status.innerHTML = `
-		  <div style="white-space: nowrap;">
-			✅ Robot Tests completed
-			<a class="log-label" href="${logData.logUrl}" target="_blank" rel="nofollow">Robot Log</a>
-		  </div>
-		`;
+		  status.innerHTML = `
+			<div style="white-space: pre-wrap; font-family: monospace;">
+			  ✅ Robot Tests completed<br>
+			  <a class="log-label" href="${logData.logUrl}" target="_blank" rel="nofollow">📄 Robot Log</a><br><br>
+			  <strong>🎭 Playwright Output:</strong><br>
+			  ${playwrightOutput}
+			</div>
+		  `;
 
 		  confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
 		  document.getElementById('ding').play();
 		})
-          .catch(err => {
-            clearInterval(interval);
-            runner.style.display = 'none';
-            runner.setAttribute('data-running', 'false');
-            status.textContent = '❌ Error fetching Robot logs';
-            console.error(err);
-          });
-      }, 110000);
+		.catch(err => {
+		  clearInterval(interval);
+		  runner.style.display = 'none';
+		  runner.setAttribute('data-running', 'false');
+		  status.textContent = '❌ Error fetching logs';
+		  console.error(err);
+		});
+	}, 110000);
+
     })
     .catch(err => {
       clearInterval(interval);

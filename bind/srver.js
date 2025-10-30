@@ -76,10 +76,21 @@ app.get('/logs/cypress', async (req, res) => {
 });
 
 app.get('/logs/robot', async (req, res) => {
+  const logPath = path.join(__dirname, 'tmp', 'playwright_output.txt');
+  let playwrightOutput = '';
+
+  try {
+    playwrightOutput = fs.readFileSync(logPath, 'utf8');
+  } catch (err) {
+    console.error('Error reading Playwright output:', err);
+    playwrightOutput = '❌ Unable to read Playwright output';
+  }
+
   res.json({
     status: '✅ Robot Tests completed',
     message: 'Click below to view detailed logs',
-    logUrl: 'https://11tdlong.github.io/repo1/tmp/log.html'
+    logUrl: 'https://11tdlong.github.io/repo1/tmp/log.html',
+    playwrightOutput
   });
 });
 
