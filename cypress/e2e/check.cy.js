@@ -19,7 +19,7 @@ function visitWithRetry(url, retries = 3, delay = 2000) {
   });
 }
 
-describe('Quick and Simple Test', () => {
+describe('All in one', () => {
 
     const menu = "//div[contains(@class,'header-hambuger')]"
 	const item = "//a[contains(text(),'Quan h')]"
@@ -103,7 +103,7 @@ describe('Quick and Simple Test', () => {
 		})
 		cy.get('@storedValue').then((storedValue) => {
 			cy.log("x" + storedValue + "x") //prints value
-			if(storedValue.includes("22/10/2025")) {
+			if(storedValue.includes("31/10/2025")) {
 				cy.task('log', {message: storedValue})
 				cy.task('log', {message: 'OLD News', color: 'yellow'})
 			} else {
