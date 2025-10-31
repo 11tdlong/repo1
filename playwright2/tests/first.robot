@@ -26,8 +26,8 @@ Test API Number One
     ${html}=          Convert To String    ${response.content}
     ${redirect}=      Get Regexp Matches    ${html}    window\.location\.href\s*=\s*"([^"]+)"    1
 	${fullURL}=    Evaluate    ' '.join(${redirect})
-    ${fullURL}    Remove String Using Regexp    ${redirect}    [\'\[]
-	${fullURL}    Remove String Using Regexp    ${redirect}    [\]]
+    ${fullURL}    Remove String Using Regexp    ${fullURL}    [\'\[]
+	${fullURL}    Remove String Using Regexp    ${fullURL}    [\]]
     Log    ${fullURL}
     ${response}=    GET    ${fullURL}
     ${html}=          Convert To String    ${response.content}
