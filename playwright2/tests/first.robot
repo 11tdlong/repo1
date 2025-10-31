@@ -24,20 +24,15 @@ Test API Number One
     Create Session    jsonplaceholder    ${fullURL}
     ${response}=    GET    ${fullURL}
     ${html}=          Convert To String    ${response.content}
-
     ${redirect}=      Get Regexp Matches    ${html}    window\.location\.href\s*=\s*"([^"]+)"    1  
-    IF    ${redirect}
-        Log To Console    🔁 Following redirect to: ${redirect[0]}
-        ${redirected_response}=    GET    fireant    ${redirect[0]}
-        ${final_html}=             Convert To String    ${redirected_response.content}
-        Log    Final HTML content retrieved via redirect
-    ELSE
-        Log    No redirect detected, using original response
-        ${final_html}=             Set Variable    ${html}
-    END
+    ${redirect}    Remove String Using Regexp    ${redirect}    [\'\[]
+	${redirect}    Remove String Using Regexp    ${redirect}    [\]]
+    Log    ${redirect}
+    ${response}=    GET    ${redirect}
+    ${html}=          Convert To String    ${response.content}
 
     ${pattern}=    Set Variable    "accessToken\":\"([^\"]+)"
-    ${token}=      Get Regexp Matches    ${final_html}    ${pattern}
+    ${token}=      Get Regexp Matches    ${html}    ${pattern}
     ${parts}=    Split String    ${token[0]}    ":"
     ${token}=    Replace String    ${parts[1]}    "\""    ${EMPTY}
 	${token}=    Replace String    ${token}    "    ${EMPTY}
