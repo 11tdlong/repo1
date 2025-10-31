@@ -24,11 +24,12 @@ Test API Number One
     Create Session    jsonplaceholder    ${fullURL}
     ${response}=    GET    ${fullURL}
     ${html}=          Convert To String    ${response.content}
-    ${redirect}=      Get Regexp Matches    ${html}    window\.location\.href\s*=\s*"([^"]+)"    1  
-    ${redirect}    Remove String Using Regexp    ${redirect}    [\'\[]
-	${redirect}    Remove String Using Regexp    ${redirect}    [\]]
-    Log    ${redirect}
-    ${response}=    GET    ${redirect}
+    ${redirect}=      Get Regexp Matches    ${html}    window\.location\.href\s*=\s*"([^"]+)"    1
+	${fullURL}=    Evaluate    ' '.join(${redirect})
+    ${fullURL}    Remove String Using Regexp    ${redirect}    [\'\[]
+	${fullURL}    Remove String Using Regexp    ${redirect}    [\]]
+    Log    ${fullURL}
+    ${response}=    GET    ${fullURL}
     ${html}=          Convert To String    ${response.content}
 
     ${pattern}=    Set Variable    "accessToken\":\"([^\"]+)"
