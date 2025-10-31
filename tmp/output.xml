@@ -1,29 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 7.3.2 (Python 3.11.13 on linux)" generated="2025-10-31T02:54:57.115052" rpa="false" schemaversion="5">
+<robot generator="Robot 7.3.2 (Python 3.11.13 on linux)" generated="2025-10-31T02:58:35.535155" rpa="false" schemaversion="5">
 <suite id="s1" name="Repo1" source="/home/runner/work/repo1/repo1">
 <suite id="s1-s1" name="Playwright2" source="/home/runner/work/repo1/repo1/playwright2">
 <suite id="s1-s1-s1" name="Tests" source="/home/runner/work/repo1/repo1/playwright2/tests">
 <kw name="Open Default Page" owner="keywords" type="SETUP">
 <kw name="Convert To Boolean" owner="BuiltIn">
-<msg time="2025-10-31T02:54:57.313260" level="INFO">${headless_bool} = True</msg>
+<msg time="2025-10-31T02:58:35.726860" level="INFO">${headless_bool} = True</msg>
 <var>${headless_bool}</var>
 <arg>${HEADLESS}</arg>
 <doc>Converts the given item to Boolean true or false.</doc>
-<status status="PASS" start="2025-10-31T02:54:57.313004" elapsed="0.000294"/>
+<status status="PASS" start="2025-10-31T02:58:35.726616" elapsed="0.000279"/>
 </kw>
 <kw name="New Browser" owner="Browser">
-<msg time="2025-10-31T02:54:57.314019" level="INFO">{"browser": "chromium", "headless": true, "chromiumSandbox": false, "devtools": false, "handleSIGHUP": true, "handleSIGINT": true, "handleSIGTERM": true, "slowMo": 0.0, "timeout": 30000.0, "tracesDir": "/home/runner/work/repo1/repo1/tmp/browser/traces/temp/847885c6-df1a-452e-b3a4-3ea4d3fbbe98"}</msg>
-<msg time="2025-10-31T02:54:57.317999" level="INFO">Starting Browser process /opt/hostedtoolcache/Python/3.11.13/x64/lib/python3.11/site-packages/Browser/wrapper/index.js using at 127.0.0.1:35843</msg>
-<msg time="2025-10-31T02:54:57.800944" level="INFO">Successfully created browser with options: {"browser":"chromium","headless":true,"chromiumSandbox":false,"devtools":false,"handleSIGHUP":true,"handleSIGINT":true,"handleSIGTERM":true,"slowMo":0,"timeout":30000,"tracesDir":"/home/runner/work/repo1/repo1/tmp/browser/traces/temp/847885c6-df1a-452e-b3a4-3ea4d3fbbe98"}</msg>
+<msg time="2025-10-31T02:58:35.727597" level="INFO">{"browser": "chromium", "headless": true, "chromiumSandbox": false, "devtools": false, "handleSIGHUP": true, "handleSIGINT": true, "handleSIGTERM": true, "slowMo": 0.0, "timeout": 30000.0, "tracesDir": "/home/runner/work/repo1/repo1/tmp/browser/traces/temp/260d4ae9-9164-4d5a-8e0d-3bbfca96d5b0"}</msg>
+<msg time="2025-10-31T02:58:35.731585" level="INFO">Starting Browser process /opt/hostedtoolcache/Python/3.11.13/x64/lib/python3.11/site-packages/Browser/wrapper/index.js using at 127.0.0.1:50701</msg>
+<msg time="2025-10-31T02:58:36.211794" level="INFO">Successfully created browser with options: {"browser":"chromium","headless":true,"chromiumSandbox":false,"devtools":false,"handleSIGHUP":true,"handleSIGINT":true,"handleSIGTERM":true,"slowMo":0,"timeout":30000,"tracesDir":"/home/runner/work/repo1/repo1/tmp/browser/traces/temp/260d4ae9-9164-4d5a-8e0d-3bbfca96d5b0"}</msg>
 <arg>chromium</arg>
 <arg>headless=${headless_bool}</arg>
 <tag>BrowserControl</tag>
 <tag>Setter</tag>
 <doc>Create a new playwright Browser with specified options.</doc>
-<status status="PASS" start="2025-10-31T02:54:57.313440" elapsed="0.487879"/>
+<status status="PASS" start="2025-10-31T02:58:35.727030" elapsed="0.485040"/>
 </kw>
 <kw name="New Context" owner="Browser">
-<msg time="2025-10-31T02:54:57.804558" level="INFO">{
+<msg time="2025-10-31T02:58:36.214787" level="INFO">{
   "acceptDownloads": true,
   "bypassCSP": false,
   "forcedColors": "none",
@@ -37,75 +37,75 @@
     "height": 940
   }
 }</msg>
-<msg time="2025-10-31T02:54:57.815660" level="INFO">Successfully created context. </msg>
-<msg time="2025-10-31T02:54:57.815721" level="INFO">{'acceptDownloads': True, 'bypassCSP': False, 'forcedColors': 'none', 'ignoreHTTPSErrors': False, 'javaScriptEnabled': True, 'offline': False, 'reducedMotion': 'no-preference', 'serviceWorkers': 'allow', 'viewport': {'width': 1880, 'height': 940}}</msg>
+<msg time="2025-10-31T02:58:36.226414" level="INFO">Successfully created context. </msg>
+<msg time="2025-10-31T02:58:36.226501" level="INFO">{'acceptDownloads': True, 'bypassCSP': False, 'forcedColors': 'none', 'ignoreHTTPSErrors': False, 'javaScriptEnabled': True, 'offline': False, 'reducedMotion': 'no-preference', 'serviceWorkers': 'allow', 'viewport': {'width': 1880, 'height': 940}}</msg>
 <arg>viewport={'width': 1880, 'height': 940}</arg>
 <tag>BrowserControl</tag>
 <tag>Setter</tag>
 <doc>Create a new BrowserContext with specified options.</doc>
-<status status="PASS" start="2025-10-31T02:54:57.801717" elapsed="0.014081"/>
+<status status="PASS" start="2025-10-31T02:58:36.212463" elapsed="0.014120"/>
 </kw>
 <kw name="Set Browser Timeout" owner="Browser">
 <arg>30000</arg>
 <tag>Config</tag>
 <tag>Setter</tag>
 <doc>Sets the timeout used by most input and getter keywords.</doc>
-<status status="PASS" start="2025-10-31T02:54:57.816037" elapsed="0.002557"/>
+<status status="PASS" start="2025-10-31T02:58:36.226777" elapsed="0.002545"/>
 </kw>
 <kw name="New Page" owner="Browser">
-<msg time="2025-10-31T02:56:23.134647" level="INFO">Successfully initialized new page object and opened url: https://fireant.vn</msg>
+<msg time="2025-10-31T02:58:46.627667" level="INFO">Successfully initialized new page object and opened url: https://fireant.vn</msg>
 <arg>${BASE_URL}</arg>
 <arg>wait_until=load</arg>
 <tag>BrowserControl</tag>
 <tag>Setter</tag>
 <doc>Open a new Page.</doc>
-<status status="PASS" start="2025-10-31T02:54:57.818752" elapsed="85.316185"/>
+<status status="PASS" start="2025-10-31T02:58:36.229505" elapsed="10.398408"/>
 </kw>
-<status status="PASS" start="2025-10-31T02:54:57.312248" elapsed="85.822903"/>
+<status status="PASS" start="2025-10-31T02:58:35.725908" elapsed="10.902145"/>
 </kw>
 <suite id="s1-s1-s1-s1" name="First" source="/home/runner/work/repo1/repo1/playwright2/tests/first.robot">
 <test id="s1-s1-s1-s1-t1" name="Test number one" line="11">
 <kw name="Log Many" owner="BuiltIn">
-<msg time="2025-10-31T02:56:23.159555" level="INFO">6800      2500      6900      273200
-6700      162200    7000      445500
-6600      134000    7100      180800
-6500      327500    7200      127400
-6400      266800    7300      170800
-6300      200600    7400      1053900
-6200      64700     —         —
+<msg time="2025-10-31T02:58:46.648859" level="INFO">6800      30900     6900      275300
+6700      188700    7000      444500
+6600      134900    7100      185700
+6500      350800    7200      127400
+6400      246800    7300      172300
+6300      200600    7400      1048800
+6200      64800     —         —
 6100      83700     —         —
 6000      73500     —         —
 5900      200       —         —</msg>
 <arg>${PLAYWRIGHT_LOG}</arg>
 <doc>Logs the given messages as separate entries using the INFO level.</doc>
-<status status="PASS" start="2025-10-31T02:56:23.154008" elapsed="0.005639"/>
+<status status="PASS" start="2025-10-31T02:58:46.643455" elapsed="0.005532"/>
 </kw>
 <kw name="Check Title" owner="keywords">
 <kw name="Get Title" owner="Browser">
-<msg time="2025-10-31T02:56:23.165633" level="INFO">Title: 'FireAnt'</msg>
-<msg time="2025-10-31T02:56:23.165804" level="INFO">${title} = FireAnt</msg>
+<msg time="2025-10-31T02:58:46.655158" level="INFO">Title: 'FireAnt'</msg>
+<msg time="2025-10-31T02:58:46.655341" level="INFO">${title} = FireAnt</msg>
 <var>${title}</var>
 <tag>Assertion</tag>
 <tag>Getter</tag>
 <tag>PageContent</tag>
 <doc>Returns the title of the current page.</doc>
-<status status="PASS" start="2025-10-31T02:56:23.160443" elapsed="0.005401"/>
+<status status="PASS" start="2025-10-31T02:58:46.649735" elapsed="0.005647"/>
 </kw>
 <kw name="Should Be Equal" owner="BuiltIn">
 <arg>${title}</arg>
 <arg>${TITLE2}</arg>
 <doc>Fails if the given objects are unequal.</doc>
-<status status="PASS" start="2025-10-31T02:56:23.166070" elapsed="0.000393"/>
+<status status="PASS" start="2025-10-31T02:58:46.655632" elapsed="0.000424"/>
 </kw>
-<status status="PASS" start="2025-10-31T02:56:23.159944" elapsed="0.006636"/>
+<status status="PASS" start="2025-10-31T02:58:46.649289" elapsed="0.006867"/>
 </kw>
 <kw name="Basic Check" owner="keywords">
 <kw name="Element Exists" owner="keywords">
 <kw name="Run Keyword And Return Status" owner="BuiltIn">
 <kw name="Wait For Elements State" owner="Browser">
-<msg time="2025-10-31T02:56:29.284307" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="browser/screenshot/fail-screenshot-1.png" target="_blank"&gt;&lt;img src="browser/screenshot/fail-screenshot-1.png" width="800px"/&gt;&lt;/a&gt;</msg>
-<msg time="2025-10-31T02:56:29.284413" level="INFO">See also file:///home/runner/work/repo1/repo1/tmp/playwright-log.txt for additional details.</msg>
-<msg time="2025-10-31T02:56:29.284812" level="FAIL">TimeoutError: locator.waitFor: Timeout 6000ms exceeded.
+<msg time="2025-10-31T02:58:52.770122" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="browser/screenshot/fail-screenshot-1.png" target="_blank"&gt;&lt;img src="browser/screenshot/fail-screenshot-1.png" width="800px"/&gt;&lt;/a&gt;</msg>
+<msg time="2025-10-31T02:58:52.770214" level="INFO">See also file:///home/runner/work/repo1/repo1/tmp/playwright-log.txt for additional details.</msg>
+<msg time="2025-10-31T02:58:52.770633" level="FAIL">TimeoutError: locator.waitFor: Timeout 6000ms exceeded.
 Call log:
   - waiting for locator('//div[@id=\'dialogPortal\']/following-sibling::button')
 </msg>
@@ -115,305 +115,305 @@ Call log:
 <tag>PageContent</tag>
 <tag>Wait</tag>
 <doc>Waits for the element found by ``selector`` to satisfy state option.</doc>
-<status status="FAIL" start="2025-10-31T02:56:23.167866" elapsed="6.127403">TimeoutError: locator.waitFor: Timeout 6000ms exceeded.
+<status status="FAIL" start="2025-10-31T02:58:46.657145" elapsed="6.120350">TimeoutError: locator.waitFor: Timeout 6000ms exceeded.
 Call log:
   - waiting for locator('//div[@id=\'dialogPortal\']/following-sibling::button')
 </status>
 </kw>
-<msg time="2025-10-31T02:56:29.295466" level="INFO">${status} = False</msg>
+<msg time="2025-10-31T02:58:52.777659" level="INFO">${status} = False</msg>
 <var>${status}</var>
 <arg>Wait For Elements State</arg>
 <arg>${locator}</arg>
 <arg>attached</arg>
 <arg>timeout=6s</arg>
 <doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
-<status status="PASS" start="2025-10-31T02:56:23.167670" elapsed="6.127842"/>
+<status status="PASS" start="2025-10-31T02:58:46.656976" elapsed="6.120711"/>
 </kw>
 <kw name="Return From Keyword" owner="BuiltIn">
-<msg time="2025-10-31T02:56:29.295885" level="INFO">Returning from the enclosing user keyword.</msg>
+<msg time="2025-10-31T02:58:52.778000" level="INFO">Returning from the enclosing user keyword.</msg>
 <arg>${status}</arg>
 <doc>Returns from the enclosing user keyword.</doc>
-<status status="PASS" start="2025-10-31T02:56:29.295722" elapsed="0.000241"/>
+<status status="PASS" start="2025-10-31T02:58:52.777853" elapsed="0.000203"/>
 </kw>
-<msg time="2025-10-31T02:56:29.296123" level="INFO">${check} = False</msg>
+<msg time="2025-10-31T02:58:52.778195" level="INFO">${check} = False</msg>
 <var>${check}</var>
 <arg>${CLOSE}</arg>
-<status status="PASS" start="2025-10-31T02:56:23.167292" elapsed="6.128857"/>
+<status status="PASS" start="2025-10-31T02:58:46.656712" elapsed="6.121507"/>
 </kw>
 <kw name="Run Keyword If" owner="BuiltIn">
 <arg>${check}</arg>
 <arg>Click</arg>
 <arg>xpath=${CLOSE}</arg>
 <doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
-<status status="PASS" start="2025-10-31T02:56:29.296272" elapsed="0.000149"/>
+<status status="PASS" start="2025-10-31T02:58:52.778328" elapsed="0.000162"/>
 </kw>
 <kw name="Fill Text" owner="Browser">
-<msg time="2025-10-31T02:56:29.297045" level="INFO">Fills the text 'HBC' in the given field.</msg>
+<msg time="2025-10-31T02:58:52.779057" level="INFO">Fills the text 'HBC' in the given field.</msg>
 <arg>xpath=//div[@data-value]//input</arg>
 <arg>${code}</arg>
 <tag>PageContent</tag>
 <tag>Setter</tag>
 <doc>Clears and fills the given ``txt`` into the text field found by ``selector``.</doc>
-<status status="PASS" start="2025-10-31T02:56:29.296534" elapsed="0.030901"/>
+<status status="PASS" start="2025-10-31T02:58:52.778602" elapsed="0.027180"/>
 </kw>
 <kw name="Set Variable" owner="BuiltIn">
-<msg time="2025-10-31T02:56:29.327990" level="INFO">${RESULT} = (//div[contains(text(),"HBC")]/ancestor::div[@role="option"])[1]</msg>
+<msg time="2025-10-31T02:58:52.806330" level="INFO">${RESULT} = (//div[contains(text(),"HBC")]/ancestor::div[@role="option"])[1]</msg>
 <var>${RESULT}</var>
 <arg>(//div[contains(text(),"HBC")]/ancestor::div[@role="option"])[1]</arg>
 <doc>Returns the given values which can then be assigned to a variables.</doc>
-<status status="PASS" start="2025-10-31T02:56:29.327643" elapsed="0.000430"/>
+<status status="PASS" start="2025-10-31T02:58:52.805985" elapsed="0.000474"/>
 </kw>
 <kw name="Set Variable" owner="BuiltIn">
-<msg time="2025-10-31T02:56:29.328381" level="INFO">${orderBook} = //button[contains(text(),'Sổ lệnh')]</msg>
+<msg time="2025-10-31T02:58:52.806935" level="INFO">${orderBook} = //button[contains(text(),'Sổ lệnh')]</msg>
 <var>${orderBook}</var>
 <arg>//button[contains(text(),'Sổ lệnh')]</arg>
 <doc>Returns the given values which can then be assigned to a variables.</doc>
-<status status="PASS" start="2025-10-31T02:56:29.328184" elapsed="0.000225"/>
+<status status="PASS" start="2025-10-31T02:58:52.806622" elapsed="0.000358"/>
 </kw>
 <kw name="Set Variable" owner="BuiltIn">
-<msg time="2025-10-31T02:56:29.328685" level="INFO">${highestBuyPrice} = (//div[contains(@class,'flex-row')]//div[contains(@class,'justify-end')]/span)[1]</msg>
+<msg time="2025-10-31T02:58:52.807390" level="INFO">${highestBuyPrice} = (//div[contains(@class,'flex-row')]//div[contains(@class,'justify-end')]/span)[1]</msg>
 <var>${highestBuyPrice}</var>
 <arg>(//div[contains(@class,'flex-row')]//div[contains(@class,'justify-end')]/span)[1]</arg>
 <doc>Returns the given values which can then be assigned to a variables.</doc>
-<status status="PASS" start="2025-10-31T02:56:29.328507" elapsed="0.000203"/>
+<status status="PASS" start="2025-10-31T02:58:52.807157" elapsed="0.000260"/>
 </kw>
 <kw name="Set Variable" owner="BuiltIn">
-<msg time="2025-10-31T02:56:29.329011" level="INFO">${highestBuyVolume} = (//div[contains(@class,'flex-row')]//div[contains(@class,'flex-row')]/span)[1]</msg>
+<msg time="2025-10-31T02:58:52.807821" level="INFO">${highestBuyVolume} = (//div[contains(@class,'flex-row')]//div[contains(@class,'flex-row')]/span)[1]</msg>
 <var>${highestBuyVolume}</var>
 <arg>(//div[contains(@class,'flex-row')]//div[contains(@class,'flex-row')]/span)[1]</arg>
 <doc>Returns the given values which can then be assigned to a variables.</doc>
-<status status="PASS" start="2025-10-31T02:56:29.328805" elapsed="0.000231"/>
+<status status="PASS" start="2025-10-31T02:58:52.807548" elapsed="0.000311"/>
 </kw>
 <kw name="Wait For Elements State" owner="Browser">
-<msg time="2025-10-31T02:56:30.619222" level="INFO">Waited for Element with selector (//div[contains(text(),"HBC")]/ancestor::div[@role="option"])[1] at state attached</msg>
+<msg time="2025-10-31T02:58:54.098742" level="INFO">Waited for Element with selector (//div[contains(text(),"HBC")]/ancestor::div[@role="option"])[1] at state attached</msg>
 <arg>${RESULT}</arg>
 <arg>attached</arg>
 <arg>timeout=12s</arg>
 <tag>PageContent</tag>
 <tag>Wait</tag>
 <doc>Waits for the element found by ``selector`` to satisfy state option.</doc>
-<status status="PASS" start="2025-10-31T02:56:29.329146" elapsed="1.290286"/>
+<status status="PASS" start="2025-10-31T02:58:52.808020" elapsed="1.290931"/>
 </kw>
 <for flavor="IN RANGE">
 <iter>
 <kw name="Run Keyword And Ignore Error" owner="BuiltIn">
 <kw name="Click" owner="Browser">
-<msg time="2025-10-31T02:56:30.620827" level="INFO">Clicks the element 'xpath=(//div[contains(text(),"HBC")]/ancestor::div[@role="option"])[1]'.</msg>
+<msg time="2025-10-31T02:58:54.100296" level="INFO">Clicks the element 'xpath=(//div[contains(text(),"HBC")]/ancestor::div[@role="option"])[1]'.</msg>
 <arg>xpath=${RESULT}</arg>
 <tag>PageContent</tag>
 <tag>Setter</tag>
 <doc>Simulates mouse click on the element found by ``selector``.</doc>
-<status status="PASS" start="2025-10-31T02:56:30.620319" elapsed="0.095393"/>
+<status status="PASS" start="2025-10-31T02:58:54.099820" elapsed="0.073142"/>
 </kw>
-<msg time="2025-10-31T02:56:30.715971" level="INFO">${status} = PASS</msg>
-<msg time="2025-10-31T02:56:30.716040" level="INFO">${msg} = None</msg>
+<msg time="2025-10-31T02:58:54.173206" level="INFO">${status} = PASS</msg>
+<msg time="2025-10-31T02:58:54.173271" level="INFO">${msg} = None</msg>
 <var>${status}</var>
 <var>${msg}</var>
 <arg>Click</arg>
 <arg>xpath=${RESULT}</arg>
 <doc>Runs the given keyword with the given arguments and ignores possible error.</doc>
-<status status="PASS" start="2025-10-31T02:56:30.620108" elapsed="0.095965"/>
+<status status="PASS" start="2025-10-31T02:58:54.099626" elapsed="0.073679"/>
 </kw>
 <kw name="Run Keyword If" owner="BuiltIn">
 <kw name="Exit For Loop" owner="BuiltIn">
-<msg time="2025-10-31T02:56:30.716986" level="INFO">Exiting for loop altogether.</msg>
+<msg time="2025-10-31T02:58:54.174202" level="INFO">Exiting for loop altogether.</msg>
 <doc>Stops executing the enclosing FOR loop.</doc>
-<status status="PASS" start="2025-10-31T02:56:30.716751" elapsed="0.000348"/>
+<status status="PASS" start="2025-10-31T02:58:54.173994" elapsed="0.000329"/>
 </kw>
 <arg>'${status}' == 'PASS'</arg>
 <arg>Exit For Loop</arg>
 <doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
-<status status="PASS" start="2025-10-31T02:56:30.716311" elapsed="0.000869"/>
+<status status="PASS" start="2025-10-31T02:58:54.173567" elapsed="0.000833"/>
 </kw>
 <kw name="Run Keyword If" owner="BuiltIn">
 <arg>'${status}' != 'PASS'</arg>
 <arg>Click</arg>
 <arg>xpath=//div[@data-value]</arg>
 <doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
-<status status="NOT RUN" start="2025-10-31T02:56:30.717348" elapsed="0.000076"/>
+<status status="NOT RUN" start="2025-10-31T02:58:54.174576" elapsed="0.000074"/>
 </kw>
 <var name="${kw}">1</var>
-<status status="PASS" start="2025-10-31T02:56:30.619889" elapsed="0.097595"/>
+<status status="PASS" start="2025-10-31T02:58:54.099418" elapsed="0.075296"/>
 </iter>
 <var>${kw}</var>
 <value>1</value>
 <value>4</value>
-<status status="PASS" start="2025-10-31T02:56:30.619563" elapsed="0.098003"/>
+<status status="PASS" start="2025-10-31T02:58:54.099081" elapsed="0.075719"/>
 </for>
 <kw name="Wait Until Keyword Succeeds" owner="BuiltIn">
 <kw name="Click" owner="Browser">
-<msg time="2025-10-31T02:56:30.718663" level="INFO">Clicks the element 'xpath=//button[contains(text(),'Sổ lệnh')]'.</msg>
+<msg time="2025-10-31T02:58:54.175920" level="INFO">Clicks the element 'xpath=//button[contains(text(),'Sổ lệnh')]'.</msg>
 <arg>xpath=${orderBook}</arg>
 <tag>PageContent</tag>
 <tag>Setter</tag>
 <doc>Simulates mouse click on the element found by ``selector``.</doc>
-<status status="PASS" start="2025-10-31T02:56:30.718067" elapsed="1.471157"/>
+<status status="PASS" start="2025-10-31T02:58:54.175326" elapsed="0.832195"/>
 </kw>
 <arg>10 sec</arg>
 <arg>2 sec</arg>
 <arg>Click</arg>
 <arg>xpath=${orderBook}</arg>
 <doc>Runs the specified keyword and retries if it fails.</doc>
-<status status="PASS" start="2025-10-31T02:56:30.717736" elapsed="1.471624"/>
+<status status="PASS" start="2025-10-31T02:58:54.174980" elapsed="0.832645"/>
 </kw>
 <kw name="Wait For Elements State" owner="Browser">
-<msg time="2025-10-31T02:56:32.486379" level="INFO">Waited for Element with selector (//div[contains(@class,'flex-row')]//div[contains(@class,'justify-end')]/span)[1] at state attached</msg>
+<msg time="2025-10-31T02:58:55.377117" level="INFO">Waited for Element with selector (//div[contains(@class,'flex-row')]//div[contains(@class,'justify-end')]/span)[1] at state attached</msg>
 <arg>${highestBuyPrice}</arg>
 <arg>attached</arg>
 <arg>timeout=12s</arg>
 <tag>PageContent</tag>
 <tag>Wait</tag>
 <doc>Waits for the element found by ``selector`` to satisfy state option.</doc>
-<status status="PASS" start="2025-10-31T02:56:32.189590" elapsed="0.296996"/>
+<status status="PASS" start="2025-10-31T02:58:55.007796" elapsed="0.369525"/>
 </kw>
 <kw name="Get Text" owner="Browser">
-<msg time="2025-10-31T02:56:32.518453" level="INFO">Text: '\xa0188,700'</msg>
-<msg time="2025-10-31T02:56:32.518651" level="INFO">${highestBuyVolume} =  188,700</msg>
+<msg time="2025-10-31T02:58:55.559089" level="INFO">Text: '\xa028,900'</msg>
+<msg time="2025-10-31T02:58:55.559268" level="INFO">${highestBuyVolume} =  28,900</msg>
 <var>${highestBuyVolume}</var>
 <arg>${highestBuyVolume}</arg>
 <tag>Assertion</tag>
 <tag>Getter</tag>
 <tag>PageContent</tag>
 <doc>Returns text attribute of the element found by ``selector``.</doc>
-<status status="PASS" start="2025-10-31T02:56:32.486798" elapsed="0.031883"/>
+<status status="PASS" start="2025-10-31T02:58:55.377553" elapsed="0.181745"/>
 </kw>
 <kw name="Get Text" owner="Browser">
-<msg time="2025-10-31T02:56:32.533862" level="INFO">Text: '\xa06.70'</msg>
-<msg time="2025-10-31T02:56:32.534091" level="INFO">${highestBuyPrice} =  6.70</msg>
+<msg time="2025-10-31T02:58:55.574353" level="INFO">Text: '\xa06.80'</msg>
+<msg time="2025-10-31T02:58:55.574553" level="INFO">${highestBuyPrice} =  6.80</msg>
 <var>${highestBuyPrice}</var>
 <arg>${highestBuyPrice}</arg>
 <tag>Assertion</tag>
 <tag>Getter</tag>
 <tag>PageContent</tag>
 <doc>Returns text attribute of the element found by ``selector``.</doc>
-<status status="PASS" start="2025-10-31T02:56:32.518887" elapsed="0.015236"/>
+<status status="PASS" start="2025-10-31T02:58:55.559526" elapsed="0.015070"/>
 </kw>
 <kw name="Log" owner="BuiltIn">
-<msg time="2025-10-31T02:56:32.534603" level="INFO"> 188,700  6.70</msg>
+<msg time="2025-10-31T02:58:55.575192" level="INFO"> 28,900  6.80</msg>
 <arg>${highestBuyVolume} ${highestBuyPrice}</arg>
 <doc>Logs the given message with the given level.</doc>
-<status status="PASS" start="2025-10-31T02:56:32.534305" elapsed="0.000354"/>
+<status status="PASS" start="2025-10-31T02:58:55.574807" elapsed="0.000469"/>
 </kw>
 <arg>HBC</arg>
-<status status="PASS" start="2025-10-31T02:56:23.166888" elapsed="9.367854"/>
+<status status="PASS" start="2025-10-31T02:58:46.656392" elapsed="8.919005"/>
 </kw>
 <doc>A test to try ui</doc>
 <tag>done</tag>
 <timeout value="1 minute"/>
-<status status="PASS" start="2025-10-31T02:56:23.150392" elapsed="9.384482"/>
+<status status="PASS" start="2025-10-31T02:58:46.639714" elapsed="8.935904"/>
 </test>
 <test id="s1-s1-s1-s1-t2" name="Test API Number One" line="19">
 <kw name="Set Variable" owner="BuiltIn">
-<msg time="2025-10-31T02:56:32.541546" level="INFO">${fullURL} = https://fireant.vn/ma-chung-khoan/HBC</msg>
+<msg time="2025-10-31T02:58:55.587326" level="INFO">${fullURL} = https://fireant.vn/ma-chung-khoan/HBC</msg>
 <var>${fullURL}</var>
 <arg>${API_URL}HBC</arg>
 <doc>Returns the given values which can then be assigned to a variables.</doc>
-<status status="PASS" start="2025-10-31T02:56:32.541253" elapsed="0.000321"/>
+<status status="PASS" start="2025-10-31T02:58:55.586974" elapsed="0.000382"/>
 </kw>
 <kw name="Create Session" owner="RequestsLibrary">
-<msg time="2025-10-31T02:56:32.541867" level="INFO">Creating Session using : alias=jsonplaceholder, url=https://fireant.vn/ma-chung-khoan/HBC, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<msg time="2025-10-31T02:58:55.587714" level="INFO">Creating Session using : alias=jsonplaceholder, url=https://fireant.vn/ma-chung-khoan/HBC, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
 <arg>jsonplaceholder</arg>
 <arg>${fullURL}</arg>
 <doc>Create Session: create a HTTP session to a server</doc>
-<status status="PASS" start="2025-10-31T02:56:32.541684" elapsed="0.000399"/>
+<status status="PASS" start="2025-10-31T02:58:55.587512" elapsed="0.000392"/>
 </kw>
 <kw name="GET" owner="RequestsLibrary">
-<msg time="2025-10-31T02:56:33.688081" level="INFO">GET Request : url=https://fireant.vn/ma-chung-khoan/HBC 
+<msg time="2025-10-31T02:58:56.680967" level="INFO">GET Request : url=https://fireant.vn/ma-chung-khoan/HBC 
  path_url=/ma-chung-khoan/HBC 
  headers={'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
  body=None 
  </msg>
-<msg time="2025-10-31T02:56:33.688223" level="INFO">GET Response : url=https://fireant.vn/ma-chung-khoan/HBC 
+<msg time="2025-10-31T02:58:56.681079" level="INFO">GET Response : url=https://fireant.vn/ma-chung-khoan/HBC 
  status=200, reason=OK 
- headers={'Server': 'nginx', 'Date': 'Fri, 31 Oct 2025 02:56:33 GMT', 'Content-Type': 'text/html', 'Transfer-Encoding': 'chunked', 'Cache-Control': 'private', 'Timing-Allow-Origin': '*', 'Via': 'mly inter', 'X-Mly-Id': '09df194ba0b02f0e9213862d22f1c3c3'} 
- body=&lt;html&gt;&lt;head&gt;&lt;title&gt;Attention Required&lt;/title&gt;&lt;/head&gt;&lt;body&gt;&lt;script&gt;window.location.href="https://fireant.vn/ma-chung-khoan/HBC?jskey=qcYjnFpL2n77Mi4OFj5W%2BKN%2B0SGxp%2B5oPWKVFwSQRLAH";&lt;/script&gt;&lt;/body&gt;&lt;/html&gt;
+ headers={'Server': 'nginx', 'Date': 'Fri, 31 Oct 2025 02:58:56 GMT', 'Content-Type': 'text/html', 'Transfer-Encoding': 'chunked', 'Cache-Control': 'private', 'Timing-Allow-Origin': '*', 'Via': 'mly inter', 'X-Mly-Id': '095b404f5391bb3032fb20be8af6cddb'} 
+ body=&lt;html&gt;&lt;head&gt;&lt;title&gt;Attention Required&lt;/title&gt;&lt;/head&gt;&lt;body&gt;&lt;script&gt;window.location.href="https://fireant.vn/ma-chung-khoan/HBC?jskey=qcYjnFpL2n77Mi4OFj5W%2BNhbb6skvxoi9iO5IE3ahH4H";&lt;/script&gt;&lt;/body&gt;&lt;/html&gt;
  
  </msg>
-<msg time="2025-10-31T02:56:33.688477" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<msg time="2025-10-31T02:58:56.681305" level="INFO">${response} = &lt;Response [200]&gt;</msg>
 <var>${response}</var>
 <arg>${fullURL}</arg>
 <doc>Sends a GET request.</doc>
-<status status="PASS" start="2025-10-31T02:56:32.542188" elapsed="1.146320"/>
+<status status="PASS" start="2025-10-31T02:58:55.588017" elapsed="1.093317"/>
 </kw>
 <kw name="Convert To String" owner="BuiltIn">
-<msg time="2025-10-31T02:56:33.689358" level="INFO">${html} = &lt;html&gt;&lt;head&gt;&lt;title&gt;Attention Required&lt;/title&gt;&lt;/head&gt;&lt;body&gt;&lt;script&gt;window.location.href="https://fireant.vn/ma-chung-khoan/HBC?jskey=qcYjnFpL2n77Mi4OFj5W%2BKN%2B0SGxp%2B5oPWKVFwSQRLAH";&lt;/script&gt;&lt;/body&gt;...</msg>
+<msg time="2025-10-31T02:58:56.682359" level="INFO">${html} = &lt;html&gt;&lt;head&gt;&lt;title&gt;Attention Required&lt;/title&gt;&lt;/head&gt;&lt;body&gt;&lt;script&gt;window.location.href="https://fireant.vn/ma-chung-khoan/HBC?jskey=qcYjnFpL2n77Mi4OFj5W%2BNhbb6skvxoi9iO5IE3ahH4H";&lt;/script&gt;&lt;/body&gt;&lt;/ht...</msg>
 <var>${html}</var>
 <arg>${response.content}</arg>
 <doc>Converts the given item to a Unicode string.</doc>
-<status status="PASS" start="2025-10-31T02:56:33.688700" elapsed="0.000689"/>
+<status status="PASS" start="2025-10-31T02:58:56.681574" elapsed="0.000827"/>
 </kw>
 <kw name="Get Regexp Matches" owner="String">
-<msg time="2025-10-31T02:56:33.689923" level="INFO">${redirect} = ['https://fireant.vn/ma-chung-khoan/HBC?jskey=qcYjnFpL2n77Mi4OFj5W%2BKN%2B0SGxp%2B5oPWKVFwSQRLAH']</msg>
+<msg time="2025-10-31T02:58:56.683070" level="INFO">${redirect} = ['https://fireant.vn/ma-chung-khoan/HBC?jskey=qcYjnFpL2n77Mi4OFj5W%2BNhbb6skvxoi9iO5IE3ahH4H']</msg>
 <var>${redirect}</var>
 <arg>${html}</arg>
 <arg>window\.location\.href\s*=\s*"([^"]+)"</arg>
 <arg>1</arg>
 <doc>Returns a list of all non-overlapping matches in the given string.</doc>
-<status status="PASS" start="2025-10-31T02:56:33.689514" elapsed="0.000453"/>
+<status status="PASS" start="2025-10-31T02:58:56.682567" elapsed="0.000538"/>
 </kw>
 <if>
 <branch type="IF" condition="${redirect}">
 <kw name="Log To Console" owner="BuiltIn">
 <arg>🔁 Following redirect to: ${redirect[0]}</arg>
 <doc>Logs the given message to the console.</doc>
-<status status="PASS" start="2025-10-31T02:56:33.690274" elapsed="0.000540"/>
+<status status="PASS" start="2025-10-31T02:58:56.683481" elapsed="0.000721"/>
 </kw>
 <kw name="GET" owner="RequestsLibrary">
-<msg time="2025-10-31T02:56:33.691725" level="FAIL">MissingSchema: Invalid URL 'fireant': No scheme supplied. Perhaps you meant https://fireant?</msg>
+<msg time="2025-10-31T02:58:56.685190" level="FAIL">MissingSchema: Invalid URL 'fireant': No scheme supplied. Perhaps you meant https://fireant?</msg>
 <var>${redirected_response}</var>
 <arg>fireant</arg>
 <arg>${redirect[0]}</arg>
 <doc>Sends a GET request.</doc>
-<status status="FAIL" start="2025-10-31T02:56:33.690987" elapsed="0.001747">MissingSchema: Invalid URL 'fireant': No scheme supplied. Perhaps you meant https://fireant?</status>
+<status status="FAIL" start="2025-10-31T02:58:56.684348" elapsed="0.001786">MissingSchema: Invalid URL 'fireant': No scheme supplied. Perhaps you meant https://fireant?</status>
 </kw>
 <kw name="Convert To String" owner="BuiltIn">
 <var>${final_html}</var>
 <arg>${redirected_response.content}</arg>
 <doc>Converts the given item to a Unicode string.</doc>
-<status status="NOT RUN" start="2025-10-31T02:56:33.692866" elapsed="0.000058"/>
+<status status="NOT RUN" start="2025-10-31T02:58:56.686258" elapsed="0.000057"/>
 </kw>
 <kw name="Log" owner="BuiltIn">
 <arg>Final HTML content retrieved via redirect</arg>
 <doc>Logs the given message with the given level.</doc>
-<status status="NOT RUN" start="2025-10-31T02:56:33.693054" elapsed="0.000051"/>
+<status status="NOT RUN" start="2025-10-31T02:58:56.686412" elapsed="0.000066"/>
 </kw>
-<status status="FAIL" start="2025-10-31T02:56:33.690090" elapsed="0.003103">MissingSchema: Invalid URL 'fireant': No scheme supplied. Perhaps you meant https://fireant?</status>
+<status status="FAIL" start="2025-10-31T02:58:56.683242" elapsed="0.003299">MissingSchema: Invalid URL 'fireant': No scheme supplied. Perhaps you meant https://fireant?</status>
 </branch>
 <branch type="ELSE">
 <kw name="Log" owner="BuiltIn">
 <arg>No redirect detected, using original response</arg>
 <doc>Logs the given message with the given level.</doc>
-<status status="NOT RUN" start="2025-10-31T02:56:33.693452" elapsed="0.000065"/>
+<status status="NOT RUN" start="2025-10-31T02:58:56.686712" elapsed="0.000051"/>
 </kw>
 <kw name="Set Variable" owner="BuiltIn">
 <var>${final_html}</var>
 <arg>${html}</arg>
 <doc>Returns the given values which can then be assigned to a variables.</doc>
-<status status="NOT RUN" start="2025-10-31T02:56:33.693642" elapsed="0.000060"/>
+<status status="NOT RUN" start="2025-10-31T02:58:56.686855" elapsed="0.000047"/>
 </kw>
-<status status="NOT RUN" start="2025-10-31T02:56:33.693283" elapsed="0.000471"/>
+<status status="NOT RUN" start="2025-10-31T02:58:56.686593" elapsed="0.000349"/>
 </branch>
-<status status="FAIL" start="2025-10-31T02:56:33.690054" elapsed="0.003749">MissingSchema: Invalid URL 'fireant': No scheme supplied. Perhaps you meant https://fireant?</status>
+<status status="FAIL" start="2025-10-31T02:58:56.683201" elapsed="0.003778">MissingSchema: Invalid URL 'fireant': No scheme supplied. Perhaps you meant https://fireant?</status>
 </if>
 <kw name="Set Variable" owner="BuiltIn">
 <var>${pattern}</var>
 <arg>"accessToken\":\"([^\"]+)"</arg>
 <doc>Returns the given values which can then be assigned to a variables.</doc>
-<status status="NOT RUN" start="2025-10-31T02:56:33.693925" elapsed="0.000088"/>
+<status status="NOT RUN" start="2025-10-31T02:58:56.687067" elapsed="0.000047"/>
 </kw>
 <kw name="Get Regexp Matches" owner="String">
 <var>${token}</var>
 <arg>${final_html}</arg>
 <arg>${pattern}</arg>
 <doc>Returns a list of all non-overlapping matches in the given string.</doc>
-<status status="NOT RUN" start="2025-10-31T02:56:33.694140" elapsed="0.000059"/>
+<status status="NOT RUN" start="2025-10-31T02:58:56.687204" elapsed="0.000045"/>
 </kw>
 <kw name="Split String" owner="String">
 <var>${parts}</var>
 <arg>${token[0]}</arg>
 <arg>":"</arg>
 <doc>Splits the ``string`` using ``separator`` as a delimiter string.</doc>
-<status status="NOT RUN" start="2025-10-31T02:56:33.694321" elapsed="0.000057"/>
+<status status="NOT RUN" start="2025-10-31T02:58:56.687340" elapsed="0.000045"/>
 </kw>
 <kw name="Replace String" owner="String">
 <var>${token}</var>
@@ -421,7 +421,7 @@ Call log:
 <arg>"\""</arg>
 <arg>${EMPTY}</arg>
 <doc>Replaces ``search_for`` in the given ``string`` with ``replace_with``.</doc>
-<status status="NOT RUN" start="2025-10-31T02:56:33.694503" elapsed="0.000063"/>
+<status status="NOT RUN" start="2025-10-31T02:58:56.687493" elapsed="0.000051"/>
 </kw>
 <kw name="Replace String" owner="String">
 <var>${token}</var>
@@ -429,130 +429,130 @@ Call log:
 <arg>"</arg>
 <arg>${EMPTY}</arg>
 <doc>Replaces ``search_for`` in the given ``string`` with ``replace_with``.</doc>
-<status status="NOT RUN" start="2025-10-31T02:56:33.694689" elapsed="0.000058"/>
+<status status="NOT RUN" start="2025-10-31T02:58:56.687636" elapsed="0.000043"/>
 </kw>
 <kw name="Create Dictionary" owner="BuiltIn">
 <var>${headers}</var>
 <arg>Authorization=Bearer ${token}</arg>
 <doc>Creates and returns a dictionary based on the given ``items``.</doc>
-<status status="NOT RUN" start="2025-10-31T02:56:33.694882" elapsed="0.000320"/>
+<status status="NOT RUN" start="2025-10-31T02:58:56.687778" elapsed="0.000209"/>
 </kw>
 <kw name="GET" owner="RequestsLibrary">
 <var>${response}</var>
 <arg>${HARD_URI}</arg>
 <arg>headers=${headers}</arg>
 <doc>Sends a GET request.</doc>
-<status status="NOT RUN" start="2025-10-31T02:56:33.695335" elapsed="0.000062"/>
+<status status="NOT RUN" start="2025-10-31T02:58:56.688082" elapsed="0.000044"/>
 </kw>
 <kw name="Log" owner="BuiltIn">
 <arg>${response.text}</arg>
 <doc>Logs the given message with the given level.</doc>
-<status status="NOT RUN" start="2025-10-31T02:56:33.695525" elapsed="0.000060"/>
+<status status="NOT RUN" start="2025-10-31T02:58:56.688216" elapsed="0.000043"/>
 </kw>
 <kw name="Should Be Equal As Strings" owner="BuiltIn">
 <arg>${response.status_code}</arg>
 <arg>200</arg>
 <doc>Fails if objects are unequal after converting them to strings.</doc>
-<status status="NOT RUN" start="2025-10-31T02:56:33.695705" elapsed="0.000067"/>
+<status status="NOT RUN" start="2025-10-31T02:58:56.688346" elapsed="0.000043"/>
 </kw>
 <kw name="Should Contain" owner="BuiltIn">
 <arg>'${response.text}'</arg>
 <arg>HBC</arg>
 <doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
-<status status="NOT RUN" start="2025-10-31T02:56:33.695903" elapsed="0.000085"/>
+<status status="NOT RUN" start="2025-10-31T02:58:56.688493" elapsed="0.000051"/>
 </kw>
 <kw name="Get From List" owner="Collections">
 <var>${first}</var>
 <arg>${response.json()}</arg>
 <arg>0</arg>
 <doc>Returns the value specified with an ``index`` from ``list``.</doc>
-<status status="NOT RUN" start="2025-10-31T02:56:33.696098" elapsed="0.000048"/>
+<status status="NOT RUN" start="2025-10-31T02:58:56.688635" elapsed="0.000044"/>
 </kw>
 <kw name="Get From Dictionary" owner="Collections">
 <var>${vol}</var>
 <arg>${first}</arg>
 <arg>totalVolume</arg>
 <doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
-<status status="NOT RUN" start="2025-10-31T02:56:33.696238" elapsed="0.000050"/>
+<status status="NOT RUN" start="2025-10-31T02:58:56.688768" elapsed="0.000056"/>
 </kw>
 <kw name="Get From Dictionary" owner="Collections">
 <var>${val}</var>
 <arg>${first}</arg>
 <arg>totalValue</arg>
 <doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
-<status status="NOT RUN" start="2025-10-31T02:56:33.696375" elapsed="0.000061"/>
+<status status="NOT RUN" start="2025-10-31T02:58:56.688917" elapsed="0.000044"/>
 </kw>
 <kw name="Get From Dictionary" owner="Collections">
 <var>${direct}</var>
 <arg>${first}</arg>
 <arg>priceAverage</arg>
 <doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
-<status status="NOT RUN" start="2025-10-31T02:56:33.696523" elapsed="0.000043"/>
+<status status="NOT RUN" start="2025-10-31T02:58:56.689049" elapsed="0.000042"/>
 </kw>
 <kw name="Evaluate" owner="BuiltIn">
 <var>${result}</var>
 <arg>float(${val} / ${vol})</arg>
 <doc>Evaluates the given expression in Python and returns the result.</doc>
-<status status="NOT RUN" start="2025-10-31T02:56:33.696654" elapsed="0.000042"/>
+<status status="NOT RUN" start="2025-10-31T02:58:56.689181" elapsed="0.000042"/>
 </kw>
 <kw name="Log" owner="BuiltIn">
 <arg>${val} / ${vol} =&gt; ${result}</arg>
 <doc>Logs the given message with the given level.</doc>
-<status status="NOT RUN" start="2025-10-31T02:56:33.696783" elapsed="0.000047"/>
+<status status="NOT RUN" start="2025-10-31T02:58:56.689308" elapsed="0.000048"/>
 </kw>
 <kw name="Log To Console" owner="BuiltIn">
 <arg>\n${val} / ${vol} =&gt; ${result} vs ${direct}</arg>
 <doc>Logs the given message to the console.</doc>
-<status status="NOT RUN" start="2025-10-31T02:56:33.696978" elapsed="0.000053"/>
+<status status="NOT RUN" start="2025-10-31T02:58:56.689492" elapsed="0.000050"/>
 </kw>
 <doc>A test to try api</doc>
 <tag>11</tag>
 <tag>api</tag>
 <tag>done</tag>
 <timeout value="1 minute"/>
-<status status="FAIL" start="2025-10-31T02:56:32.538778" elapsed="1.158430">MissingSchema: Invalid URL 'fireant': No scheme supplied. Perhaps you meant https://fireant?</status>
+<status status="FAIL" start="2025-10-31T02:58:55.580042" elapsed="1.109645">MissingSchema: Invalid URL 'fireant': No scheme supplied. Perhaps you meant https://fireant?</status>
 </test>
 <test id="s1-s1-s1-s1-t3" name="Test API Number Two" line="57">
 <kw name="Set Variable" owner="BuiltIn">
-<msg time="2025-10-31T02:56:33.704318" level="INFO">${code} = hbc</msg>
+<msg time="2025-10-31T02:58:56.697151" level="INFO">${code} = hbc</msg>
 <var>${code}</var>
 <arg>hbc</arg>
 <doc>Returns the given values which can then be assigned to a variables.</doc>
-<status status="PASS" start="2025-10-31T02:56:33.704148" elapsed="0.000198"/>
+<status status="PASS" start="2025-10-31T02:58:56.696980" elapsed="0.000199"/>
 </kw>
 <kw name="Replace String" owner="String">
-<msg time="2025-10-31T02:56:33.704640" level="INFO">${final_url} = https://iboard-query.ssi.com.vn/stock/hbc?boardId=MAIN</msg>
+<msg time="2025-10-31T02:58:56.697507" level="INFO">${final_url} = https://iboard-query.ssi.com.vn/stock/hbc?boardId=MAIN</msg>
 <var>${final_url}</var>
 <arg>${URL2}</arg>
 <arg>symbol</arg>
 <arg>${code}</arg>
 <doc>Replaces ``search_for`` in the given ``string`` with ``replace_with``.</doc>
-<status status="PASS" start="2025-10-31T02:56:33.704452" elapsed="0.000214"/>
+<status status="PASS" start="2025-10-31T02:58:56.697280" elapsed="0.000254"/>
 </kw>
 <kw name="Log" owner="BuiltIn">
-<msg time="2025-10-31T02:56:33.704899" level="INFO">🔗 Requesting: https://iboard-query.ssi.com.vn/stock/hbc?boardId=MAIN</msg>
+<msg time="2025-10-31T02:58:56.697772" level="INFO">🔗 Requesting: https://iboard-query.ssi.com.vn/stock/hbc?boardId=MAIN</msg>
 <arg>🔗 Requesting: ${final_url}</arg>
 <doc>Logs the given message with the given level.</doc>
-<status status="PASS" start="2025-10-31T02:56:33.704760" elapsed="0.000182"/>
+<status status="PASS" start="2025-10-31T02:58:56.697633" elapsed="0.000182"/>
 </kw>
 <kw name="Create Session" owner="RequestsLibrary">
-<msg time="2025-10-31T02:56:33.705319" level="INFO">Creating Session using : alias=iboard, url=https://iboard-query.ssi.com.vn, headers={'User-Agent': 'Mozilla/5.0'},                     cookies={}, auth=None, timeout=None, proxies=None, verify=True,                     debug=0 </msg>
+<msg time="2025-10-31T02:58:56.698171" level="INFO">Creating Session using : alias=iboard, url=https://iboard-query.ssi.com.vn, headers={'User-Agent': 'Mozilla/5.0'},                     cookies={}, auth=None, timeout=None, proxies=None, verify=True,                     debug=0 </msg>
 <arg>iboard</arg>
 <arg>https://iboard-query.ssi.com.vn</arg>
 <arg>headers={"User-Agent": "Mozilla/5.0"}</arg>
 <arg>verify=${True}</arg>
 <doc>Create Session: create a HTTP session to a server</doc>
-<status status="PASS" start="2025-10-31T02:56:33.705055" elapsed="0.000397"/>
+<status status="PASS" start="2025-10-31T02:58:56.697907" elapsed="0.000398"/>
 </kw>
 <kw name="GET On Session" owner="RequestsLibrary">
-<msg time="2025-10-31T02:56:33.841039" level="INFO">GET Request : url=https://iboard-query.ssi.com.vn/stock/hbc?boardId=MAIN 
+<msg time="2025-10-31T02:58:56.824665" level="INFO">GET Request : url=https://iboard-query.ssi.com.vn/stock/hbc?boardId=MAIN 
  path_url=/stock/hbc?boardId=MAIN 
  headers={'User-Agent': 'Mozilla/5.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
  body=None 
  </msg>
-<msg time="2025-10-31T02:56:33.841137" level="INFO">GET Response : url=https://iboard-query.ssi.com.vn/stock/hbc?boardId=MAIN 
+<msg time="2025-10-31T02:58:56.824762" level="INFO">GET Response : url=https://iboard-query.ssi.com.vn/stock/hbc?boardId=MAIN 
  status=403, reason=Forbidden 
- headers={'Date': 'Fri, 31 Oct 2025 02:56:33 GMT', 'Content-Type': 'text/html; charset=UTF-8', 'Transfer-Encoding': 'chunked', 'Connection': 'keep-alive', 'Cache-Control': 'private, max-age=0, no-store, no-cache, must-revalidate, post-check=0, pre-check=0', 'Expires': 'Thu, 01 Jan 1970 00:00:01 GMT', 'Set-Cookie': '__cf_bm=1gyp77kls_eeFTZArEEh1NOivt8pIJ8zOsls_9ryy6s-1761879393-1.0.1.1-wDYSYWDjslTK6KjYHf0YSGCWYXh3gT8RjSqcv3.3kIhs6LtzqONPykcjYlcyUzrRSdkCV2JqELBlcXvauFt7ajr.sN0mLsLwhmK71IQRIys; path=/; expires=Fri, 31-Oct-25 03:26:33 GMT; domain=.ssi.com.vn; HttpOnly; Secure; SameSite=None', 'Report-To': '{"endpoints":[{"url":"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=qckw90xcg9xLauXd9mme5O0wknA9buiyNPd%2FoC4j1SnModaDpDwjjShEx91gAtbgmMjv3%2B%2B9ZMDS%2FLlZs%2BeQYE372rzmbg7saxpkDna%2B5deZ9sipHCRr1onvriEcajKfdgLsf190HjK%2F"}],"group":"cf-nel","max_age":604800}', 'NEL': '{"success_fraction":0.01,"report_to":"cf-nel","max_age":604800}', 'Vary': 'Accept-Encoding', 'expect-ct': 'max-age=86400, enforce', 'referrer-policy': 'same-origin', 'x-content-type-options': 'nosniff', 'x-frame-options': 'SAMEORIGIN', 'x-xss-protection': '1; mode=block', 'Server': 'cloudflare', 'CF-RAY': '996fe142fd58cfd5-SJC', 'Content-Encoding': 'gzip'} 
+ headers={'Date': 'Fri, 31 Oct 2025 02:58:56 GMT', 'Content-Type': 'text/html; charset=UTF-8', 'Transfer-Encoding': 'chunked', 'Connection': 'keep-alive', 'Cache-Control': 'private, max-age=0, no-store, no-cache, must-revalidate, post-check=0, pre-check=0', 'Expires': 'Thu, 01 Jan 1970 00:00:01 GMT', 'Set-Cookie': '__cf_bm=N.p0uH.F_y60SBwYWzt05785F3qohuT.nH70GHpjJCw-1761879536-1.0.1.1-bt2VDA3.24yNsDP18O.l2ZQ2tsN3qnfj_IA4JmNUDILxZjSFEGJ_GO9xoOk18q5BE.9ubqdcHqPkVV2N1WZsy3_RvBY5kDxmMI1aLeCkPL8; path=/; expires=Fri, 31-Oct-25 03:28:56 GMT; domain=.ssi.com.vn; HttpOnly; Secure; SameSite=None', 'Report-To': '{"endpoints":[{"url":"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=zwcqfNrAlDAzZxbXUzg4pbRKz7t36%2FfGTntmqj0d3AiCW%2FoS1pj0Ws%2Bo3H0BwOslPfiLUpPgnvcYkfsHNYMfp1f2FTwcJkYojr4rfKvFcb%2FM4JbCJO6ex82Si9kwSelNpQvD%2FYC5j5MU"}],"group":"cf-nel","max_age":604800}', 'NEL': '{"success_fraction":0.01,"report_to":"cf-nel","max_age":604800}', 'Vary': 'Accept-Encoding', 'expect-ct': 'max-age=86400, enforce', 'referrer-policy': 'same-origin', 'x-content-type-options': 'nosniff', 'x-frame-options': 'SAMEORIGIN', 'x-xss-protection': '1; mode=block', 'Server': 'cloudflare', 'CF-RAY': '996fe4c10d99080b-DFW', 'Content-Encoding': 'gzip'} 
  body=&lt;!doctype html&gt;
 &lt;html lang="en"&gt;
 &lt;head&gt;
@@ -584,60 +584,60 @@ Call log:
 &lt;h1&gt;Sorry, your access has been denied&lt;/h1&gt;
 &lt;p&gt; You are unable to access this website. Try to disable VPN or switch to other networks (4G/5G/Wifi)&lt;/p&gt;
 &lt;p&gt; Please contact us if the problem persists. &lt;/p&gt;
-&lt;p&gt; &lt;small&gt;&lt;strong&gt;IP :&lt;/strong&gt; 172.184.210.34&lt;/small&gt; &lt;/p&gt;
-&lt;p&gt; &lt;small&gt;&lt;strong&gt;Ray ID:&lt;/strong&gt; 996fe142fd58cfd5&lt;/small&gt; &lt;/p&gt;
+&lt;p&gt; &lt;small&gt;&lt;strong&gt;IP :&lt;/strong&gt; 172.215.231.115&lt;/small&gt; &lt;/p&gt;
+&lt;p&gt; &lt;small&gt;&lt;strong&gt;Ray ID:&lt;/strong&gt; 996fe4c10d99080b&lt;/small&gt; &lt;/p&gt;
 &lt;/div&gt;
-&lt;script defer integrity="sha512-jGCTpDpBAYDGNYR5ztKt4BQPGef1P0giN6ZGVUi835kFF88FOmmn8jBQWNgrNd8g/Yu421NdgWhwQoaOPFflDw==" data-cf-beacon='{"rayId":"7ceba5f071aec75a","version":"2023.4.0","b":1,"token":"55616b0c29c54933afb037e2684c1082","si":100}' crossorigin="anonymous"&gt;!function(){var e={343:function(e){"use strict";for(var t=[],n=0;n&lt;256;++n)t[n]=(n+256).toString(16).substr(1);e.exports=function(e,n){var r=n||0,i=t;return[i[e[r++]],i[e[r++]],i[e[r++]],i[e[r++]],"-",i[e[r++]],i[e[r++]],"-",i[e[r++]],i[e[r++]],"-",i[e[r++]],i[e[r++]],"-",i[e[r++]],i[e[r++]],i[e[r++]],i[e[r++]],i[e[r++]],i[e[r++]]].join("")}},944:function(e){"use strict";var t="undefined"!=typeof crypto&amp;&amp;crypto.getRandomValues&amp;&amp;crypto.getRandomValues.bind(crypto)||"undefined"!=typeof msCrypto&amp;&amp;"function"==typeof window.msCrypto.getRandomValues&amp;&amp;msCrypto.getRandomValues.bind(msCrypto);if(t){var n=new Uint8Array(16);e.exports=function(){return t(n),n}}else{var r=new Array(16);e.exports=function(){for(var e,t=0;t&lt;16;t++)0==(3&amp;t)&amp;&amp;(e=4294967296*Math.random()),r[t]=e&gt;&gt;&gt;((3&amp;t)&lt;&lt;3)&amp;255;return r}}},508:function(e,t,n){"use strict";var r=n(944),i=n(343);e.exports=function(e,t,n){var o=t&amp;&amp;n||0;"string"==typeof e&amp;&amp;(t="binary"===e?new Array(16):null,e=null);var a=(e=e||{}).random||(e.rng||r)();if(a[6]=15&amp;a[6]|64,a[8]=63&amp;a[8]|128,t)for(var c=0;c&lt;16;++c)t[o+c]=a[c];return t||i(a)}},168:function(e,t,n){"use strict";var r=this&amp;&amp;this.__assign||function(){return r=Object.assign||function(e){for(var t,n=1,r=arguments.length;n&lt;r;n++)for(var i in t=arguments[n])Object.prototype.hasOwnProperty.call(t,i)&amp;&amp;(e[i]=t[i]);return e},r.apply(this,arguments)};t.__esModule=!0;var i=n(699),o=n(752),a=n(104),c=n(508);!function(){function e(e){var t="";if(t=window.location.origin?window.location.origin:"".concat(window.location.protocol,"://").concat(window.location.host),e&amp;&amp;"string"==typeof e)if(0===e.indexOf("/"))t+=e;else try{var n=new URL(e);return"".concat(n.protocol,"://").concat(n.host).concat(n.pathname)}catch(e){}else{var r=window.location.pathname;r&amp;&amp;r.length&gt;0&amp;&amp;(t+=r)}return t}function t(e){return null==e?void 0:Math.round(1e3*e)/1e3}function n(e,t){for(var n in e){var r=e[n];void 0!==t&amp;&amp;("number"==typeof r||"string"==typeof r?t[n]=r:Array.isArray(r)&amp;&amp;(t[n]=JSON.parse(JSON.stringify(r))))}}!function(){var u,s,f=window.performance||window.webkitPerformance||window.msPerformance||window.mozPerformance,d="data-cf-beacon",l=document.currentScript||("function"==typeof document.querySelector?document.querySelector("script[".concat(d,"]")):void 0),v=c(),p=[],m=window.__cfBeacon?window.__cfBeacon:{};if(!m||"single"!==m.load){if(l){var g=l.getAttribute(d);if(g)try{m=r(r({},m),JSON.parse(g))}catch(e){}else{var y=l.getAttribute("src");if(y&amp;&amp;"function"==typeof URLSearchParams){var h=new URLSearchParams(y.replace(/^[^\?]+\??/,"")),T=h.get("token");T&amp;&amp;(m.token=T);var w=h.get("spa");m.spa=null===w||"true"===w}}m&amp;&amp;"multi"!==m.load&amp;&amp;(m.load="single"),window.__cfBeacon=m}if(f&amp;&amp;m&amp;&amp;m.token){var S,b=!1;document.addEventListener("visibilitychange",(function(){if("hidden"===document.visibilityState){if(L&amp;&amp;A()){var t=e();(null==S?void 0:S.url)==t&amp;&amp;(null==S?void 0:S.triggered)||P(),x(t)}!b&amp;&amp;S&amp;&amp;(b=!0,R())}else"visible"===document.visibilityState&amp;&amp;(new Date).getTime()}));var E={};"function"==typeof PerformanceObserver&amp;&amp;((0,a.onLCP)(O),(0,a.onFID)(O),(0,a.onFCP)(O),(0,a.onINP)(O),(0,a.onTTFB)(O),PerformanceObserver.supportedEntryTypes&amp;&amp;PerformanceObserver.supportedEntryTypes.includes("layout-shift")&amp;&amp;(0,a.onCLS)(O));var L=m&amp;&amp;(void 0===m.spa||!0===m.spa),C=m.send&amp;&amp;m.send.to?m.send.to:void 0===m.version?"https://cloudflareinsights.com/cdn-cgi/rum":null,P=function(r){var a=function(e,t){c.resources=e,0!=t&amp;&amp;(c.bypassTiming=!0),m&amp;&amp;(1===m.r&amp;&amp;(c.resources=[]),(0,o.sendObjectBeacon)("",c,(function(){}),!1,C),void 0!==m.forward&amp;&amp;void 0!==m.forward.url&amp;&amp;(0,o.sendObjectBeacon)("",c,(function(){}),!1,m.forward.url))},c=function(r){var o,a,c,s=f.timing,d=f.memory,l=r||e(),g={memory:{},timings:{},resources:[],tempResources:[],referrer:(a=document.referrer||"",c=p[p.length-1],L&amp;&amp;S&amp;&amp;c?c.url:a),eventType:i.EventType.Load,firstPaint:0,firstContentfulPaint:0,startTime:k(),versions:{fl:m?m.version:"",js:"2023.4.2",timings:1},pageloadId:v,location:l,wd:M(),b:m.b};if(null==u){if("function"==typeof f.getEntriesByType){var y=f.getEntriesByType("navigation");y&amp;&amp;Array.isArray(y)&amp;&amp;y.length&gt;0&amp;&amp;(g.timingsV2={},g.versions.timings=2,delete g.timings,n(y[0],g.timingsV2))}1===g.versions.timings&amp;&amp;n(s,g.timings),n(d,g.memory)}else _(g);if(g.firstPaint=F("first-paint"),g.firstContentfulPaint=F("first-contentful-paint"),m&amp;&amp;(m.icTag&amp;&amp;(g.icTag=m.icTag),g.siteToken=m.token),"function"==typeof f.getEntriesByType){var h=null!==(o=f.getEntriesByType("resource"))&amp;&amp;void 0!==o?o:[],T=0,w=0;h.forEach((function(e){var n={n:e.name,s:t(e.startTime),d:t(e.duration),i:e.initiatorType,p:e.nextHopProtoco... (set the log level to DEBUG or TRACE to see the full content) 
+&lt;script defer integrity="sha512-jGCTpDpBAYDGNYR5ztKt4BQPGef1P0giN6ZGVUi835kFF88FOmmn8jBQWNgrNd8g/Yu421NdgWhwQoaOPFflDw==" data-cf-beacon='{"rayId":"7ceba5f071aec75a","version":"2023.4.0","b":1,"token":"55616b0c29c54933afb037e2684c1082","si":100}' crossorigin="anonymous"&gt;!function(){var e={343:function(e){"use strict";for(var t=[],n=0;n&lt;256;++n)t[n]=(n+256).toString(16).substr(1);e.exports=function(e,n){var r=n||0,i=t;return[i[e[r++]],i[e[r++]],i[e[r++]],i[e[r++]],"-",i[e[r++]],i[e[r++]],"-",i[e[r++]],i[e[r++]],"-",i[e[r++]],i[e[r++]],"-",i[e[r++]],i[e[r++]],i[e[r++]],i[e[r++]],i[e[r++]],i[e[r++]]].join("")}},944:function(e){"use strict";var t="undefined"!=typeof crypto&amp;&amp;crypto.getRandomValues&amp;&amp;crypto.getRandomValues.bind(crypto)||"undefined"!=typeof msCrypto&amp;&amp;"function"==typeof window.msCrypto.getRandomValues&amp;&amp;msCrypto.getRandomValues.bind(msCrypto);if(t){var n=new Uint8Array(16);e.exports=function(){return t(n),n}}else{var r=new Array(16);e.exports=function(){for(var e,t=0;t&lt;16;t++)0==(3&amp;t)&amp;&amp;(e=4294967296*Math.random()),r[t]=e&gt;&gt;&gt;((3&amp;t)&lt;&lt;3)&amp;255;return r}}},508:function(e,t,n){"use strict";var r=n(944),i=n(343);e.exports=function(e,t,n){var o=t&amp;&amp;n||0;"string"==typeof e&amp;&amp;(t="binary"===e?new Array(16):null,e=null);var a=(e=e||{}).random||(e.rng||r)();if(a[6]=15&amp;a[6]|64,a[8]=63&amp;a[8]|128,t)for(var c=0;c&lt;16;++c)t[o+c]=a[c];return t||i(a)}},168:function(e,t,n){"use strict";var r=this&amp;&amp;this.__assign||function(){return r=Object.assign||function(e){for(var t,n=1,r=arguments.length;n&lt;r;n++)for(var i in t=arguments[n])Object.prototype.hasOwnProperty.call(t,i)&amp;&amp;(e[i]=t[i]);return e},r.apply(this,arguments)};t.__esModule=!0;var i=n(699),o=n(752),a=n(104),c=n(508);!function(){function e(e){var t="";if(t=window.location.origin?window.location.origin:"".concat(window.location.protocol,"://").concat(window.location.host),e&amp;&amp;"string"==typeof e)if(0===e.indexOf("/"))t+=e;else try{var n=new URL(e);return"".concat(n.protocol,"://").concat(n.host).concat(n.pathname)}catch(e){}else{var r=window.location.pathname;r&amp;&amp;r.length&gt;0&amp;&amp;(t+=r)}return t}function t(e){return null==e?void 0:Math.round(1e3*e)/1e3}function n(e,t){for(var n in e){var r=e[n];void 0!==t&amp;&amp;("number"==typeof r||"string"==typeof r?t[n]=r:Array.isArray(r)&amp;&amp;(t[n]=JSON.parse(JSON.stringify(r))))}}!function(){var u,s,f=window.performance||window.webkitPerformance||window.msPerformance||window.mozPerformance,d="data-cf-beacon",l=document.currentScript||("function"==typeof document.querySelector?document.querySelector("script[".concat(d,"]")):void 0),v=c(),p=[],m=window.__cfBeacon?window.__cfBeacon:{};if(!m||"single"!==m.load){if(l){var g=l.getAttribute(d);if(g)try{m=r(r({},m),JSON.parse(g))}catch(e){}else{var y=l.getAttribute("src");if(y&amp;&amp;"function"==typeof URLSearchParams){var h=new URLSearchParams(y.replace(/^[^\?]+\??/,"")),T=h.get("token");T&amp;&amp;(m.token=T);var w=h.get("spa");m.spa=null===w||"true"===w}}m&amp;&amp;"multi"!==m.load&amp;&amp;(m.load="single"),window.__cfBeacon=m}if(f&amp;&amp;m&amp;&amp;m.token){var S,b=!1;document.addEventListener("visibilitychange",(function(){if("hidden"===document.visibilityState){if(L&amp;&amp;A()){var t=e();(null==S?void 0:S.url)==t&amp;&amp;(null==S?void 0:S.triggered)||P(),x(t)}!b&amp;&amp;S&amp;&amp;(b=!0,R())}else"visible"===document.visibilityState&amp;&amp;(new Date).getTime()}));var E={};"function"==typeof PerformanceObserver&amp;&amp;((0,a.onLCP)(O),(0,a.onFID)(O),(0,a.onFCP)(O),(0,a.onINP)(O),(0,a.onTTFB)(O),PerformanceObserver.supportedEntryTypes&amp;&amp;PerformanceObserver.supportedEntryTypes.includes("layout-shift")&amp;&amp;(0,a.onCLS)(O));var L=m&amp;&amp;(void 0===m.spa||!0===m.spa),C=m.send&amp;&amp;m.send.to?m.send.to:void 0===m.version?"https://cloudflareinsights.com/cdn-cgi/rum":null,P=function(r){var a=function(e,t){c.resources=e,0!=t&amp;&amp;(c.bypassTiming=!0),m&amp;&amp;(1===m.r&amp;&amp;(c.resources=[]),(0,o.sendObjectBeacon)("",c,(function(){}),!1,C),void 0!==m.forward&amp;&amp;void 0!==m.forward.url&amp;&amp;(0,o.sendObjectBeacon)("",c,(function(){}),!1,m.forward.url))},c=function(r){var o,a,c,s=f.timing,d=f.memory,l=r||e(),g={memory:{},timings:{},resources:[],tempResources:[],referrer:(a=document.referrer||"",c=p[p.length-1],L&amp;&amp;S&amp;&amp;c?c.url:a),eventType:i.EventType.Load,firstPaint:0,firstContentfulPaint:0,startTime:k(),versions:{fl:m?m.version:"",js:"2023.4.2",timings:1},pageloadId:v,location:l,wd:M(),b:m.b};if(null==u){if("function"==typeof f.getEntriesByType){var y=f.getEntriesByType("navigation");y&amp;&amp;Array.isArray(y)&amp;&amp;y.length&gt;0&amp;&amp;(g.timingsV2={},g.versions.timings=2,delete g.timings,n(y[0],g.timingsV2))}1===g.versions.timings&amp;&amp;n(s,g.timings),n(d,g.memory)}else _(g);if(g.firstPaint=F("first-paint"),g.firstContentfulPaint=F("first-contentful-paint"),m&amp;&amp;(m.icTag&amp;&amp;(g.icTag=m.icTag),g.siteToken=m.token),"function"==typeof f.getEntriesByType){var h=null!==(o=f.getEntriesByType("resource"))&amp;&amp;void 0!==o?o:[],T=0,w=0;h.forEach((function(e){var n={n:e.name,s:t(e.startTime),d:t(e.duration),i:e.initiatorType,p:e.nextHopProtoc... (set the log level to DEBUG or TRACE to see the full content) 
  </msg>
-<msg time="2025-10-31T02:56:33.841377" level="FAIL">HTTPError: 403 Client Error: Forbidden for url: https://iboard-query.ssi.com.vn/stock/hbc?boardId=MAIN</msg>
+<msg time="2025-10-31T02:58:56.824997" level="FAIL">HTTPError: 403 Client Error: Forbidden for url: https://iboard-query.ssi.com.vn/stock/hbc?boardId=MAIN</msg>
 <var>${response}</var>
 <arg>iboard</arg>
 <arg>${final_url}</arg>
 <doc>Sends a GET request on a previously created HTTP Session.</doc>
-<status status="FAIL" start="2025-10-31T02:56:33.705556" elapsed="0.136331">HTTPError: 403 Client Error: Forbidden for url: https://iboard-query.ssi.com.vn/stock/hbc?boardId=MAIN</status>
+<status status="FAIL" start="2025-10-31T02:58:56.698410" elapsed="0.127106">HTTPError: 403 Client Error: Forbidden for url: https://iboard-query.ssi.com.vn/stock/hbc?boardId=MAIN</status>
 </kw>
 <kw name="Should Be Equal As Integers" owner="BuiltIn">
 <arg>${response.status_code}</arg>
 <arg>200</arg>
 <doc>Fails if objects are unequal after converting them to integers.</doc>
-<status status="NOT RUN" start="2025-10-31T02:56:33.842066" elapsed="0.000070"/>
+<status status="NOT RUN" start="2025-10-31T02:58:56.825678" elapsed="0.000068"/>
 </kw>
 <kw name="Convert To String" owner="BuiltIn">
 <var>${html}</var>
 <arg>${response.content}</arg>
 <doc>Converts the given item to a Unicode string.</doc>
-<status status="NOT RUN" start="2025-10-31T02:56:33.842243" elapsed="0.000050"/>
+<status status="NOT RUN" start="2025-10-31T02:58:56.825868" elapsed="0.000050"/>
 </kw>
 <kw name="Evaluate" owner="BuiltIn">
 <var>${is_html}</var>
 <arg>'''${html}'''.startswith('&lt;!DOCTYPE html&gt;')</arg>
 <doc>Evaluates the given expression in Python and returns the result.</doc>
-<status status="NOT RUN" start="2025-10-31T02:56:33.842390" elapsed="0.000046"/>
+<status status="NOT RUN" start="2025-10-31T02:58:56.826013" elapsed="0.000046"/>
 </kw>
 <kw name="Run Keyword If" owner="BuiltIn">
 <arg>${is_html}</arg>
 <arg>Fail</arg>
 <arg>⚠️ SSI API returned HTML — likely blocked</arg>
 <doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
-<status status="NOT RUN" start="2025-10-31T02:56:33.842544" elapsed="0.000048"/>
+<status status="NOT RUN" start="2025-10-31T02:58:56.826166" elapsed="0.000048"/>
 </kw>
 <kw name="Evaluate" owner="BuiltIn">
 <var>${json}</var>
 <arg>json.loads('''${html}''')</arg>
 <arg>json</arg>
 <doc>Evaluates the given expression in Python and returns the result.</doc>
-<status status="NOT RUN" start="2025-10-31T02:56:33.842722" elapsed="0.000060"/>
+<status status="NOT RUN" start="2025-10-31T02:58:56.826307" elapsed="0.000050"/>
 </kw>
 <kw name="Set Variable" owner="BuiltIn">
 <var>${data}</var>
 <arg>${json['data']}</arg>
 <doc>Returns the given values which can then be assigned to a variables.</doc>
-<status status="NOT RUN" start="2025-10-31T02:56:33.842885" elapsed="0.000091"/>
+<status status="NOT RUN" start="2025-10-31T02:58:56.826465" elapsed="0.000047"/>
 </kw>
 <kw name="Set Variable" owner="BuiltIn">
 <var>${output}</var>
 <doc>Returns the given values which can then be assigned to a variables.</doc>
-<status status="NOT RUN" start="2025-10-31T02:56:33.843121" elapsed="0.000061"/>
+<status status="NOT RUN" start="2025-10-31T02:58:56.826600" elapsed="0.000043"/>
 </kw>
 <for flavor="IN RANGE">
 <iter>
@@ -645,25 +645,25 @@ Call log:
 <var>${bid_key}</var>
 <arg>best${i}Bid</arg>
 <doc>Returns the given values which can then be assigned to a variables.</doc>
-<status status="NOT RUN" start="2025-10-31T02:56:33.843597" elapsed="0.000066"/>
+<status status="NOT RUN" start="2025-10-31T02:58:56.826957" elapsed="0.000051"/>
 </kw>
 <kw name="Set Variable" owner="BuiltIn">
 <var>${bidVol_key}</var>
 <arg>best${i}BidVol</arg>
 <doc>Returns the given values which can then be assigned to a variables.</doc>
-<status status="NOT RUN" start="2025-10-31T02:56:33.843785" elapsed="0.000056"/>
+<status status="NOT RUN" start="2025-10-31T02:58:56.827099" elapsed="0.000045"/>
 </kw>
 <kw name="Set Variable" owner="BuiltIn">
 <var>${offer_key}</var>
 <arg>best${i}Offer</arg>
 <doc>Returns the given values which can then be assigned to a variables.</doc>
-<status status="NOT RUN" start="2025-10-31T02:56:33.843977" elapsed="0.000060"/>
+<status status="NOT RUN" start="2025-10-31T02:58:56.827231" elapsed="0.000043"/>
 </kw>
 <kw name="Set Variable" owner="BuiltIn">
 <var>${offerVol_key}</var>
 <arg>best${i}OfferVol</arg>
 <doc>Returns the given values which can then be assigned to a variables.</doc>
-<status status="NOT RUN" start="2025-10-31T02:56:33.844153" elapsed="0.000058"/>
+<status status="NOT RUN" start="2025-10-31T02:58:56.827358" elapsed="0.000043"/>
 </kw>
 <kw name="Run Keyword If" owner="BuiltIn">
 <var>${bid}</var>
@@ -674,7 +674,7 @@ Call log:
 <arg>Evaluate</arg>
 <arg>'—'.rjust(8)</arg>
 <doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
-<status status="NOT RUN" start="2025-10-31T02:56:33.844342" elapsed="0.000058"/>
+<status status="NOT RUN" start="2025-10-31T02:58:56.827515" elapsed="0.000047"/>
 </kw>
 <kw name="Run Keyword If" owner="BuiltIn">
 <var>${bidVol}</var>
@@ -685,7 +685,7 @@ Call log:
 <arg>Evaluate</arg>
 <arg>'—'.rjust(10)</arg>
 <doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
-<status status="NOT RUN" start="2025-10-31T02:56:33.844546" elapsed="0.000059"/>
+<status status="NOT RUN" start="2025-10-31T02:58:56.827667" elapsed="0.000044"/>
 </kw>
 <kw name="Run Keyword If" owner="BuiltIn">
 <var>${offer}</var>
@@ -696,7 +696,7 @@ Call log:
 <arg>Evaluate</arg>
 <arg>'—'.rjust(8)</arg>
 <doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
-<status status="NOT RUN" start="2025-10-31T02:56:33.844748" elapsed="0.000061"/>
+<status status="NOT RUN" start="2025-10-31T02:58:56.827817" elapsed="0.000044"/>
 </kw>
 <kw name="Run Keyword If" owner="BuiltIn">
 <var>${offerVol}</var>
@@ -707,13 +707,13 @@ Call log:
 <arg>Evaluate</arg>
 <arg>'—'.rjust(10)</arg>
 <doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
-<status status="NOT RUN" start="2025-10-31T02:56:33.844972" elapsed="0.000076"/>
+<status status="NOT RUN" start="2025-10-31T02:58:56.827959" elapsed="0.000048"/>
 </kw>
 <kw name="Set Variable" owner="BuiltIn">
 <var>${line}</var>
 <arg>${bid}${SPACE}${bidVol}${SPACE}${offer}${SPACE}${offerVol}</arg>
 <doc>Returns the given values which can then be assigned to a variables.</doc>
-<status status="NOT RUN" start="2025-10-31T02:56:33.845183" elapsed="0.000060"/>
+<status status="NOT RUN" start="2025-10-31T02:58:56.828102" elapsed="0.000047"/>
 </kw>
 <kw name="Catenate" owner="BuiltIn">
 <var>${output}</var>
@@ -721,45 +721,45 @@ Call log:
 <arg>${output}</arg>
 <arg>${line}</arg>
 <doc>Catenates the given items together and returns the resulted string.</doc>
-<status status="NOT RUN" start="2025-10-31T02:56:33.845361" elapsed="0.000050"/>
+<status status="NOT RUN" start="2025-10-31T02:58:56.828234" elapsed="0.000042"/>
 </kw>
 <var name="${i}"/>
-<status status="NOT RUN" start="2025-10-31T02:56:33.843456" elapsed="0.001998"/>
+<status status="NOT RUN" start="2025-10-31T02:58:56.826851" elapsed="0.001466"/>
 </iter>
 <var>${i}</var>
 <value>1</value>
 <value>11</value>
-<status status="NOT RUN" start="2025-10-31T02:56:33.843266" elapsed="0.002233"/>
+<status status="NOT RUN" start="2025-10-31T02:58:56.826706" elapsed="0.001656"/>
 </for>
 <kw name="Log" owner="BuiltIn">
 <arg>${output}</arg>
 <doc>Logs the given message with the given level.</doc>
-<status status="NOT RUN" start="2025-10-31T02:56:33.845601" elapsed="0.000045"/>
+<status status="NOT RUN" start="2025-10-31T02:58:56.828478" elapsed="0.000048"/>
 </kw>
 <kw name="Log To Console" owner="BuiltIn">
 <arg>${output}</arg>
 <doc>Logs the given message to the console.</doc>
-<status status="NOT RUN" start="2025-10-31T02:56:33.845731" elapsed="0.000043"/>
+<status status="NOT RUN" start="2025-10-31T02:58:56.828612" elapsed="0.000042"/>
 </kw>
 <doc>Fetches and formats top 10 bid/offer levels like awk output</doc>
 <tag>api</tag>
 <tag>done</tag>
-<status status="FAIL" start="2025-10-31T02:56:33.701760" elapsed="0.144161">HTTPError: 403 Client Error: Forbidden for url: https://iboard-query.ssi.com.vn/stock/hbc?boardId=MAIN</status>
+<status status="FAIL" start="2025-10-31T02:58:56.694246" elapsed="0.134555">HTTPError: 403 Client Error: Forbidden for url: https://iboard-query.ssi.com.vn/stock/hbc?boardId=MAIN</status>
 </test>
-<status status="FAIL" start="2025-10-31T02:56:23.135243" elapsed="10.715251"/>
+<status status="FAIL" start="2025-10-31T02:58:46.628136" elapsed="10.205559"/>
 </suite>
 <kw name="Close Browser" owner="Browser" type="TEARDOWN">
-<msg time="2025-10-31T02:56:33.910751" level="INFO">Closed browser</msg>
+<msg time="2025-10-31T02:58:56.903214" level="INFO">Closed browser</msg>
 <tag>BrowserControl</tag>
 <tag>Setter</tag>
 <doc>Closes the current browser.</doc>
-<status status="PASS" start="2025-10-31T02:56:33.853226" elapsed="0.057701"/>
+<status status="PASS" start="2025-10-31T02:58:56.836913" elapsed="0.066467"/>
 </kw>
-<status status="FAIL" start="2025-10-31T02:54:57.139837" elapsed="96.771198"/>
+<status status="FAIL" start="2025-10-31T02:58:35.559281" elapsed="21.344201"/>
 </suite>
-<status status="FAIL" start="2025-10-31T02:54:57.138971" elapsed="96.776226"/>
+<status status="FAIL" start="2025-10-31T02:58:35.558458" elapsed="21.349046"/>
 </suite>
-<status status="FAIL" start="2025-10-31T02:54:57.116600" elapsed="96.799123"/>
+<status status="FAIL" start="2025-10-31T02:58:35.536721" elapsed="21.371255"/>
 </suite>
 <statistics>
 <total>
