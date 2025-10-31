@@ -19,12 +19,25 @@ Test number one
 Test API Number One
 	[Timeout]    1 minutes
     [Documentation]    A test to try api
-    [Tags]    api    done
+    [Tags]    api    done    11
     ${fullURL}    Set Variable    ${API_URL}HBC
     Create Session    jsonplaceholder    ${fullURL}
     ${response}=    GET    ${fullURL}
+    ${html}=          Convert To String    ${response.content}
+
+    ${redirect}=      Get Regexp Matches    ${html}    window\.location\.href\s*=\s*"([^"]+)"    1  
+    IF    ${redirect}
+        Log To Console    🔁 Following redirect to: ${redirect[0]}
+        ${redirected_response}=    GET    fireant    ${redirect[0]}
+        ${final_html}=             Convert To String    ${redirected_response.content}
+        Log    Final HTML content retrieved via redirect
+    ELSE
+        Log    No redirect detected, using original response
+        ${final_html}=             Set Variable    ${html}
+    END
+
     ${pattern}=    Set Variable    "accessToken\":\"([^\"]+)"
-    ${token}=      Get Regexp Matches    ${response.text}    ${pattern}
+    ${token}=      Get Regexp Matches    ${final_html}    ${pattern}
     ${parts}=    Split String    ${token[0]}    ":"
     ${token}=    Replace String    ${parts[1]}    "\""    ${EMPTY}
 	${token}=    Replace String    ${token}    "    ${EMPTY}
